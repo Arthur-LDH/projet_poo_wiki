@@ -1,3 +1,44 @@
 body {
     background-color: lightgray;
+    margin: 0;
+}
+
+header {
+    height: 72px;
+    width: 100%;
+    background-color: #e60012;
+}
+
+header>div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#logo {
+    align-self: center;
+    padding-left: 1rem;
+}
+
+#logo img {
+    width: 6rem;
+}
+
+nav {
+    align-self: center;
+}
+
+ul {
+    display: flex;
+}
+
+li {
+    padding-right: 1.5rem;
+    list-style-type: none;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }
