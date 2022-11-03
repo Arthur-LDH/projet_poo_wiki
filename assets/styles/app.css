@@ -7,6 +7,8 @@ header {
     height: 72px;
     width: 100%;
     background-color: #e60012;
+    position: fixed;
+    z-index: 99;
 }
 
 header>div {
@@ -39,6 +41,26 @@ li {
 }
 
 a {
+    font-family: sans-serif;
     color: white;
     text-decoration: none;
+}
+
+#sidebar {
+    display: flex;
+    position: absolute;
+    top: 72px;
+    flex-direction: column;
+    background-color: #e60012;
+    width: 8rem;
+    height: 100%;
+}
+
+#sidebar span {
+    font-family: sans-serif;
+    display: inline-block;
+    color: white;
+    height: 4rem;
+    text-align: center;
+    width: 100%;
 }
