@@ -29,12 +29,12 @@ class Article
     #[ORM\JoinColumn(nullable: false)]
     private ?user $author = null;
 
-    #[ORM\ManyToMany(targetEntity: console::class, inversedBy: 'articles')]
+    #[ORM\ManyToMany(targetEntity: Console::class, inversedBy: 'articles')]
     private Collection $console;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?licence $licence = null;
+    private ?Licence $licence = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
@@ -109,7 +109,7 @@ class Article
         return $this->console;
     }
 
-    public function addConsole(console $console): self
+    public function addConsole(Console $console): self
     {
         if (!$this->console->contains($console)) {
             $this->console->add($console);
@@ -118,7 +118,7 @@ class Article
         return $this;
     }
 
-    public function removeConsole(console $console): self
+    public function removeConsole(Console $console): self
     {
         $this->console->removeElement($console);
 
