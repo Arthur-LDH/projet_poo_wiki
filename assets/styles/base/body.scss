@@ -1,0 +1,19 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-image: url(../../images/background.png);
+}
+
+#main {
+    position: relative;
+    top: 6.5rem;
+    width: 100%;
+    height: 100vh;
+    z-index: 99;
+}
+
+#main>div {
+    padding-left: 10rem;
+    padding-right: 2rem;
+}
