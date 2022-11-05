@@ -1,9 +1,16 @@
 h1 {
-    font-family: 'Open Sans';
     color: $red;
     text-align: center;
 }
 
+h2 {
+    text-transform: uppercase;
+    background-color: $lightGray;
+    width: 35%;
+    margin-left: 5px;
+    border-left: solid 2px $lightGray;
+}
+
 h3 {
-    font-family: 'Open Sans';
+    padding: 5px 15px 5px 15px;
 }
