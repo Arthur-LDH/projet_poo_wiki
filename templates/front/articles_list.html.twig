@@ -1,7 +1,7 @@
 {% extends 'front/layout/layout.html.twig' %}
 
 {% block title %}
-	WIKITENDO - Accueil
+	Liste des articles
 {% endblock %}
 
 {% block body %}
@@ -10,11 +10,11 @@
 	<section id="main">
 		<div>
 			<p>
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus dolorem accusantium voluptas nostrum quis voluptate tenetur eius hic amet numquam corrupti doloribus, harum eum accusamus, libero quae? Laboriosam, quisquam maiores!
+				ARTICLES :
 			</p>
-			<p>
-				SLIDER INCOMING
-			</p>
+			{% for article in articles %}
+				{{ article.name | upper }}
+			{% endfor %}
 		</div>
 	</section>
 	{% include "front/layout/footer.html.twig" %}
