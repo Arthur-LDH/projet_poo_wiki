@@ -3,3 +3,27 @@ $primary: darken(#428bca, 20%);
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+
+// import custom modules for wikitendo
+// Variables
+// Fonctions
+// Mixins
+// Placeholders
+// Vendors
+// Base
+// Components
+// Layouts
+// Pages
+// Themes
+@import '/assets/styles/utils/variables.scss';
+@import '/assets/styles/utils/placeholders.scss';
+@import '/assets/styles/base/body.scss';
+@import '/assets/styles/components/nav.scss';
+@import '/assets/styles/components/sidebar.scss';
+@import '/assets/styles/components/titles.scss';
+@import '/assets/styles/components/gallery.scss';
+@import '/assets/styles/layouts/header.scss';
+@import '/assets/styles/layouts/footer.scss';
+
+
+
