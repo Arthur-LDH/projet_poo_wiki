@@ -1,6 +1,7 @@
 .gallery {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .gallery div {
@@ -37,15 +38,6 @@
     text-align: justify;
 }
 
-// TODO mixin
 .gallery button {
-    border: solid 1px $red;
-    background-color: $red;
-    width: 100%;
-    &:hover {
-        background-color: $white;
-        a {
-            color: $red;
-        }
-    }
+    @include button;
 }

@@ -1,6 +1,7 @@
 header>div {
     background-color: $red;
-    border-bottom: solid 1px $burgundy;
+    border-bottom: solid 2px $white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     position: fixed;
     justify-content: space-between;
