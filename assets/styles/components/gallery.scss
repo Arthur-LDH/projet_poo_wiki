@@ -38,19 +38,6 @@
     text-align: justify;
 }
 
-// TODO mixin
 .gallery button {
-    border: solid 1px $red;
-    background-color: $red;
-    width: 100%;
-    &:hover {
-        background-color: $white;
-        a {
-            color: $red;
-        }
-    }
-    a {
-        display: inline-block;
-        width: 100%;
-    }
+    @include button;
 }

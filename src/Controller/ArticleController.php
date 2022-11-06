@@ -17,7 +17,7 @@ class ArticleController extends AbstractController
     {
         // Get Article list
         $artileRepository = $doctrine->getRepository(Article::class);
-        $articles = $artileRepository->findBy(['console' => $id]);
+        $articles = $artileRepository->findBy(['id' => $id]);
 
         // Get Licence list
         $licenceRepository = $doctrine->getRepository(Licence::class);

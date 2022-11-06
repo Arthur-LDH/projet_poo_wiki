@@ -22,4 +22,18 @@ class LicenceController extends AbstractController
             'licences' => $licences
         ]);
     }
+
+    #[Route('/licences/{name}', name: 'show_licence')]
+    public function show(ManagerRegistry $doctrine, Licence $licence, mixed $name): Response
+    {
+        // Get the console name
+        // $console = $doctrine->getRepository(Console::class)->find($name);
+        // Get Articles from the Console name
+        // $articles = $console->getArticles();
+
+        return $this->render('front/show_licence.html.twig', [
+            'licence' => $licence,
+            // 'articles' => $articles
+        ]);
+    }
 }
