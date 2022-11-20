@@ -38,78 +38,31 @@
 			<hr
 			class="divider line glow">
 			{# START ARTICLES GALLERY FROM CURRENT CONSOLE #}
-			<div class="articles-gallery">
-				<div>
+			{% for articles in console.articles %}
+				<div class="articles-gallery">
 					<div>
-						<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						<div>
+							<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						</div>
+						<div>
+							<h4>
+								{{ articles.name }}
+							</h4>
+							<p>
+								{{ articles.description }}
+							</p>
+						</div>
+						<div>
+							<button>
+								<a href="/article/{{ articles.id }}">
+									Voir
+								</a>
+							</button>
+						</div>
 					</div>
-					<div>
-						<p>
-							Description du jeu lié à la console - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio perspiciatis rerum quod vero placeat ipsa pariatur vitae saepe, aspernatur esse at repellendus itaque enim minima debitis? Quo vero atque sapiente.
-						</p>
-					</div>
-					<div>
-						<button>
-							<a href="">
-								Voir
-							</a>
-						</button>
-					</div>
-				</div>
-				<div>
-					<div>
-						<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
-					</div>
-					<div>
-						<p>
-							Description du jeu lié à la console - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio perspiciatis rerum quod vero placeat ipsa pariatur vitae saepe, aspernatur esse at repellendus itaque enim minima debitis? Quo vero atque sapiente.
-						</p>
-					</div>
-					<div>
-						<button>
-							<a href="">
-								Voir
-							</a>
-						</button>
-					</div>
-				</div>
-				<div>
-					<div>
-						<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
-					</div>
-					<div>
-						<p>
-							Description du jeu lié à la console - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio perspiciatis rerum quod vero placeat ipsa pariatur vitae saepe, aspernatur esse at repellendus itaque enim minima debitis? Quo vero atque sapiente.
-						</p>
-					</div>
-					<div>
-						<button>
-							<a href="">
-								Voir
-							</a>
-						</button>
-					</div>
-				</div>
-				<div>
-					<div>
-						<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
-					</div>
-					<div>
-						<p>
-							Description du jeu lié à la console - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio perspiciatis rerum quod vero placeat ipsa pariatur vitae saepe, aspernatur esse at repellendus itaque enim minima debitis? Quo vero atque sapiente.
-						</p>
-					</div>
-					<div>
-						<button>
-							<a href="">
-								Voir
-							</a>
-						</button>
-					</div>
-				</div>
+				{% endfor %}
+				{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
 			</div>
-			{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
-		</div>
-	</section>
-	{% include "front/layout/footer.html.twig" %}
-{% endblock %}
+		</section>
+		{% include "front/layout/footer.html.twig" %}
+	{% endblock %}
