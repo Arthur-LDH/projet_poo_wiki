@@ -54,15 +54,16 @@
 						</div>
 						<div>
 							<button>
-								<a href="/article/{{ articles.id }}">
+								<a href="/articles/{{ articles.id }}">
 									Voir
 								</a>
 							</button>
 						</div>
 					</div>
-				{% endfor %}
-				{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
-			</div>
-		</section>
-		{% include "front/layout/footer.html.twig" %}
-	{% endblock %}
+				</div>
+			{% endfor %}
+			{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}
