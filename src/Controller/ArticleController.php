@@ -27,10 +27,11 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/articles/{id}', name: 'show_article')]
-    public function show(Article $article): Response
+    public function show(Article $article, Licence $licence): Response
     {
         return $this->render('front/show_article.html.twig', [
             'article' => $article,
+            'licence' => $licence,
         ]);
     }
 }
