@@ -12,12 +12,32 @@
 			<p>
 				ARTICLES :
 			</p>
+			{# START ARTICLES GALLERY FROM CURRENT CONSOLE #}
 			{% for article in articles %}
-				{{ article.name | upper }}
-				<a href="/articles/{{ article.id }}">
-					{{ article.name | upper }}
-				</a>
+				<div class="articles-gallery">
+					<div>
+						<div>
+							<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						</div>
+						<div>
+							<h4>
+								{{ article.name | upper }}
+							</h4>
+							<p>
+								{{ article.description }}
+							</p>
+						</div>
+						<div>
+							<button>
+								<a href="/articles/{{ article.id }}">
+									Voir
+								</a>
+							</button>
+						</div>
+					</div>
+				</div>
 			{% endfor %}
+			{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
 		</div>
 	</section>
 	{% include "front/layout/footer.html.twig" %}
