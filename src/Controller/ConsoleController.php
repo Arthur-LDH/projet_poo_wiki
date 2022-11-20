@@ -14,8 +14,9 @@ class ConsoleController extends AbstractController
     #[Route('/consoles', name: 'consoles_list')]
     public function index(ManagerRegistry $doctrine, mixed $id): Response
     {
-        // Get Console list
+        // get console repository
         $consoleRepository = $doctrine->getRepository(Console::class);
+        // get consoles list
         $consoles = $consoleRepository->findAll();
 
         return $this->render('front/consoles_list.html.twig', [
@@ -24,18 +25,13 @@ class ConsoleController extends AbstractController
         ]);
     }
 
-    #[Route('/consoles/{name}', name: 'show_console')]
-    public function show(ManagerRegistry $doctrine, Console $console, mixed $name): Response
+    #[Route('/consoles/{id}', name: 'show_console')]
+    public function show(Console $console, Article $articles): Response
     {
-        // Get the console name
-        $consoleRepository = $doctrine->getRepository(Console::class);
-        // $console = $consoleRepository->findBy(['console' => $name]);
-        // Get Articles from the Console name
-        // $articles = $console->getArticles();
 
         return $this->render('front/show_console.html.twig', [
             'console' => $console,
-            // 'articles' => $articles
+            'articles' => $articles
         ]);
     }
 }

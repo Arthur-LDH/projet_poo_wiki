@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class LicenceController extends AbstractController
 {
     #[Route('/licences', name: 'licences_list')]
-    public function index(ManagerRegistry $doctrine, mixed $id): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
-        // Get licence repository
+        // get licence repository
         $licenceRepository = $doctrine->getRepository(Licence::class);
-        // Get licence list
+        // get licence list
         $licences = $licenceRepository->findAll();
 
         return $this->render('front/licences_list.html.twig', [
@@ -28,9 +28,9 @@ class LicenceController extends AbstractController
     #[Route('/licences/{id}', name: 'show_licence')]
     public function show(ManagerRegistry $doctrine, Licence $licence, mixed $id): Response
     {
-        // Get licence repository
+        // get article repository
         $articleRepository = $doctrine->getRepository(Article::class);
-        // Get articles from current licence
+        // get articles from current licence
         $articles = $articleRepository->findBy(['licence' => $id]);
 
         return $this->render('front/show_licence.html.twig', [
