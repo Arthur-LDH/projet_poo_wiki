@@ -5,10 +5,45 @@
 				<img src="{{ asset('build/images/wikitendo_logo_white.png') }}" alt="wikitendo logo">
 			</a>
 		</div>
-		<nav id="menu">
+		<nav id="firstNav" role="navigation">
+			<div id="menuToggle">
+				<input type="checkbox"/>
+				<span></span>
+				<span></span>
+				<span></span>
+				<ul id="menu">
+					<a href="{{ path('home') }}">
+						<li>
+							Accueil
+						</li>
+					</a>
+					<a href="{{ path('admin') }}">
+						<li>
+							Admin
+						</li>
+					</a>
+					<a href="{{ path('consoles_list') }}">
+						<li>
+							Consoles
+						</li>
+					</a>
+					<a href="{{ path('licences_list') }}">
+						<li>
+							Licences
+						</li>
+					</a>
+					<a href="{{ path('articles_list') }}">
+						<li>
+							Articles
+						</li>
+					</a>
+				</ul>
+			</div>
+		</nav>
+		<nav id="secondNav">
 			<ul>
-				<li><a href="/">Accueil</a></li>
-				<li><a href="/admin">Admin</a></li>
+				<li><a href="/"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
+				<li><a href="/admin"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
 			</ul>
 		</nav>
 	</div>
