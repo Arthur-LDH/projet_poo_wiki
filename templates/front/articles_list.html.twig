@@ -14,6 +14,9 @@
 			</p>
 			{% for article in articles %}
 				{{ article.name | upper }}
+				<a href="/articles/{{ article.id }}">
+					{{ article.name | upper }}
+				</a>
 			{% endfor %}
 		</div>
 	</section>

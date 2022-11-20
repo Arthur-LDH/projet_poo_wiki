@@ -13,47 +13,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     #[Route('/articles', name: 'articles_list')]
-    public function index(ManagerRegistry $doctrine, mixed $id): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
-        // Get article repository
+        // get article repository
         $artileRepository = $doctrine->getRepository(Article::class);
-        $articles = $artileRepository->findBy(['id' => $id]);
-
-        // Get licence repository
-        $licenceRepository = $doctrine->getRepository(Licence::class);
-        $licences = $licenceRepository->findBy(['id' => $id]);
-
-        // Get console repository
-        $consoleRepository = $doctrine->getRepository(Console::class);
-        $consoles = $consoleRepository->findBy(['id' => $id]);
+        // get all articles
+        $articles = $artileRepository->findAll();
 
         return $this->render('front/articles_list.html.twig', [
             'controller_name' => 'ArticleController',
             'articles' => $articles,
-            'licences' => $licences,
-            'consoles' => $consoles
         ]);
     }
 
-    #[Route('/article/{name}', name: 'show_article')]
-    public function show(ManagerRegistry $doctrine, Article $article, mixed $name): Response
+    #[Route('/articles/{id}', name: 'show_article')]
+    public function show(Article $article): Response
     {
-        // // Get article repository
-        // $artileRepository = $doctrine->getRepository(Article::class);
-        // $articles = $artileRepository->findBy(['id' => $id]);
-
-        // // Get licence repository
-        // $licenceRepository = $doctrine->getRepository(Licence::class);
-        // $licences = $licenceRepository->findBy(['id' => $id]);
-
-        // // Get console repository
-        // $consoleRepository = $doctrine->getRepository(Console::class);
-        // $consoles = $consoleRepository->findBy(['id' => $id]);
-
         return $this->render('front/show_article.html.twig', [
             'article' => $article,
-            // 'console' => $console,
-            // 'licence' => $licence,
         ]);
     }
 }
