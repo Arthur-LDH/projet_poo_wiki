@@ -39,7 +39,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Projet Poo Wiki');
+            ->setTitle('Wikitendo - Dashboard');
     }
 
     public function configureMenuItems(): iterable
