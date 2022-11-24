@@ -1,0 +1,16 @@
+nav {
+    align-self: center;
+}
+
+ul {
+    display: flex;
+    margin: 0;
+}
+li {
+    list-style-type: none;
+    padding-right: 1.5rem;
+}
+
+a {
+    @extend %link;
+}

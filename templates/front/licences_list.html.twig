@@ -1,0 +1,43 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	Liste des licences
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div class="main_title">
+				<h2>
+					Licences Nintendo
+				</h2>
+			</div>
+			<div class="gallery">
+				{% for licence in licences %}
+					<div>
+						<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						<div>
+							<h3>
+								{{ licence.name | upper }}
+							</h3>
+							<p class="year">
+								Année de la licence
+							</p>
+							<p>
+								Description de la licence - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
+							</p>
+						</div>
+						<button>
+							<a href="/licences/{{ licence.id }}">
+								Lien
+							</a>
+						</button>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}

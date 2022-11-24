@@ -1,0 +1,85 @@
+.show {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.show div {
+    width: 100%;
+}
+
+.show>div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // margin-right: 15px;
+    // margin-bottom: 160px;
+}
+
+.show>div>div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: $white;
+    height: 100%;
+}
+
+.show img {
+    width: 250px;
+    margin-right: 3rem;
+}
+
+.show .year {
+    font-size: 0.8rem;
+    color: $gray;
+}
+
+.show p {
+    padding: 5px 15px 5px 15px;
+    text-align: justify;
+}
+
+/* HR CSS */
+
+hr {
+    border: none;
+    opacity: 1;
+}
+
+.divider {
+    display: flex;
+
+    &:before,
+    &:after {
+        content: "";
+        flex: 1;
+    }
+}
+
+.line {
+    align-items: center;
+
+    &:before,
+    &:after {
+        height: 1px;
+        margin: 0 1em;
+    }
+}
+
+.glow {
+
+    &:before,
+    &:after {
+        height: 6px;
+        -webkit-filter: blur(5px);
+        border-radius: 5px;
+    }
+
+    &:before {
+        background: linear-gradient(to right, $red, $red);
+    }
+
+    &:after {
+        background: linear-gradient(to left, $red, $red);
+    }
+}

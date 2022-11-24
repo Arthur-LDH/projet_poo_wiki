@@ -1,0 +1,68 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	Liste des jeux sur
+	{{ licence.name | capitalize }}
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div class="main_title">
+				<h2>
+					{{ licence.name | upper }}
+				</h2>
+			</div>
+			{# START LICENCE SHOW #}
+			<div class="show">
+				<div>
+					<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+					<div>
+						<p class="year">
+							{{ licence.name | capitalize }}
+							<br>
+							Année de la licence
+						</p>
+						<p>
+							Description de la licence - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, tenetur omnis repellendus officiis quis iusto esse saepe hic natus nesciunt accusamus? Eum, voluptates.
+						</p>
+					</div>
+				</div>
+			</div>
+			{# END LICENCE SHOW #}
+			<hr
+			class="divider line glow">
+			{# START ARTICLES GALLERY FROM CURRENT LICENCE #}
+			{% for article in articles %}
+				<div class="articles-gallery">
+					<div>
+						<div>
+							<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						</div>
+						<div>
+							<h4>
+								{{ article.name }}
+							</h4>
+							<p>
+								{{ article.description }}
+							</p>
+						</div>
+						<div>
+							<button>
+								<a href="/articles/{{ article.id }}">
+									Voir
+								</a>
+							</button>
+						</div>
+					</div>
+				{% endfor %}
+				{# END ARTICLES GALLERY FROM CURRENT LICENCE #}
+			</div>
+		</section>
+		{% include "front/layout/footer.html.twig" %}
+	{% endblock %}

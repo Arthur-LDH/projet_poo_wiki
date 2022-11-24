@@ -1,8 +1,44 @@
 {% extends 'front/layout/layout.html.twig' %}
 
-{% block title %}WIKITENDO - Accueil{% endblock %}
+{% block title %}
+	WIKITENDO - Accueil
+{% endblock %}
 
 {% block body %}
-    {% include "front/layout/header.html.twig" %}
-    {% include "front/layout/sidebar.html.twig" %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<!-- START SLIDER -->
+			<div class="container">
+				<div class="slide" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1244&q=80');">
+					<h3>
+						Consoles
+					</h3>
+				</div>
+				<div class="slide" style="background-image: url('https://images.unsplash.com/photo-1585238326164-612cb4248873?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1186&q=80');">
+					<h3>
+						Licences
+					</h3>
+				</div>
+				<div class="slide" style="background-image: url('https://images.unsplash.com/photo-1605723517503-3cadb5818a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');">
+					<h3>
+						Articles
+					</h3>
+				</div>
+				<div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1563503136947-cc262fa1e423?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');">
+					<h3>
+						Los Angeles
+					</h3>
+				</div>
+				<div class="slide" style="background-image: url('https://images.unsplash.com/photo-1554107136-57b138ea99df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');">
+					<h3>
+						San Francisco
+					</h3>
+				</div>
+			</div>
+			<!-- END SLIDER -->
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
 {% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	Liste des jeux sur
+	{{ console.name | capitalize }}
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div class="main_title">
+				<h2>
+					{{ console.name | upper }}
+				</h2>
+			</div>
+			{# START CONSOLE SHOW #}
+			<div class="show">
+				<div>
+					<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+					<div>
+						<p class="year">
+							{{ console.name | capitalize }}
+							<br>
+							Année de sortie de la console
+						</p>
+						<p>
+							Description de la console - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, tenetur omnis repellendus officiis quis iusto esse saepe hic natus nesciunt accusamus? Eum, voluptates.
+						</p>
+					</div>
+				</div>
+			</div>
+			{# END CONSOLE SHOW #}
+			<hr
+			class="divider line glow">
+			{# START ARTICLES GALLERY FROM CURRENT CONSOLE #}
+			{% for articles in console.articles %}
+				<div class="articles-gallery">
+					<div>
+						<div>
+							<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						</div>
+						<div>
+							<h4>
+								{{ articles.name }}
+							</h4>
+							<p>
+								{{ articles.description }}
+							</p>
+						</div>
+						<div>
+							<button>
+								<a href="/articles/{{ articles.id }}">
+									Voir
+								</a>
+							</button>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}
