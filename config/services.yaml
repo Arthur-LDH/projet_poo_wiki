@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     user_img: /images/user_img
+    console_img: /images/console_img
+    licence_img: /images/licence_img
+    article_img: /images/article_img
 
 services:
     # default configuration for services in *this* file

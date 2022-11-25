@@ -5,9 +5,11 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArticleCrudController extends AbstractCrudController
 {
@@ -21,13 +23,15 @@ class ArticleCrudController extends AbstractCrudController
     {
 
         return [
+            IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             TextField::new('description'),
-            TextEditorField::new('content'),
             AssociationField::new('author')->autocomplete(),
             AssociationField::new('console')->autocomplete(),
             AssociationField::new('licence')->autocomplete(),
-            DateField::new('date'),
+            TextField::new('articleImgFile')->setFormType(VichImageType::class)->hideOnIndex(),
+            ImageField::new('img')->setBasePath('build/images/article_img/')->onlyOnIndex(),
+            TextEditorField::new('content')
         ];
     }
 }

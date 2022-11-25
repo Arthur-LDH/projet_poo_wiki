@@ -5,9 +5,13 @@ namespace App\Entity;
 use App\Repository\LicenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: LicenceRepository::class)]
+#[Vich\Uploadable]
 class Licence
 {
     #[ORM\Id]
@@ -27,9 +31,21 @@ class Licence
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $img = null;
+
+    #[Vich\UploadableField(mapping:"licence_img", fileNameProperty:"img")]
+    /**
+     * @var File
+     */
+    private $licenceImgFile;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTimeImmutable());
+        }
     }
 
     public function getId(): ?int
@@ -107,4 +123,31 @@ class Licence
 
         return $this;
     }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function getLicenceImgFile()
+    {
+        return $this->licenceImgFile;
+    }
+
+    public function setLicenceImgFile(File $img = null)
+    {
+        $this->licenceImgFile = $img;
+
+        if ($img){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
 }
+

@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[Vich\Uploadable]
 class Article
 {
     #[ORM\Id]
@@ -36,9 +39,6 @@ class Article
     #[ORM\JoinColumn(nullable: false)]
     private ?Licence $licence = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
-
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
@@ -48,10 +48,22 @@ class Article
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $img = null;
+
+    #[Vich\UploadableField(mapping:"article_img", fileNameProperty:"img")]
+    /**
+     * @var File
+     */
+    private $articleImgFile;
+
     public function __construct()
     {
         $this->console = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTimeImmutable());
+        }
     }
 
     public function getId(): ?int
@@ -143,18 +155,6 @@ class Article
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Comments>
      */
@@ -207,5 +207,31 @@ class Article
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function getArticleImgFile()
+    {
+        return $this->articleImgFile;
+    }
+
+    public function setArticleImgFile(File $img = null)
+    {
+        $this->articleImgFile = $img;
+
+        if ($img){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 }

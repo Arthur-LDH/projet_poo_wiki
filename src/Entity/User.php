@@ -62,6 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTimeImmutable());
+        }
     }
 
     public function getId(): ?int
@@ -175,7 +178,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->imgFile = $img;
 
         if ($img){
-            $this->updated = new \DateTime('now');
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
