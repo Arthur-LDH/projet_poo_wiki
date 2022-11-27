@@ -16,9 +16,9 @@ class ArticleController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         // get article repository
-        $artileRepository = $doctrine->getRepository(Article::class);
+        $articleRepository = $doctrine->getRepository(Article::class);
         // get all articles
-        $articles = $artileRepository->findAll();
+        $articles = $articleRepository->findAll();
 
         return $this->render('front/articles_list.html.twig', [
             'controller_name' => 'ArticleController',
