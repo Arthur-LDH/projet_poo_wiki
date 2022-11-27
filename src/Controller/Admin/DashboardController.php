@@ -39,16 +39,16 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Projet Poo Wiki');
+            ->setTitle('Wikitendo - Dashboard');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToRoute('Accueil', 'fa fa-globe', 'home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
-        yield MenuItem::linkToCrud('Consoles', 'fas fa-list', Console::class);
-        yield MenuItem::linkToCrud('Licence', 'fas fa-list', Licence::class);
-        yield MenuItem::linkToCrud('Articles', 'fas fa-list', Article::class);
+        yield MenuItem::linkToRoute('Accueil', 'fa fa-home', 'home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fa-solid fa-gauge-high');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Consoles', 'fa-solid fa-gamepad', Console::class);
+        yield MenuItem::linkToCrud('Licence', 'fa-solid fa-dungeon', Licence::class);
+        yield MenuItem::linkToCrud('Articles', 'fa-solid fa-scroll', Article::class);
     }
 }
