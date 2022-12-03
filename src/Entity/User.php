@@ -37,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 1000, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping:"user_img", fileNameProperty:"img")]
+    #[Vich\UploadableField(mapping: "user_img", fileNameProperty: "img")]
     /**
      * @var File
      */
@@ -170,14 +170,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getImgFile()
     {
-        return $this-> imgFile;
+        return $this->imgFile;
     }
 
     public function setImgFile(File $img = null)
     {
         $this->imgFile = $img;
 
-        if ($img){
+        if ($img) {
             $this->updatedAt = new \DateTimeImmutable();
         }
     }
@@ -271,5 +271,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->getUserIdentifier();
     }
 }
