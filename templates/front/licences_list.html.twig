@@ -13,11 +13,16 @@
 				<h2>
 					Licences Nintendo
 				</h2>
+				<span>
+					{{ licences|length }}
+				</span>
 			</div>
 			<div class="gallery">
 				{% for licence in licences %}
 					<div>
-						<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						<div>
+							<img src="/build/images/licence_img/{{licence.img}}" alt="">
+						</div>
 						<div>
 							<h3>
 								{{ licence.name | upper }}
