@@ -8,14 +8,68 @@
 	{% include "front/layout/header.html.twig" %}
 	{% include "front/layout/sidebar.html.twig" %}
 	<section id="main">
-		<div class="carousel">
-			{% for article in articles %}
-				<div>
-					<p>
-						{{ random(articles) }}
-					</p>
+		<div>
+			<div class="main_title">
+				<h2>
+					Description du Wiki
+				</h2>
+			</div>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis totam ducimus eius. Aliquid perferendis libero quam id, ratione, cumque, placeat cupiditate doloremque voluptas nemo itaque saepe recusandae repudiandae numquam veniam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor quasi facilis, laboriosam similique dolorem aperiam nemo consequatur ipsa possimus! Sit dolorem praesentium temporibus excepturi ex magni repellendus! Quas, dicta perferendis.
+			</p>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis totam ducimus eius. Aliquid perferendis libero quam id, ratione, cumque, placeat cupiditate doloremque voluptas nemo itaque saepe recusandae repudiandae numquam veniam.
+			</p>
+			<section id="slider">
+				<div class="slider">
+					{% for console in consoles|slice(0, 2) %}
+						<!-- le conteneur fenêtre -->
+						<div
+							class="marquee-rtl">
+							<!-- le contenu défilant -->
+							<div>
+								<span>
+									<a class="text-black" href="/consoles/{{ console.id }}">
+										{{ console.name }}
+									</a>
+								</span>
+							</div>
+						</div>
+					{% endfor %}
 				</div>
-			{% endfor %}
+				<div class="slider">
+					{% for licence in licences|slice(0, 2) %}
+						<!-- le conteneur fenêtre -->
+						<div
+							class="marquee-rtl">
+							<!-- le contenu défilant -->
+							<div>
+								<span>
+									<a class="text-black" href="/licences/{{ licence.id }}">
+										{{ licence.name }}
+									</a>
+								</span>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="slider">
+					{% for article in articles|slice(0, 2) %}
+						<!-- le conteneur fenêtre -->
+						<div
+							class="marquee-rtl">
+							<!-- le contenu défilant -->
+							<div>
+								<span>
+									<a class="text-black" href="/articles/{{ article.id }}">
+										{{ article.name }}
+									</a>
+								</span>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</section>
 		</div>
 	</section>
 	{% include "front/layout/footer.html.twig" %}
