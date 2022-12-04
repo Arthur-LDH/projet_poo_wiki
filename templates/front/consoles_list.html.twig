@@ -13,11 +13,14 @@
 				<h2>
 					Consoles Nintendo
 				</h2>
+				<span>
+					{{ consoles|length }}
+				</span>
 			</div>
 			<div class="gallery">
 				{% for console in consoles %}
 					<div>
-						<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+						<img src="/build/images/console_img/{{console.img}}" alt="">
 						<div>
 							<h3>
 								{{ console.name | upper }}

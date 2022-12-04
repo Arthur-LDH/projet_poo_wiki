@@ -8,6 +8,9 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/global.scss';
 
+// importing javascript
+import './js/mario.js'
+
 // start the Stimulus application
 import './bootstrap';
 

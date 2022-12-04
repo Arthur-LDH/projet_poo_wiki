@@ -19,13 +19,16 @@ $primary: darken(#428bca, 20%);
 @import '/assets/styles/utils/placeholders.scss';
 @import '/assets/styles/utils/mixins.scss';
 @import '/assets/styles/base/body.scss';
+@import '/assets/styles/base/home.scss';
 @import '/assets/styles/components/nav.scss';
 @import '/assets/styles/components/sidebar.scss';
-@import '/assets/styles/components/slider.scss';
 @import '/assets/styles/components/titles.scss';
+@import '/assets/styles/components/ghost.scss';
+@import '/assets/styles/components/mario.scss';
 @import '/assets/styles/components/gallery.scss';
 @import '/assets/styles/components/articles-gallery.scss';
 @import '/assets/styles/components/show.scss';
+@import '/assets/styles/components/comment.scss';
 @import '/assets/styles/layouts/header.scss';
 @import '/assets/styles/layouts/footer.scss';
 

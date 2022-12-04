@@ -51,7 +51,7 @@ class Article
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping:"article_img", fileNameProperty:"img")]
+    #[Vich\UploadableField(mapping: "article_img", fileNameProperty: "img")]
     /**
      * @var File
      */
@@ -230,8 +230,12 @@ class Article
     {
         $this->articleImgFile = $img;
 
-        if ($img){
+        if ($img) {
             $this->updatedAt = new \DateTimeImmutable();
         }
+    }
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }
