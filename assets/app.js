@@ -9,7 +9,7 @@
 import './styles/global.scss';
 
 // importing javascript
-import './js/slider.js'
+import './js/mario.js'
 
 // start the Stimulus application
 import './bootstrap';
