@@ -1,0 +1,59 @@
+svg {
+    display: block;
+    width: 100%;
+}
+
+multicoin-block {
+    animation-duration: 92ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    right: 45%;
+    // position: fixed;
+    top: 60%;
+    width: 100px;
+}
+
+.multicoin-block__block {
+    aspect-ratio: 1 / 1;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    50% {
+        transform: translate3d(0, -30%, 0);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.multicoin-block__coin {
+    animation-name: elevate;
+    animation-duration: 512ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    height: 50px;
+    left: 50%;
+    position: absolute;
+    top: 0;
+}
+
+@keyframes elevate {
+    0% {
+        opacity: 1;
+        transform: translate3d(-50%, -100%, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(-50%, -300px, 0);
+    }
+}

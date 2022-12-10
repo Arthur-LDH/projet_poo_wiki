@@ -1,0 +1,61 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	{{ article.name }}
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			{# START ARTICLE SHOW #}
+			<div class="show">
+				<div>
+					<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+					<div>
+						<p class="year">
+							{{ article.name | capitalize }}
+							-
+							{{ licence.name | capitalize}}
+							<br>
+							Année de sortie de l'article
+							<br>
+							Auteur :
+							{{ article.author | capitalize}}
+						</p>
+						<p>
+							Description de l'article - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, tenetur omnis repellendus officiis quis iusto esse saepe hic natus nesciunt accusamus? Eum, voluptates.
+						</p>
+					</div>
+				</div>
+			</div>
+			{# END ARTICLE SHOW #}
+			{# START COMMENT SECTION #}
+			<div class="commentSection">
+				<div class="commentForm">
+					{{ form(comment_form) }}
+					</div>
+					<div>
+						{% if app.user %}
+							{% for comment in comments %}
+								<div class="comment">
+									<p>
+										{{ comment.author }}
+										<br>
+										{{ comment.content }}
+									</p>
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{# END COMMENT SECTION #}
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}

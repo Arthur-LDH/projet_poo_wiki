@@ -1,0 +1,49 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	Liste des articles
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div class="main_title">
+				<h2>
+					ARTICLES :
+				</h2>
+				<span>
+					{{ articles|length }}
+				</span>
+			</div>
+			{# START ARTICLES GALLERY FROM CURRENT CONSOLE #}
+			{% for article in articles %}
+				<div class="articles-gallery">
+					<div>
+						<div>
+							<img src="/build/images/article_img/{{article.img}}" alt="">
+						</div>
+						<div>
+							<h4>
+								{{ article.name | upper }}
+							</h4>
+							<p>
+								{{ article.description }}
+							</p>
+						</div>
+						<div>
+							<button>
+								<a href="/articles/{{ article.id }}">
+									Voir
+								</a>
+							</button>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}

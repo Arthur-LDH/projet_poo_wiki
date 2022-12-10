@@ -1,0 +1,35 @@
+vich_uploader:
+    db_driver: orm
+
+    metadata:
+        type: attribute
+
+    mappings:
+        user_img:
+           uri_prefix: '/build/%user_img%'
+           upload_destination: '%kernel.project_dir%/assets%user_img%'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+           inject_on_load: true
+           delete_on_update: false
+           delete_on_remove: false
+        console_img: 
+            uri_prefix: '/build/%console_img%'
+            upload_destination: '%kernel.project_dir%/assets%console_img%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true
+            delete_on_update: false
+            delete_on_remove: false
+        licence_img: 
+            uri_prefix: '/build/%licence_img%'
+            upload_destination: '%kernel.project_dir%/assets%licence_img%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true
+            delete_on_update: false
+            delete_on_remove: false
+        article_img: 
+            uri_prefix: '/build/%article_img%'
+            upload_destination: '%kernel.project_dir%/assets%article_img%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true
+            delete_on_update: false
+            delete_on_remove: false

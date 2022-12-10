@@ -1,0 +1,46 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	Liste des consoles
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div class="main_title">
+				<h2>
+					Consoles Nintendo
+				</h2>
+				<span>
+					{{ consoles|length }}
+				</span>
+			</div>
+			<div class="gallery">
+				{% for console in consoles %}
+					<div>
+						<img src="/build/images/console_img/{{console.img}}" alt="">
+						<div>
+							<h3>
+								{{ console.name | upper }}
+							</h3>
+							<p class="year">
+								Année de sortie de la console
+							</p>
+							<p>
+								Description de la console - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
+							</p>
+						</div>
+						<button>
+							<a href="/consoles/{{ console.id }}">
+								Voir
+							</a>
+						</button>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}

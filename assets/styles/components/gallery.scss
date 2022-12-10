@@ -1,0 +1,43 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gallery div {
+    width: 250px;
+}
+
+.gallery>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+    margin-bottom: 160px;
+}
+
+.gallery>div>div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: $white;
+}
+
+.gallery img {
+    border-bottom: solid 1px $red;
+    width: 100%;
+}
+
+.gallery .year {
+    font-size: 0.8rem;
+    color: $gray;
+}
+
+.gallery p {
+    padding: 5px 15px 5px 15px;
+    text-align: justify;
+}
+
+.gallery button {
+    @include button;
+}
