@@ -22,6 +22,12 @@
                             <li>
                                 Profil
                             </li>
+                        </a>
+                        <a href="{{ path('logout') }}">
+                            <li>
+                                Déconnexion
+                            </li>
+                        </a>
                     {% else %}
                         <a href="{{ path('login') }}">
                             <li>
@@ -58,8 +64,9 @@
                 <li><a href="/admin"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
                 {% if app.user %}
                     <li><a href="{{ path('user_profile', {'username': app.user.username}) }}"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
+                    <li><a href="{{ path('logout') }}"><i class="fa-solid fa-sign-out"></i><span>Déconnexion</span></a></li>
                 {% else %}
-                    <li><a href="{{ path('login') }}"><i class="fa-solid fa-user"></i><span>Connexion</span></a></li>
+                    <li><a href="{{ path('login') }}"><i class="fa-solid fa-sign-in"></i><span>Connexion</span></a></li>
                 {% endif %}
             </ul>
         </nav>
