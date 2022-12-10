@@ -16,10 +16,12 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        //create a new user
         $user = new User();
+        //create a new form
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+        //if the form is submitted and valid
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -28,8 +30,10 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            //set the user role
+            $user->setRoles(['ROLE_USER']);
 
-
+            //save the user
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
