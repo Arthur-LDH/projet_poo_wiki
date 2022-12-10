@@ -1,0 +1,50 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    {% include "front/layout/header.html.twig" %}
+    {% include "front/layout/sidebar.html.twig" %}
+    <section id="main">
+
+        {% if app.user %}
+        <div class="mb-3">
+            Vous êtes connecté en tant que {{ app.user.username }} , <a href="{{ path('logout') }}">Déconnexion</a>
+        </div>
+        {% else %}
+            <div class="content">
+                <h1>Inscription</h1>
+
+                {{ form_start(registrationForm, {
+                    'attr': {
+                        'class': 'form'
+                    }
+                }) }}
+                {{ form_row(registrationForm.email, {
+                    'attr': {
+                        'class': 'form-control'
+                    }, label: 'Email'
+                }) }}
+                {{ form_row(registrationForm.username, {
+                    'attr': {
+                        'class': 'form-control'
+                    }, label: 'Username'
+                }) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    'attr': {
+                        'class': 'form-control'
+                    }, label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.agreeTerms, {
+                    'attr': {
+                        'class': 'form-check-input'
+                    }, label: 'I agree to the terms of service'
+                }) }}
+                <button type="submit" class="btn btn-success">S'inscrire</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        {% endif %}
+
+    </section>
+    {% include "front/layout/footer.html.twig" %}
+{% endblock %}

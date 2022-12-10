@@ -1,50 +1,74 @@
 <header>
-	<div id="header">
-		<div id="logo">
-			<a href="{{ path('home')}}">
-				<img src="{{ asset('build/images/wikitendo_logo_white.png') }}" alt="wikitendo logo">
-			</a>
-		</div>
-		<nav id="firstNav" role="navigation">
-			<div id="menuToggle">
-				<input type="checkbox"/>
-				<span></span>
-				<span></span>
-				<span></span>
-				<ul id="menu">
-					<a href="{{ path('home') }}">
-						<li>
-							Accueil
-						</li>
-					</a>
-					<a href="{{ path('admin') }}">
-						<li>
-							Admin
-						</li>
-					</a>
-					<a href="{{ path('consoles_list') }}">
-						<li>
-							Consoles
-						</li>
-					</a>
-					<a href="{{ path('licences_list') }}">
-						<li>
-							Licences
-						</li>
-					</a>
-					<a href="{{ path('articles_list') }}">
-						<li>
-							Articles
-						</li>
-					</a>
-				</ul>
-			</div>
-		</nav>
-		<nav id="secondNav">
-			<ul>
-				<li><a href="/"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
-				<li><a href="/admin"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
-			</ul>
-		</nav>
-	</div>
+    <div id="header">
+        <div id="logo">
+            <a href="{{ path('home')}}">
+                <img src="{{ asset('build/images/wikitendo_logo_white.png') }}" alt="wikitendo logo">
+            </a>
+        </div>
+        <nav id="firstNav" role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox">
+                <span></span>
+                <span></span>
+                <span></span>
+                <ul id="menu">
+                    <a href="{{ path('home') }}">
+                        <li>
+                            Accueil
+                        </li>
+                    </a>
+                    {% if app.user %}
+                        <a href="{{ path('user_profile', {'username': app.user.username}) }}">
+                            <li>
+                                Profil
+                            </li>
+                        </a>
+                        <a href="{{ path('logout') }}">
+                            <li>
+                                Déconnexion
+                            </li>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('login') }}">
+                            <li>
+                                Connexion
+                            </li>
+                        </a>
+                    {% endif %}
+                    <a href="{{ path('admin') }}">
+                        <li>
+                            Admin
+                        </li>
+                    </a>
+                    <a href="{{ path('consoles_list') }}">
+                        <li>
+                            Consoles
+                        </li>
+                    </a>
+                    <a href="{{ path('licences_list') }}">
+                        <li>
+                            Licences
+                        </li>
+                    </a>
+                    <a href="{{ path('articles_list') }}">
+                        <li>
+                            Articles
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <nav id="secondNav">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
+                <li><a href="/admin"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('user_profile', {'username': app.user.username}) }}"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
+                    <li><a href="{{ path('logout') }}"><i class="fa-solid fa-sign-out"></i><span>Déconnexion</span></a></li>
+                {% else %}
+                    <li><a href="{{ path('login') }}"><i class="fa-solid fa-sign-in"></i><span>Connexion</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 </header>

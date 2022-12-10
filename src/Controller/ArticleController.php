@@ -23,6 +23,11 @@ class ArticleController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+    public function getByAuthor($authorId): array
+    {
+        return $this->entityManager->getRepository(Article::class)->findBy(['author' => $authorId]);
+    }
+
     #[Route('/articles', name: 'articles_list')]
     public function index(ManagerRegistry $doctrine): Response
     {

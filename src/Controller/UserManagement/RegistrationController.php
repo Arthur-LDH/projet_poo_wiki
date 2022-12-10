@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserManagement;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -38,7 +37,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('UserManagement/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
