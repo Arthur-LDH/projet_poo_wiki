@@ -17,11 +17,18 @@
                             Accueil
                         </li>
                     </a>
-                    <a href="{{ path('login') }}">
-                        <li>
-                            Connexion
-                        </li>
-                    </a>
+                    {% if app.user %}
+                        <a href="{{ path('user_profile', {'username': app.user.username}) }}">
+                            <li>
+                                Profil
+                            </li>
+                    {% else %}
+                        <a href="{{ path('login') }}">
+                            <li>
+                                Connexion
+                            </li>
+                        </a>
+                    {% endif %}
                     <a href="{{ path('admin') }}">
                         <li>
                             Admin
@@ -49,7 +56,11 @@
             <ul>
                 <li><a href="/"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
                 <li><a href="/admin"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
-                <li><a href="{{ path('login') }}"><i class="fa-solid fa-user"></i><span>Connexion</span></a> </li>
+                {% if app.user %}
+                    <li><a href="{{ path('user_profile', {'username': app.user.username}) }}"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
+                {% else %}
+                    <li><a href="{{ path('login') }}"><i class="fa-solid fa-user"></i><span>Connexion</span></a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>

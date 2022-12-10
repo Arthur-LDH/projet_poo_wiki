@@ -9,16 +9,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
+    #[Route('/profile', name: 'user_profile')]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         /** @var User $user */
         $user = $this->getUser();
-        /*return $this->render('profile/login.html.twig', [
+        return $this->render('UserManagement/profile.html.twig', [
             'controller_name' => 'ProfileController',
-        ]);*/
-        return new Response('Bonjour '.$user->getUserIdentifier());
+        ]);
+        //return new Response('Bonjour '.$user->getUserIdentifier());
     }
 }
