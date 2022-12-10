@@ -1,0 +1,16 @@
+#profileContent {
+  background-color: $darkGray;
+  border: $darkGray solid 20px;
+  border-radius: 20px;
+  margin-bottom: 100px;
+  color: white;
+  #userInfo {
+    margin-top: 20px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 20px
+  }
+  .card {
+    color: black;
+  }
+}

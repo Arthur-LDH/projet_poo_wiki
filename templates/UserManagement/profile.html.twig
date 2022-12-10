@@ -6,31 +6,39 @@
     {% include "front/layout/header.html.twig" %}
     {% include "front/layout/sidebar.html.twig" %}
     <section id="main">
-        <div id="profileContent">
-            {% if not app.user %}
-                <div class="mb-3">
-                    Vous n'êtes pas connecté, veuillez vous connecter , <a href="{{ path('login') }}">Connection</a>
-                </div>
-            {% else %}
-                <div class="mb-3">
-                    <h1>Mon profil</h1>
-                    <p>Pseudo : {{ app.user.userIdentifier }}</p>
-                    <p>Email : {{ app.user.email }}</p>
-                    <p><a href="{{ path('logout') }}">Déconnexion</a></p>
-                </div>
-                <div id="articles" class="mb-3 pb-3">
-                    <h2>Articles</h2>
-                    {% for article in articles %}
-                        <div class="article card" style="width: 18rem;">
-                            <img class="card-img-top" src="/build/images/article_img/{{article.img}}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ article.name }}</h5>
-                                <p class="card-text">{{ article.description }}</p>
-                                <a href="{{ path('show_article', {id: article.id}) }}" class="btn btn-primary">Voir l'article</a>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+        <div>
+            <div id="profileContent">
+
+                {% if not app.user %}
+                    <div class="mb-3">
+                        Vous n'êtes pas connecté, veuillez vous connecter , <a href="{{ path('login') }}">Connection</a>
+                    </div>
+                {% else %}
+                <h1>Mon profil</h1>
+                    <div id="userInfo" class="mb-3">
+                        <label for="username">Pseudo</label>
+                        <input id="username" class="col-6" type="text" value="{{ app.user.userIdentifier }}">
+                        <input type="button" class="btn btn-danger" value="Modifier">
+
+                        <label for="email">Email</label>
+                        <input id="email" class="col-6" type="text" value="{{ app.user.email }}">
+                        <input type="button" class="btn btn-danger" value="Modifier">
+                    </div>
+                    <div id="articles" class="mb-3 pb-3">
+                        <h2>Articles</h2>
+                        {% for article in articles %}
+                            <div class="article card" style="width: 18rem;">
+                                <img class="card-img-top" src="/build/images/article_img/{{article.img}}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ article.name }}</h5>
+                                    <p class="card-text">{{ article.description }}</p>
+                                    <a href="{{ path('show_article', {id: article.id}) }}" class="btn btn-primary">Voir l'article</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </section>
     {% include "front/layout/footer.html.twig" %}
