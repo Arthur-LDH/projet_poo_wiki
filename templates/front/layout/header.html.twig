@@ -7,7 +7,7 @@
 		</div>
 		<nav id="firstNav" role="navigation">
 			<div id="menuToggle">
-				<input type="checkbox"/>
+				<input type="checkbox">
 				<span></span>
 				<span></span>
 				<span></span>
@@ -15,6 +15,11 @@
 					<a href="{{ path('home') }}">
 						<li>
 							Accueil
+						</li>
+					</a>
+					<a href="{{ path('login') }}">
+						<li>
+							Connexion
 						</li>
 					</a>
 					<a href="{{ path('admin') }}">
@@ -44,6 +49,7 @@
 			<ul>
 				<li><a href="/"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
 				<li><a href="/admin"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
+				<li><a href="{{ path('login') }}"><i class="fa-solid fa-user"></i><span>Connexion</span></a> </li>
 			</ul>
 		</nav>
 	</div>
