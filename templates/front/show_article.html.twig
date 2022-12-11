@@ -36,26 +36,26 @@
 			{# END ARTICLE SHOW #}
 			{# START COMMENT SECTION #}
 			<div class="commentSection">
+				<divl class="commentList">
+					<h5>
+						Liste des derniers commentaires :
+					</h5>
+					{% for comment in article.comments|slice(0, 5) %}
+						<div class="comment">
+							<p>
+								{{ comment.author }}
+								<br>
+								{{ comment.content }}
+							</p>
+						</div>
+					{% endfor %}
+				</div>
 				<div class="commentForm">
 					{{ form(comment_form) }}
 					</div>
-					<div>
-						{% if app.user %}
-							{% for comment in comments %}
-								<div class="comment">
-									<p>
-										{{ comment.author }}
-										<br>
-										{{ comment.content }}
-									</p>
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
 				</div>
+				{# END COMMENT SECTION #}
 			</div>
-			{# END COMMENT SECTION #}
-		</div>
-	</section>
-	{% include "front/layout/footer.html.twig" %}
-{% endblock %}
+		</section>
+		{% include "front/layout/footer.html.twig" %}
+	{% endblock %}
