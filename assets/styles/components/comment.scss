@@ -1,4 +1,21 @@
 .commentSection {
+    h5 {
+        padding: 10px;
+    }
+    .commentList {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: $white;
+        margin-top: 10px;
+
+        .comment {
+            padding: 10px;
+        }
+    }
+}
+
+.commentForm {
     display: flex;
     justify-content: center;
     background-color: $white;

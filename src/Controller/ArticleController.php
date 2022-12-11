@@ -47,6 +47,8 @@ class ArticleController extends AbstractController
 
         // comment form creation
         $comment = new Comments();
+        // init some datas into the form
+        $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable());
         $form = $this->createForm(CommentFormType::class, $comment);
 
         // check is form is valid
