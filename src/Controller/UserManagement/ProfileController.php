@@ -12,7 +12,7 @@ use App\Controller\ArticleController;
 class ProfileController extends AbstractController
 {
 
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -32,6 +32,5 @@ class ProfileController extends AbstractController
             'controller_name' => 'ProfileController',
             'articles' => $articles,
         ]);
-        //return new Response('Bonjour '.$user->getUserIdentifier());
     }
 }
