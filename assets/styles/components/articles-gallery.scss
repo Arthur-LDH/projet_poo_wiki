@@ -1,14 +1,13 @@
 .articles-gallery {
     display: flex;
     flex-direction: column;
-    margin: 0px 10px;
+    margin: 10px;
 }
 
 .articles-gallery>div {
     display: flex;
     justify-content: space-between;
     background-color: $white;
-    margin-bottom: 15px;
 }
 
 .articles-gallery div {
@@ -33,4 +32,25 @@
     @include button;
     padding: 5px;
     margin-right: 15px;
+}
+
+@media only screen and (max-width : 768px) {
+    .show {
+        div {
+            flex-direction: column;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+    }
+}
+
+@media only screen and (max-width : 430px) {
+    .articles-gallery>div>div>img {
+        border: none;
+        width: 10rem;
+    }
+    .articles-gallery div {
+        flex-direction: column;
+        width: 100%;
+    }
 }
