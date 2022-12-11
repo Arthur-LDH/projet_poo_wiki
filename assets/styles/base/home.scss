@@ -3,7 +3,6 @@
     background-color: $darkGray;
     border: $darkGray solid 20px;
     border-radius: 20px;
-    margin-bottom: 100px;
 
     #desc {
         display: flex;
@@ -144,5 +143,11 @@
                 padding: 0;
             }
         }
+                #random {
+                    .shuffle {
+                        flex-direction: column;
+                        margin-bottom: 0;
+                    }
+                }
     }
 }
