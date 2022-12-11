@@ -39,7 +39,8 @@ class Article
     #[ORM\JoinColumn(nullable: false)]
     private ?Licence $licence = null;
 
-    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comments::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comments::class, orphanRemoval: true,)]
+    #[ORM\OrderBy(["updatedAt" => "DESC"])]
     private Collection $comments;
 
     #[ORM\Column(nullable: true)]
