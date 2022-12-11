@@ -12,25 +12,22 @@ use App\Controller\ArticleController;
 class ProfileController extends AbstractController
 {
 
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    //update userIdentifier
+    public function updateIdentifier(EntityManagerInterface $entityManager, $newIdentifier)
     {
-        $this->entityManager = $entityManager;
+        $user = $this->getUser();
+        $user->setUsername($newIdentifier);
+        $entityManager->persist($user);
+        $entityManager->flush();
     }
 
     #[Route('/profile', name: 'user_profile')]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        /** @var User $user */
-        $user = $this->getUser();
-        $articlesController = new ArticleController($this->entityManager);
-        $articles = $articlesController->getByAuthor($user->getId());
 
         return $this->render('UserManagement/profile.html.twig', [
             'controller_name' => 'ProfileController',
-            'articles' => $articles,
         ]);
     }
 }

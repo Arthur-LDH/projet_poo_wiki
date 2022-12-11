@@ -27,9 +27,12 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
+            //set default user image
+            //$user->setImg('/build/images/user_img/defaultUserImage.webp');
+
             //set the user role
             $user->setRoles(['ROLE_USER']);
 

@@ -15,18 +15,31 @@
                     </div>
                 {% else %}
                 <h1>Mon profil</h1>
-                    <div id="userInfo" class="mb-3">
-                        <label for="username">Pseudo</label>
-                        <input id="username" class="col-6" type="text" value="{{ app.user.userIdentifier }}">
-                        <input type="button" class="btn btn-danger" value="Modifier">
-
-                        <label for="email">Email</label>
-                        <input id="email" class="col-6" type="text" value="{{ app.user.email }}">
-                        <input type="button" class="btn btn-danger" value="Modifier">
+                    <div id="userInfo" class="mb-3 row">
+                        <div id="textInfos" class="col-8">
+                            <div class="row">
+                                <label for="username" class="col-3">Pseudo</label>
+                                <input id="username" class="col-6" type="text" value="{{ app.user.userIdentifier }}">
+                                <input type="button" class="btn btn-danger col-3" value="Modifier">
+                            </div>
+                            <div class="row">
+                                <label for="email" class="col-3">Email</label>
+                                <input id="email" class="col-6" type="text" value="{{ app.user.email }}">
+                                <input type="button" class="btn btn-danger col-3" value="Modifier">
+                            </div>
+                        </div>
+                        <div id="avatar" class="col-4">
+                            <img id="userImg" src="/build/images/user_img/{{ app.user.img }}" alt="avatar">
+                        </div>
                     </div>
                     <div id="articles" class="mb-3 pb-3">
                         <h2>Articles</h2>
-                        {% for article in articles %}
+                        {% if app.user.articles is empty %}
+                            <div>
+                                <span>Vous n'avez pas encore posté d'articles sur le site</span>
+                            </div>
+                        {% endif %}
+                        {% for article in app.user.articles %}
                             <div class="article card" style="width: 18rem;">
                                 <img class="card-img-top" src="/build/images/article_img/{{article.img}}" alt="Card image cap">
                                 <div class="card-body">
@@ -35,6 +48,16 @@
                                     <a href="{{ path('show_article', {id: article.id}) }}" class="btn btn-primary">Voir l'article</a>
                                 </div>
                             </div>
+                        {% endfor %}
+                    </div>
+                    <div id="comments" class="mb-3 pb-3">
+                        <h2>Commentaires</h2>
+                        {% if app.user.comments is empty %}
+                            <div>
+                                <span>Vous n'avez pas encore posté de commentaire sur le site</span>
+                            </div>
+                        {% endif %}
+                        {% for comments in app.user.comments %}
                         {% endfor %}
                     </div>
                 {% endif %}
