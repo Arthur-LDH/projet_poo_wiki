@@ -36,7 +36,7 @@
 			{# END ARTICLE SHOW #}
 			{# START COMMENT SECTION #}
 			<div class="commentSection">
-				<divl class="commentList">
+				<div class="commentList">
 					<h5>
 						Liste des derniers commentaires :
 					</h5>
@@ -50,12 +50,19 @@
 						</div>
 					{% endfor %}
 				</div>
-				<div class="commentForm">
-					{{ form(comment_form) }}
+				{% if app.user %}
+					<div class="commentForm">
+						{{ form(comment_form) }}
+						</div>
 					</div>
-				</div>
+				{% else %}
+					<span class="ps-2">
+						Connectez vous pour pouvoir commenter cet article
+					</span>
+				{% endif %}
 				{# END COMMENT SECTION #}
 			</div>
-		</section>
-		{% include "front/layout/footer.html.twig" %}
-	{% endblock %}
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}
