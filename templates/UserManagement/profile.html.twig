@@ -16,7 +16,7 @@
                 {% else %}
                 <h1>Mon profil</h1>
                     <div id="userInfo" class="mb-3 row">
-                        <div id="textInfos" class="col-8">
+                        <div id="textInfos" class="col-12 col-sm-12 col-md-8">
                             {{ form_start(usernameForm) }}
                             {{ form_row(usernameForm.username, {
                                 'attr': {
@@ -36,17 +36,23 @@
                             {{ form_end(usernameForm) }}
 
                             {{ form_start(passwordForm) }}
-                            {{ form_row(passwordForm.newPassword.first) }}
+                            {{ form_row(passwordForm.newPassword.first,
+                                {
+                                    'attr': {
+                                        'autocomplete': 'new-password'
+                                    }
+                                }) }}
                             {{ form_row(passwordForm.newPassword.second) }}
                             {{ form_row(passwordForm.oldPassword) }}
                             <button type="submit" class="btn btn-danger">Modifier</button>
                             {{ form_end(passwordForm) }}
-                        <div id="avatar" class="col-4">
+                        </div>
+                        <div id="avatar" class="col-12 col-sm-12 col-md-4">
                             <img id="userImg" src="/build/images/user_img/{{ app.user.img }}" alt="avatar">
                         </div>
                     </div>
                     <div id="articles" class="mb-3 pb-3">
-                        <h2>Articles</h2>
+                        <h2>Articles</h2> avatar
                         {% if app.user.articles is empty %}
                             <div>
                                 <span>Vous n'avez pas encore posté d'articles sur le site</span>
