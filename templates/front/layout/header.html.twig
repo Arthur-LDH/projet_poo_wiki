@@ -62,9 +62,14 @@
         </nav>
         <nav id="secondNav">
             <ul>
-                <li><a href="/"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
+                <li><a href="{{ path('home')}}"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
                 {% if app.user %}
-                    <li><a href="{{ path('user_profile', {'username': app.user.username}) }}"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
+					<a href="{{ path('user_profile', {'username': app.user.username}) }}">
+						{% if vich_uploader_asset(app.user, 'imgFile') is null %}
+							<img src="" alt=""/>
+						{% else %}
+							<img src="{{ vich_uploader_asset(app.user, 'imgFile')}}" alt=""/>
+						{% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('admin') }}"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
                     {% endif %}

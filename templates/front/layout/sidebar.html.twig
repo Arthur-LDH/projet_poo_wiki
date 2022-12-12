@@ -24,6 +24,12 @@
 		</span>
 	</div>
 	<div>
-		<span></span>
+		{% if app.user %}
+			<span>
+				<a href="{{ path('admin') }}">
+					Admin
+				</a>
+			</span>
+		{% endif %}
 	</div>
 </div>
