@@ -21,7 +21,6 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
@@ -77,18 +76,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Votre mot de passe ne peut pas être "password"',
                     ]),
                 ],
-            ])
-
-        ;
-    }
-
-    public static function checkPassword($object, ExecutionContextInterface $context)
-    {
-        if ($object['plainPassword'] !== $object['plainPasswordConfirm']) {
-            $context->buildViolation('Les mots de passe ne correspondent pas')
-                ->atPath('plainPasswordConfirm')
-                ->addViolation();
-        }
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

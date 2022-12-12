@@ -17,17 +17,30 @@
                 <h1>Mon profil</h1>
                     <div id="userInfo" class="mb-3 row">
                         <div id="textInfos" class="col-8">
-                            <div class="row">
-                                <label for="username" class="col-3">Pseudo</label>
-                                <input id="username" class="col-6" type="text" value="{{ app.user.userIdentifier }}">
-                                <input type="button" class="btn btn-danger col-3" value="Modifier">
-                            </div>
-                            <div class="row">
-                                <label for="email" class="col-3">Email</label>
-                                <input id="email" class="col-6" type="text" value="{{ app.user.email }}">
-                                <input type="button" class="btn btn-danger col-3" value="Modifier">
-                            </div>
-                        </div>
+                            {{ form_start(usernameForm) }}
+                            {{ form_row(usernameForm.username, {
+                                'attr': {
+                                    'value' : app.user.userIdentifier
+                                }
+                            }) }}
+                            <button type="submit" class="btn btn-danger">Modifier</button>
+                            {{ form_end(usernameForm) }}
+
+                            {{ form_start(emailForm) }}
+                            {{ form_row(emailForm.email, {
+                                'attr': {
+                                    'value' : app.user.email
+                                }
+                            }) }}
+                            <button type="submit" class="btn btn-danger">Modifier</button>
+                            {{ form_end(usernameForm) }}
+
+                            {{ form_start(passwordForm) }}
+                            {{ form_row(passwordForm.newPassword.first) }}
+                            {{ form_row(passwordForm.newPassword.second) }}
+                            {{ form_row(passwordForm.oldPassword) }}
+                            <button type="submit" class="btn btn-danger">Modifier</button>
+                            {{ form_end(passwordForm) }}
                         <div id="avatar" class="col-4">
                             <img id="userImg" src="/build/images/user_img/{{ app.user.img }}" alt="avatar">
                         </div>
