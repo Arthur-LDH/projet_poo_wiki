@@ -6,31 +6,75 @@
     {% include "front/layout/header.html.twig" %}
     {% include "front/layout/sidebar.html.twig" %}
     <section id="main">
-        <div id="profileContent">
-            {% if not app.user %}
-                <div class="mb-3">
-                    Vous n'êtes pas connecté, veuillez vous connecter , <a href="{{ path('login') }}">Connection</a>
-                </div>
-            {% else %}
-                <div class="mb-3">
-                    <h1>Mon profil</h1>
-                    <p>Pseudo : {{ app.user.userIdentifier }}</p>
-                    <p>Email : {{ app.user.email }}</p>
-                    <p><a href="{{ path('logout') }}">Déconnexion</a></p>
-                </div>
-                <div id="articles" class="mb-3 pb-3">
-                    <h2>Articles</h2>
-                    {% for article in articles %}
-                        <div class="article card" style="width: 18rem;">
-                            <img class="card-img-top" src="/build/images/article_img/{{article.img}}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ article.name }}</h5>
-                                <p class="card-text">{{ article.description }}</p>
-                                <a href="{{ path('show_article', {id: article.id}) }}" class="btn btn-primary">Voir l'article</a>
+        <div>
+            <div id="profileContent">
+
+                {% if not app.user %}
+                    <div class="mb-3">
+                        Vous n'êtes pas connecté, veuillez vous connecter , <a href="{{ path('login') }}">Connection</a>
+                    </div>
+                {% else %}
+                <h1>Mon profil</h1>
+                    <div id="userInfo" class="mb-3 row">
+                        <div id="textInfos" class="col-8">
+                            {{ form_start(usernameForm) }}
+                            {{ form_row(usernameForm.username, {
+                                'attr': {
+                                    'value' : app.user.userIdentifier
+                                }
+                            }) }}
+                            <button type="submit" class="btn btn-danger">Modifier</button>
+                            {{ form_end(usernameForm) }}
+
+                            {{ form_start(emailForm) }}
+                            {{ form_row(emailForm.email, {
+                                'attr': {
+                                    'value' : app.user.email
+                                }
+                            }) }}
+                            <button type="submit" class="btn btn-danger">Modifier</button>
+                            {{ form_end(usernameForm) }}
+
+                            {{ form_start(passwordForm) }}
+                            {{ form_row(passwordForm.newPassword.first) }}
+                            {{ form_row(passwordForm.newPassword.second) }}
+                            {{ form_row(passwordForm.oldPassword) }}
+                            <button type="submit" class="btn btn-danger">Modifier</button>
+                            {{ form_end(passwordForm) }}
+                        <div id="avatar" class="col-4">
+                            <img id="userImg" src="/build/images/user_img/{{ app.user.img }}" alt="avatar">
                         </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+                    </div>
+                    <div id="articles" class="mb-3 pb-3">
+                        <h2>Articles</h2>
+                        {% if app.user.articles is empty %}
+                            <div>
+                                <span>Vous n'avez pas encore posté d'articles sur le site</span>
+                            </div>
+                        {% endif %}
+                        {% for article in app.user.articles %}
+                            <div class="article card" style="width: 18rem;">
+                                <img class="card-img-top" src="/build/images/article_img/{{article.img}}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ article.name }}</h5>
+                                    <p class="card-text">{{ article.description }}</p>
+                                    <a href="{{ path('show_article', {id: article.id}) }}" class="btn btn-primary">Voir l'article</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="comments" class="mb-3 pb-3">
+                        <h2>Commentaires</h2>
+                        {% if app.user.comments is empty %}
+                            <div>
+                                <span>Vous n'avez pas encore posté de commentaire sur le site</span>
+                            </div>
+                        {% endif %}
+                        {% for comments in app.user.comments %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </section>
     {% include "front/layout/footer.html.twig" %}
