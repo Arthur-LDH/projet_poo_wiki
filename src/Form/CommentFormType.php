@@ -15,8 +15,6 @@ class CommentFormType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('article')
-            ->add('author')
             ->add('submit', SubmitType::class, ['label' => 'Envoyer']);
     }
 

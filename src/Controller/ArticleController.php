@@ -43,23 +43,20 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/articles/{id}', name: 'show_article')]
-    public function show(ManagerRegistry $doctrine, Article $article, Licence $licence, Request $request): Response
+    public function show(Article $article, Request $request): Response
     {
-        // get comment repository
-        $commentRepository = $doctrine->getRepository(Comments::class);
-        // get all comments
-        $comments = $commentRepository->findAll();
-
-        // comment form creation
         $comment = new Comments();
         // init some datas into the form
         $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable());
+        // create comments form
         $form = $this->createForm(CommentFormType::class, $comment);
 
         // check is form is valid
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setArticle($article);
+            // set current user
+            $comment->setAuthor($this->getUser());
 
             // persist comment
             $this->entityManager->persist($comment);
@@ -68,9 +65,30 @@ class ArticleController extends AbstractController
 
         return $this->render('front/show_article.html.twig', [
             'article' => $article,
-            'licence' => $licence,
-            'comments' => $comments,
             'comment_form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/articles/create', name: 'create_article')]
+    public function new(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $article = new Article();
+
+        // create article form
+        // $form = $this->createForm(ArticleFormType::class, $article);
+
+        // check is form is valid
+        // $form->handleRequest($request);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $article->setArticle($article);
+        //     // set current user
+        //     $article->setAuthor($this->getUser());
+
+        //     // persist article
+        //     $this->entityManager->persist($article);
+        //     $this->entityManager->flush();
+        // }
+
+        return $this->render('front/new_article.html.twig');
     }
 }
