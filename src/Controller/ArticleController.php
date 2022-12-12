@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Console;
 use App\Entity\Licence;
 use App\Entity\Comments;
+use App\Entity\User;
 use App\Form\CommentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -33,6 +34,7 @@ class ArticleController extends AbstractController
     {
         // get article repository
         $articleRepository = $doctrine->getRepository(Article::class);
+
         // get all articles
         $articles = $articleRepository->findAll();
 
@@ -43,8 +45,19 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/articles/{id}', name: 'show_article')]
-    public function show(ManagerRegistry $doctrine, Article $article, Licence $licence, Request $request): Response
+    public function show(ManagerRegistry $doctrine, Article $article, Licence $licence, Request $request, int $id): Response
     {
+        // Check if the user still exists, if not: change the user_id to the user "Utilisateur supprimé"
+        $authorId = $article->getAuthor($id);
+        $userRepository = $doctrine->getRepository(User::class);
+        $user = $userRepository->findOneBy(['id' => $authorId]);
+        if($user == null){
+            // L'ID 10 correspond au User "Utilisateur Supprimé"
+            $article = $article->setAuthor($userRepository->findOneBy(['id' => 10]));
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
+        }
+
         // get comment repository
         $commentRepository = $doctrine->getRepository(Comments::class);
         // get all comments

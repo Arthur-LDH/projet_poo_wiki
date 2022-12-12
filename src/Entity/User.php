@@ -278,22 +278,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         return $this->getUserIdentifier();
     }
 
+    // For old Php Versions, depreciated since Php 8.1
     public function serialize() {
-
-    return serialize(array(
-        $this->id,
-        $this->username,
-        $this->password,
-    ));
-    
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
     }
         
     public function unserialize($serialized) {
-    
-    list (
-        $this->id,
-        $this->username,
-        $this->password,
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
         ) = unserialize($serialized);
+    }
+
+    // For newest Php Versions
+    public function __serialize() {
+        return array(
+            $this->id,
+            $this->username,
+            $this->password,
+        );
+    }
+        
+    public function __unserialize($serialized) {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+        ) = $serialized;
+        
     }
 }

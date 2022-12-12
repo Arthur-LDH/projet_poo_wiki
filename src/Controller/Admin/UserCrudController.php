@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Form\{FormBuilderInterface, FormEvent, FormEvents};
+use Symfony\Component\Form\{FormBuilderInterface, FormEvents};
 use EasyCorp\Bundle\EasyAdminBundle\Field\{IdField, EmailField, TextField};
 use Symfony\Component\Form\Extension\Core\Type\{PasswordType, RepeatedType};
 use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud, KeyValueStore};
@@ -19,12 +19,18 @@ class UserCrudController extends AbstractCrudController
 {
     public function __construct(
         public UserPasswordHasherInterface $userPasswordHasher
-    ) {
-    }
+    ){}
 
     public static function getEntityFqcn(): string
     {
         return User::class;
+    }
+
+    //Grant the access to the UserCrud only for ROLE_ADMIN
+    public function configureActions(Actions $actions): Actions
+    {
+        return parent::configureActions($actions)
+            ->setPermission(Action::INDEX, 'ROLE_ADMIN');
     }
 
     public function configureFields(string $pageName): iterable
