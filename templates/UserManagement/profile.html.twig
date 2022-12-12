@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div id="articles" class="mb-3 pb-3">
-                        <h2>Articles</h2> avatar
+                        <h2>Articles</h2>
                         {% if app.user.articles is empty %}
                             <div>
                                 <span>Vous n'avez pas encore posté d'articles sur le site</span>
@@ -76,7 +76,15 @@
                                 <span>Vous n'avez pas encore posté de commentaire sur le site</span>
                             </div>
                         {% endif %}
-                        {% for comments in app.user.comments %}
+                        {% for comment in app.user.comments %}
+                            <div id="comment_{{ comment.id }}" class="card">
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0">
+                                        <p>{{ comment.content }}</p>
+                                        <footer class="blockquote-footer text-right">Posté le {{ comment.createdAt|date('d/m/Y') }} sur l'article <cite title="Source Title"><a style="color:#6c757d;" href="{{ path('show_article', {id: comment.article.id}) }}">{{ comment.article.name }}</a></cite></footer>
+                                    </blockquote>
+                                </div>
+                            </div>
                         {% endfor %}
                     </div>
                 {% endif %}
