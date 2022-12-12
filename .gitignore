@@ -27,3 +27,8 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 database/data.db
+
+###> ide config files ###
+.vscode
+.idea
+###< ide config files ###
