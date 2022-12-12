@@ -31,7 +31,7 @@ class RegistrationController extends AbstractController
                 )
             );
             //set default user image
-            //$user->setImg('/build/images/user_img/defaultUserImage.webp');
+            $user->setImg('defaultUserImage.webp');
 
             //set the user role
             $user->setRoles(['ROLE_USER']);
