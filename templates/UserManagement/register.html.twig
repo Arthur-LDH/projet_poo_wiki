@@ -23,22 +23,22 @@
                 {{ form_row(registrationForm.email, {
                     'attr': {
                         'class': 'form-control'
-                    }, label: 'Email'
+                    }
                 }) }}
                 {{ form_row(registrationForm.username, {
                     'attr': {
                         'class': 'form-control'
-                    }, label: 'Username'
+                    }
                 }) }}
-                {{ form_row(registrationForm.plainPassword, {
+                {{ form_row(registrationForm.password, {
                     'attr': {
                         'class': 'form-control'
-                    }, label: 'Password'
+                    }
                 }) }}
                 {{ form_row(registrationForm.agreeTerms, {
                     'attr': {
                         'class': 'form-check-input'
-                    }, label: 'I agree to the terms of service'
+                    }
                 }) }}
                 <button type="submit" class="btn btn-success">S'inscrire</button>
                 {{ form_end(registrationForm) }}
