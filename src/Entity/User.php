@@ -11,11 +11,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Vich\Uploadable]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte avec cette adresse email')]
+#[UniqueEntity(fields: ['username'], message: 'Ce pseudo est déjà utilisé')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, Serializable
 {
     #[ORM\Id]
@@ -278,22 +280,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         return $this->getUserIdentifier();
     }
 
+    // For old Php Versions, depreciated since Php 8.1
     public function serialize() {
-
-    return serialize(array(
-        $this->id,
-        $this->username,
-        $this->password,
-    ));
-    
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
     }
         
     public function unserialize($serialized) {
-    
-    list (
-        $this->id,
-        $this->username,
-        $this->password,
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
         ) = unserialize($serialized);
+    }
+
+    // For newest Php Versions
+    public function __serialize() {
+        return array(
+            $this->id,
+            $this->username,
+            $this->password,
+        );
+    }
+        
+    public function __unserialize($serialized) {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+        ) = $serialized;
+        
     }
 }

@@ -7,7 +7,7 @@
 /public/bundles/
 /var/
 /vendor/
-/database/
+# /database/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
@@ -27,3 +27,11 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 database/data.db
+
+=======
+
+###> ide config files ###
+.vscode
+.idea
+###< ide config files ###
+>>>>>>> 78df0e104bcb71efedbdc767e995e4a6f2b24be6
