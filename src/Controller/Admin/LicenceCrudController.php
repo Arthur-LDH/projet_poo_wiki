@@ -19,10 +19,10 @@ class LicenceCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            // IdField::new('id')->hideOnForm(),
+            ImageField::new('img')->setBasePath('build/images/licence_img/')->onlyOnIndex(),
             TextField::new('name'),
-            TextField::new('licenceImgFile')->setFormType(VichImageType::class)->hideOnIndex(),
-            ImageField::new('img')->setBasePath('build/images/licence_img/')->onlyOnIndex()
+            TextField::new('licenceImgFile')->setFormType(VichImageType::class)->hideOnIndex(),           
         ];
     }
 }

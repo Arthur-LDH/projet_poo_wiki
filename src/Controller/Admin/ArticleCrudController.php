@@ -23,15 +23,15 @@ class ArticleCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            // IdField::new('id')->hideOnForm(),
+            ImageField::new('img')->setBasePath('build/images/article_img/')->onlyOnIndex(),
             TextField::new('name'),
             TextField::new('description'),
             AssociationField::new('author')->autocomplete(),
             AssociationField::new('console')->autocomplete()->hideOnIndex(),
             ArrayField::new('console')->onlyOnIndex(),
             AssociationField::new('licence')->autocomplete(),
-            TextField::new('articleImgFile')->setFormType(VichImageType::class)->hideOnIndex(),
-            ImageField::new('img')->setBasePath('build/images/article_img/')->onlyOnIndex(),
+            TextField::new('articleImgFile')->setFormType(VichImageType::class)->hideOnIndex(),           
             TextEditorField::new('content')
         ];
     }

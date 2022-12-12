@@ -25,10 +25,13 @@ class ConsoleController extends AbstractController
         ]);
     }
 
-    #[Route('/consoles/{id}', name: 'show_console')]
-    public function show(Console $console, Article $articles): Response
+    #[Route('/consoles/{slug}', name: 'show_console')]
+    public function show(ManagerRegistry $doctrine, string $slug): Response
     {
-
+        $consoleRepository = $doctrine->getRepository(Console::class);
+        $console = $consoleRepository->findOneBy(["slug" => $slug]);
+        $articles = $console->getArticles($console);
+        
         return $this->render('front/show_console.html.twig', [
             'console' => $console,
             'articles' => $articles

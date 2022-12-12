@@ -36,11 +36,11 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $fields = [
-            IdField::new('id')->hideOnForm(),
+            ImageField::new('img')->setBasePath('build/images/user_img/')->onlyOnIndex(),
+            // IdField::new('id')->hideOnForm(),
             TextField::new('username'),
             EmailField::new('email'),
-            TextField::new('imgFile')->setFormType(VichImageType::class)->hideOnIndex(),
-            ImageField::new('img')->setBasePath('build/images/user_img/')->onlyOnIndex(),
+            TextField::new('imgFile')->setFormType(VichImageType::class)->hideOnIndex(),          
             ArrayField::new('roles'),
         ];
 
@@ -48,7 +48,12 @@ class UserCrudController extends AbstractCrudController
             ->setFormType(RepeatedType::class)
             ->setFormTypeOptions([
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
+                'first_options' => [
+                    'label' => 'Password',
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                    ]
+                ],
                 'second_options' => ['label' => '(Repeat)'],
                 'mapped' => false,
             ])
