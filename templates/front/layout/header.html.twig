@@ -18,7 +18,7 @@
                         </li>
                     </a>
                     {% if app.user %}
-                        <a href="{{ path('user_profile', {'username': app.user.username}) }}">
+                        <a href="{{ path('user_profile') }}">
                             <li>
                                 Profil
                             </li>
@@ -64,7 +64,7 @@
             <ul>
                 <li><a href="{{ path('home')}}"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
                 {% if app.user %}
-					<a href="{{ path('user_profile', {'username': app.user.username}) }}">
+					<a href="{{ path('user_profile') }}">
 						{% if vich_uploader_asset(app.user, 'imgFile') is null %}
 							<img src="" alt=""/>
 						{% else %}
