@@ -64,7 +64,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ article.name }}</h5>
                                     <p class="card-text">{{ article.description }}</p>
-                                    <a href="{{ path('show_article', {id: article.id}) }}" class="btn btn-primary">Voir l'article</a>
+                                    <a href="{{ path('show_article', {slug: article.slug}) }}" class="btn btn-primary">Voir l'article</a>
                                 </div>
                             </div>
                         {% endfor %}
@@ -81,7 +81,7 @@
                                 <div class="card-body">
                                     <blockquote class="blockquote mb-0">
                                         <p>{{ comment.content }}</p>
-                                        <footer class="blockquote-footer text-right">Posté le {{ comment.createdAt|date('d/m/Y') }} sur l'article <cite title="Source Title"><a style="color:#6c757d;" href="{{ path('show_article', {id: comment.article.id}) }}">{{ comment.article.name }}</a></cite></footer>
+                                        <footer class="blockquote-footer text-right">Posté le {{ comment.createdAt|date('d/m/Y') }} sur l'article <cite title="Source Title"><a style="color:#6c757d;" href="{{ path('show_article', {slug: comment.article.slug}) }}">{{ comment.article.name }}</a></cite></footer>
                                     </blockquote>
                                 </div>
                             </div>
