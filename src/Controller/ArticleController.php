@@ -44,11 +44,15 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/articles/{id}', name: 'show_article')]
-    public function show(ManagerRegistry $doctrine, Article $article, Licence $licence, Request $request, int $id): Response
+    #[Route('/articles/{slug}', name: 'show_article')]
+    public function show(ManagerRegistry $doctrine,  Request $request, string $slug): Response
     {
+        $articleRepository = $doctrine->getRepository(Article::class);
+        $article = $articleRepository->findOneBy(["slug" => $slug]);
+        $articleId = $article->getId($article);
+
         // Check if the user still exists, if not: change the user_id to the user "Utilisateur supprimé"
-        $authorId = $article->getAuthor($id);
+        $authorId = $article->getAuthor($articleId);
         $userRepository = $doctrine->getRepository(User::class);
         $user = $userRepository->findOneBy(['id' => $authorId]);
         if ($user == null) {
@@ -65,12 +69,12 @@ class ArticleController extends AbstractController
 
         // comment form creation
         $comment = new Comments();
+        $currentUser = $this->getUser();
         // init some datas into the form
-        $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable());
-        // create comments form
+        $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable())->setAuthor($currentUser);
         $form = $this->createForm(CommentFormType::class, $comment);
 
-        // check is form is valid
+        // check if form is valid
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setArticle($article);
@@ -84,6 +88,7 @@ class ArticleController extends AbstractController
 
         return $this->render('front/show_article.html.twig', [
             'article' => $article,
+            'comments' => $comments,
             'comment_form' => $form->createView(),
         ]);
     }

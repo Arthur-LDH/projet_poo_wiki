@@ -12,11 +12,12 @@
 			{# START ARTICLE SHOW #}
 			<div class="show">
 				<div>
-					<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+					<img src="/build/images/article_img/{{article.img}}" alt="">
 					<div>
 						<p class="year">
 							{{ article.name | capitalize }}
 							-
+							{{ article.licence.name | capitalize}}
 							{{ article.licence.name | capitalize}}
 							<br>
 							Année de sortie de l'article
@@ -50,15 +51,11 @@
 						</div>
 					{% endfor %}
 				</div>
-				{% if app.user %}
+				{% if is_granted("ROLE_USER") %}
 					<div class="commentForm">
 						{{ form(comment_form) }}
 						</div>
 					</div>
-				{% else %}
-					<span class="ps-2">
-						Connectez vous pour pouvoir commenter cet article
-					</span>
 				{% endif %}
 				{# END COMMENT SECTION #}
 			</div>

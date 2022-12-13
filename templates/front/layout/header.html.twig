@@ -64,18 +64,17 @@
             <ul>
                 <li><a href="{{ path('home')}}"><i class="fa-solid fa-house"></i><span>Accueil</span></a></li>
                 {% if app.user %}
-					<a href="{{ path('user_profile') }}">
-						{% if vich_uploader_asset(app.user, 'imgFile') is null %}
-							<img src="" alt=""/>
-						{% else %}
-							<img src="{{ vich_uploader_asset(app.user, 'imgFile')}}" alt=""/>
-						{% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('admin') }}"><i class="fa-solid fa-user"></i><span>Admin</span></a></li>
+				<li><a href="{{ path('user_profile') }}">
+                    {% if vich_uploader_asset(app.user, 'imgFile') is null %}
+                        <img src="" alt=""/>
+                    {% else %}
+                        <img src="{{ vich_uploader_asset(app.user, 'imgFile')}}" alt=""/>
                     {% endif %}
-                    <li><a href="{{ path('logout') }}"><i class="fa-solid fa-sign-out"></i><span>Déconnexion</span></a></li>
+                     Profil</a>
+                </li>
+                <li><a href="{{ path('logout') }}"><i class="fa-solid fa-sign-out"></i><span>Déconnexion</span></a></li>
                 {% else %}
-                    <li><a href="{{ path('login') }}"><i class="fa-solid fa-sign-in"></i><span>Connexion</span></a></li>
+                <li><a href="{{ path('login') }}"><i class="fa-solid fa-sign-in"></i><span>Connexion</span></a></li>
                 {% endif %}
             </ul>
         </nav>
