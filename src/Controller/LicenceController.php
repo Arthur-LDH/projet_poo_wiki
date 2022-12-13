@@ -25,14 +25,13 @@ class LicenceController extends AbstractController
         ]);
     }
 
-    #[Route('/licences/{id}', name: 'show_licence')]
-    public function show(ManagerRegistry $doctrine, Licence $licence, mixed $id): Response
+    #[Route('/licences/{slug}', name: 'show_licence')]
+    public function show(ManagerRegistry $doctrine, string $slug): Response
     {
-        // get article repository
-        $articleRepository = $doctrine->getRepository(Article::class);
-        // get articles from current licence
-        $articles = $articleRepository->findBy(['licence' => $id]);
-
+        $licenceRepository = $doctrine->getRepository(Licence::class);
+        $licence = $licenceRepository->findOneBy(["slug" => $slug]);
+        $articles = $licence->getArticles($licence);
+        
         return $this->render('front/show_licence.html.twig', [
             'licence' => $licence,
             'articles' => $articles

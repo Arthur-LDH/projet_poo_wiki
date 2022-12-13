@@ -58,6 +58,9 @@ class Article
      */
     private $articleImgFile;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->console = new ArrayCollection();
@@ -238,5 +241,17 @@ class Article
     public function __toString(): string
     {
         return $this->getName();
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -26,6 +27,7 @@ class ArticleCrudController extends AbstractCrudController
             // IdField::new('id')->hideOnForm(),
             ImageField::new('img')->setBasePath('build/images/article_img/')->onlyOnIndex(),
             TextField::new('name'),
+            SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),
             TextField::new('description'),
             AssociationField::new('author')->autocomplete(),
             AssociationField::new('console')->autocomplete()->hideOnIndex(),

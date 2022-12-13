@@ -23,7 +23,7 @@ class ConsoleCrudController extends AbstractCrudController
             // IdField::new('id')->hideOnForm(),
             ImageField::new('img')->setBasePath('build/images/console_img/')->onlyOnIndex(),
             TextField::new('name'),
-            SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),
+            SlugField::new('slug')->setTargetFieldName('name')->setUnlockConfirmationMessage("Il est recommandé d'utiliser des slugs automatiques")->hideOnIndex(),
             TextField::new('consoleImgFile')->setFormType(VichImageType::class)->hideOnIndex(),
         ];
     }

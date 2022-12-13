@@ -44,11 +44,15 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/articles/{id}', name: 'show_article')]
-    public function show(ManagerRegistry $doctrine, Article $article, Licence $licence, Request $request, int $id): Response
+    #[Route('/articles/{slug}', name: 'show_article')]
+    public function show(ManagerRegistry $doctrine,  Request $request, string $slug): Response
     {
+        $articleRepository = $doctrine->getRepository(Article::class);
+        $article = $articleRepository->findOneBy(["slug" => $slug]);
+        $articleId = $article->getId($article);
+
         // Check if the user still exists, if not: change the user_id to the user "Utilisateur supprimé"
-        $authorId = $article->getAuthor($id);
+        $authorId = $article->getAuthor($articleId);
         $userRepository = $doctrine->getRepository(User::class);
         $user = $userRepository->findOneBy(['id' => $authorId]);
         if($user == null){
@@ -81,7 +85,7 @@ class ArticleController extends AbstractController
 
         return $this->render('front/show_article.html.twig', [
             'article' => $article,
-            'licence' => $licence,
+            // 'licence' => $licence,
             'comments' => $comments,
             'comment_form' => $form->createView(),
         ]);

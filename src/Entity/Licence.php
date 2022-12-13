@@ -40,6 +40,9 @@ class Licence
      */
     private $licenceImgFile;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -148,6 +151,18 @@ class Licence
         if ($img){
             $this->updatedAt = new \DateTimeImmutable();
         }
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
 
