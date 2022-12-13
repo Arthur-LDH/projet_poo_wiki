@@ -69,11 +69,12 @@ class ArticleController extends AbstractController
 
         // comment form creation
         $comment = new Comments();
+        $currentUser = $this->getUser();
         // init some datas into the form
-        $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable());
+        $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable())->setAuthor($currentUser);
         $form = $this->createForm(CommentFormType::class, $comment);
 
-        // check is form is valid
+        // check if form is valid
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setArticle($article);
@@ -85,7 +86,6 @@ class ArticleController extends AbstractController
 
         return $this->render('front/show_article.html.twig', [
             'article' => $article,
-            // 'licence' => $licence,
             'comments' => $comments,
             'comment_form' => $form->createView(),
         ]);

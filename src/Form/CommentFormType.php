@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Comments;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+// use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,8 +15,6 @@ class CommentFormType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('article')
-            ->add('author')
             ->add('submit', SubmitType::class, ['label' => 'Envoyer']);
     }
 
