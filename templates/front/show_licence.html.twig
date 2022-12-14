@@ -33,6 +33,7 @@
 			class="divider line glow">
 			{# START ARTICLES GALLERY FROM CURRENT LICENCE #}
 			{% for article in articles %}
+			{% if article.state and article.moderated %}
 				<div class="articles-gallery">
 					<div>
 						<div>
@@ -54,7 +55,8 @@
 							</button>
 						</div>
 					</div>
-				{% endfor %}
+			{% endif %}
+			{% endfor %}
 				{# END ARTICLES GALLERY FROM CURRENT LICENCE #}
 			</div>
 		</section>
