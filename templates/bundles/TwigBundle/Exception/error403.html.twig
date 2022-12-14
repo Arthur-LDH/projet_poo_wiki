@@ -1,0 +1,20 @@
+{# templates/bundles/TwigBundle/Exception/error.html.twig #}
+{% extends 'front/layout/layout.html.twig' %}
+{% block title %}
+    WIKITENDO - Error 403
+{% endblock %}
+
+{% block body %}
+    {% include "front/layout/header.html.twig" %}
+    {% include "front/layout/sidebar.html.twig" %}
+    <section id="main">
+        <div>
+            <h1>Accès interdit</h1>
+            <p>
+                Oups, vous n'avez pas accès à cette page.
+                Retournez à l'<a href="{{ path('home') }}">accueil</a>.
+            </p>
+        </div>
+    </section>
+    {% include "front/layout/footer.html.twig" %}
+{% endblock %}
