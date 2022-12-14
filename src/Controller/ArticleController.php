@@ -11,6 +11,7 @@ use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,6 +44,33 @@ class ArticleController extends AbstractController
             'controller_name' => 'ArticleController',
             'articles' => $articles,
         ]);
+    }
+
+    #[Route('/article/delete/{slug}', name: 'delete_article')]
+    public function deleteArticle($slug, Request $request): Response
+    {
+        $user = $this->getUser();
+        $article = $this->entityManager->getRepository(Article::class)->findOneBy(['slug' => $slug]);
+
+        if ($article == null) {
+            $this->addFlash('danger', 'Impossible de supprimer l\'article, il n\'existe pas !');
+        }
+        else if ($user->getId() == $article->getAuthor()->getId() || in_array('ROLE_MODERATEUR', $user->getRoles())) {
+            $this->entityManager->remove($article);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Article supprimé');
+        }
+        else {
+            $this->addFlash('danger', 'Impossible de supprimer l\'article, vous n\'êtes pas l\'auteur !');
+        }
+
+        $referer = $request->headers->get('referer');
+        if ($referer == null) {
+            return $this->redirectToRoute('show_article', ['slug' => $slug]);
+        }
+        else {
+            return new RedirectResponse($referer);
+        }
     }
 
     #[Route('/articles/{slug}', name: 'show_article')]

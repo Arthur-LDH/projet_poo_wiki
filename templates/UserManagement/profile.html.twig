@@ -8,12 +8,21 @@
     <section id="main">
         <div>
             <div id="profileContent">
-
                 {% if not app.user %}
                     <div class="mb-3">
                         Vous n'êtes pas connecté, veuillez vous connecter , <a href="{{ path('login') }}">Connection</a>
                     </div>
                 {% else %}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% for message in app.flashes('danger') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     <h1>Mon profil</h1>
                     <div id="userInfo" class="mb-3 row">
                         <div id="textInfos" class="col-12 col-sm-12 col-md-8">
@@ -72,8 +81,8 @@
                                         <div>
                                             {#  <a href="{{ path('edit_article', {slug: article.slug}) }}"
                                                class="btn btn-primary">Modifier l'article</a>#}
-                                            {# <a href="{{ path('delete_article', {slug: article.slug}) }}"
-                                               class="btn btn-danger">Supprimer l'article</a>#}
+                                            <a href="{{ path('delete_article', {slug: article.slug}) }}"
+                                               class="btn btn-danger">Supprimer l'article</a>
                                         </div>
                                         <footer class="blockquote-footer text-right">
                                             Posté le {{ article.createdAt|date('d/m/Y') }}
