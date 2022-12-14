@@ -9,11 +9,12 @@
     {% include "front/layout/sidebar.html.twig" %}
     <section id="main">
         <div>
-            <h1>Oops! An Error Occurred</h1>
+            <h1>Oops! Une erreur s'est produite</h1>
             <p>
-                The server returned a "{{ status_code }} {{ status_text }}".
-                Something is broken. Please let us know what you were doing when this error occurred.
-                We will fix it as soon as possible. Sorry for any inconvenience caused.
+                Le serveur a retourner une "{{ status_code }} {{ status_text }}".
+                Quelque chose s'est mal passé sur notre serveur et nous sommes désolés pour la gêne occasionnée.
+                L'erreur a été enregistrée et nous allons la corriger dans les plus brefs délais.
+                Retournez à l'<a href="{{ path('home') }}">accueil</a>.
             </p>
         </div>
     </section>

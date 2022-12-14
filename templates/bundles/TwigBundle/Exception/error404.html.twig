@@ -10,11 +10,11 @@
     {% include "front/layout/sidebar.html.twig" %}
     <section id="main">
         <div>
-            <div id="board">
-                <h1>Page not found</h1>
+            <div id="error">
+                <h1>Page introuvable</h1>
                 <p>
-                    The requested page couldn't be located. Checkout for any URL
-                    misspelling or <a href="{{ path('home') }}">return to the homepage</a>.
+                    La page que vous recherchez n'existe pas ou plus.
+                    Vérifiez l'adresse saisie ou <a href="{{ path('home') }}">retournez à l'accueil</a>.
                 </p>
             </div>
         </div>
