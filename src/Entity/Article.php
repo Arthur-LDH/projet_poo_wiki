@@ -263,4 +263,9 @@ class Article
 
         return $this;
     }
+
+    public function removeSlug(): void
+    {
+        $this->slug = null;
+    }
 }

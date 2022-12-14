@@ -25,6 +25,13 @@
 							Dernière mofidication le {{article.updatedat|date("d/m/Y")}}
 							{% endif %}
 						</p>
+						{% if is_granted('ROLE_MODERATOR') or app.user == article.author  %}
+							<span>
+								<a href="{{ path('edit_article', {slug: article.slug}) }}">
+									Éditer
+								</a>
+							</span>
+						{% endif %}
 					</div>
 					<div class="bodyArticle">
 						{{article.description|raw}}

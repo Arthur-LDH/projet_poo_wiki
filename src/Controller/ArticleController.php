@@ -101,15 +101,13 @@ class ArticleController extends AbstractController
     public function new(ManagerRegistry $doctrine, Request $request): Response
     {
         $article = new Article($this->entityManager);
-        $article->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable());
+        $article->setCreatedAt(new \DateTimeImmutable());
 
         $consoleRepository = $doctrine->getRepository(Console::class);
         $consoles = $consoleRepository->findAll();
 
-
-        // // create article form
+        // create article form
         $form = $this->createForm(ArticleFormType::class);
-
 
         // check is form is valid
         $form->handleRequest($request);
@@ -134,16 +132,78 @@ class ArticleController extends AbstractController
                 // persist article
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
-                // var_dump($article);
+                // after creation slugify
                 $article->setSlug($this->entityManager);
+                // persist again with slug
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
 
+                // get new slug in order to set path to article
+                $slug = $article->getSlug();
+
                 $this->addFlash('success', 'Votre article a bien été créée !');
+
+                return $this->redirectToRoute('show_article', [
+                    'slug' => $slug,
+                ]);
             }
         }
 
         return $this->render('front/new_article.html.twig', [
+            'article_form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/articles/{slug}/edit', name: 'edit_article')]
+    public function edit(Article $article, ManagerRegistry $doctrine, Request $request): Response
+    {
+        $article->setUpdatedAt(new \DateTimeImmutable());
+
+        $consoleRepository = $doctrine->getRepository(Console::class);
+        $consoles = $consoleRepository->findAll();
+
+        // create article form
+        $form = $this->createForm(ArticleFormType::class, $article);
+
+        // check is form is valid
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                $this->addFlash('error', 'Votre article n\'a pas été mis à jour !');
+            } else {
+                $article->setName($form->get('name')->getData());
+                $article->setDescription($form->get('description')->getData());
+                $article->setContent($form->get('content')->getData());
+
+                $consoles = $form->get('console')->getData();
+                foreach ($consoles as $console) {
+                    $article->addConsole($console);
+                }
+                $article->setLicence($form->get('licence')->getData());
+                $article->setArticleImgFile($form->get('articleImgFile')->getData());
+
+                // remove previous slug in order to avoid duplicate article during edit
+                $article->removeSlug();
+
+                // persist article
+                $this->entityManager->persist($article);
+                $this->entityManager->flush($article);
+                $article->setSlug($this->entityManager);
+                $this->entityManager->persist($article);
+                $this->entityManager->flush($article);
+
+                // get new slug in order to set path to article
+                $slug = $article->getSlug();
+
+                $this->addFlash('success', 'Votre article a bien été mis à jour !');
+
+                return $this->redirectToRoute('show_article', [
+                    'slug' => $slug,
+                ]);
+            }
+        }
+
+        return $this->render('front/edit_article.html.twig', [
             'article_form' => $form->createView()
         ]);
     }
