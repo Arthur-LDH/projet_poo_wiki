@@ -14,19 +14,17 @@
 					Création d'un article
 				</h2>
 			</div>
-			<div>
-				<div id="flashMessage">
-					{% for flashMessage in app.session.flashbag.get('error') %}
-
-						{{ flashMessage }}
-
-					{% endfor %}
-					{% for flashMessage in app.session.flashbag.get('success') %}
-
-						{{ flashMessage }}
-
-					{% endfor %}
-				</div>
+			<div class="createArticle">
+				{% for flashMessage in app.session.flashbag.get('error') %}
+					<div id="flashMessage">
+					{{ flashMessage }}
+					</div>
+				{% endfor %}
+				{% for flashMessage in app.session.flashbag.get('success') %}
+					<div id="flashMessage">
+					{{ flashMessage }}
+					</div>
+				{% endfor %}
 				{{ form(article_form) }}
 				</div>
 			</div>

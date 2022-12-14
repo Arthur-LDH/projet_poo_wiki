@@ -16,7 +16,7 @@
 				<span>
 					{{ articles|length }}
 				</span>
-				<div id="createArticle">
+				<div class="createArticle">
 					{% if app.user %}
 						<a href="{{ path('create_article') }}">
 							Créér un article
@@ -33,7 +33,7 @@
 						</div>
 						<div>
 							<h4>
-								{{ article.name | upper }}
+								{{ article.name|upper }}
 							</h4>
 							<p>
 								{{ article.description }}

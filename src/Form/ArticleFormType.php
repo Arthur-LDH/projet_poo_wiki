@@ -24,10 +24,6 @@ class ArticleFormType extends AbstractType
             ->add('articleImgFile', VichFileType::class, [
                 'label' => 'Image : (2M maximum)',
                 'required' => false,
-                'allow_delete' => true,
-                'delete_label' => '...',
-                'download_uri' => '...',
-                'download_label' => '...',
                 'asset_helper' => true,
                 'constraints' => [
                     new File([

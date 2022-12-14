@@ -1,0 +1,23 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	Liste des articles
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div class="main_title">
+				<h2>
+					Éditon
+				</h2>
+            </div>
+            <div id="editArticle">
+                {{ form(article_form) }}
+            </div>
+        </div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
+{% endblock %}

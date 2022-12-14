@@ -12,31 +12,42 @@
 			{# START ARTICLE SHOW #}
 			<div class="show">
 				<div>
-					<img src="/build/images/article_img/{{article.img}}" alt="">
-					<div>
+					<div class="headerArticle">
+						{% for flashMessage in app.session.flashbag.get('error') %}
+							<div id="flashMessage">
+							{{ flashMessage }}
+							</div>
+						{% endfor %}
+						{% for flashMessage in app.session.flashbag.get('success') %}
+							<div id="flashMessage">
+							{{ flashMessage }}
+							</div>
+						{% endfor %}
+						<img src="/build/images/article_img/{{article.img}}" alt="">
 						<p class="year">
 							{{ article.name|capitalize }}
 							-
 							{{ article.licence.name|capitalize}}
 							<br>
-							Année de sortie de l'article
-							<br>
 							Auteur :
-							{{ article.author|capitalize}}
+							{{ article.author|capitalize}}, le {{article.createdat|date("d/m/Y")}}
+							{% if article.createdat != article.updatedat %}
+							Dernière mofidication le {{article.updatedat|date("d/m/Y")}}
+							{% endif %}
 						</p>
+						{% if is_granted('ROLE_MODERATOR') or app.user == article.author  %}
+							<span>
+								<a href="{{ path('edit_article', {slug: article.slug}) }}">
+									Éditer
+								</a>
+							</span>
+						{% endif %}
+					</div>
+					<div class="bodyArticle">
 						{{article.description|raw}}
+						{{article.content|raw}}
 					</div>
 				</div>
-				<div>
-					{{article.content|raw}}
-				</div>
-				
-			</div>
-			<div>
-				<p>Article par {{ article.author|capitalize}}, le {{article.createdat|date("d/m/Y")}}</p>
-				{% if article.createdat != article.updatedat %}
-				<p>Dernière mofidication le {{article.updatedat|date("d/m/Y")}}</p>
-				{% endif %}
 			</div>
 			{# END ARTICLE SHOW #}
 			{# START COMMENT SECTION #}
