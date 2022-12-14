@@ -26,11 +26,9 @@
 								{{ console.name | upper }}
 							</h3>
 							<p class="year">
-								Année de sortie de la console
+								Année de sortie: {{console.releasedate|date("d/m/Y")}}
 							</p>
-							<p>
-								Description de la console - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
-							</p>
+							{{console.description|raw}}
 						</div>
 						<button>
 							<a href="/consoles/{{ console.slug }}">

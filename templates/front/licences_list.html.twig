@@ -27,12 +27,7 @@
 							<h3>
 								{{ licence.name | upper }}
 							</h3>
-							<p class="year">
-								Année de la licence
-							</p>
-							<p>
-								Description de la licence - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
-							</p>
+							{{ licence.description|raw}}
 						</div>
 						<button>
 							<a href="/licences/{{ licence.slug }}">
