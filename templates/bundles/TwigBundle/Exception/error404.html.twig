@@ -11,11 +11,14 @@
     <section id="main">
         <div>
             <div id="error">
-                <h1>Page introuvable</h1>
-                <p>
-                    La page que vous recherchez n'existe pas ou plus.
-                    Vérifiez l'adresse saisie ou <a href="{{ path('home') }}">retournez à l'accueil</a>.
-                </p>
+                <div id="content">
+                    <h1 class="fw-bold">Page introuvable</h1>
+                    <div>
+                        La page que vous recherchez n'existe pas ou plus.<br>
+                        Vérifiez l'adresse saisie ou retournez à l'accueil en cliquant sur le bouton ci-dessous.
+                    </div>
+                    <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+                </div>
             </div>
         </div>
     </section>
