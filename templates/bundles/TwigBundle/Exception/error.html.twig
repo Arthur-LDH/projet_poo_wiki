@@ -1,0 +1,21 @@
+{# templates/bundles/TwigBundle/Exception/error.html.twig #}
+{% extends 'front/layout/layout.html.twig' %}
+{% block title %}
+    WIKITENDO - Error
+{% endblock %}
+
+{% block body %}
+    {% include "front/layout/header.html.twig" %}
+    {% include "front/layout/sidebar.html.twig" %}
+    <section id="main">
+        <div>
+            <h1>Oops! An Error Occurred</h1>
+            <p>
+                The server returned a "{{ status_code }} {{ status_text }}".
+                Something is broken. Please let us know what you were doing when this error occurred.
+                We will fix it as soon as possible. Sorry for any inconvenience caused.
+            </p>
+        </div>
+    </section>
+    {% include "front/layout/footer.html.twig" %}
+{% endblock %}
