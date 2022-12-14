@@ -13,6 +13,16 @@
 			<div class="show">
 				<div>
 					<div class="headerArticle">
+						{% for flashMessage in app.session.flashbag.get('error') %}
+							<div id="flashMessage">
+							{{ flashMessage }}
+							</div>
+						{% endfor %}
+						{% for flashMessage in app.session.flashbag.get('success') %}
+							<div id="flashMessage">
+							{{ flashMessage }}
+							</div>
+						{% endfor %}
 						<img src="/build/images/article_img/{{article.img}}" alt="">
 						<p class="year">
 							{{ article.name|capitalize }}
