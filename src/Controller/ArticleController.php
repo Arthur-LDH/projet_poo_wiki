@@ -113,32 +113,34 @@ class ArticleController extends AbstractController
 
         // check is form is valid
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // set current user
-            $article->setAuthor($this->getUser());
-            $article->setName($form->get('name')->getData());
-            $article->setDescription($form->get('description')->getData());
-            $article->setContent($form->get('content')->getData());
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                $this->addFlash('error', 'Votre article n\'a pas été créée !');
+            } else {
+                // set current user
+                $article->setAuthor($this->getUser());
+                $article->setName($form->get('name')->getData());
+                $article->setDescription($form->get('description')->getData());
+                $article->setContent($form->get('content')->getData());
 
-            $consoles = $form->get('console')->getData();
-            foreach ($consoles as $console) {
-                $article->addConsole($console);
+                $consoles = $form->get('console')->getData();
+                foreach ($consoles as $console) {
+                    $article->addConsole($console);
+                }
+                $article->setLicence($form->get('licence')->getData());
+                $article->setArticleImgFile($form->get('articleImgFile')->getData());
+
+
+                // persist article
+                $this->entityManager->persist($article);
+                $this->entityManager->flush($article);
+                // var_dump($article);
+                $article->setSlug($this->entityManager);
+                $this->entityManager->persist($article);
+                $this->entityManager->flush($article);
+
+                $this->addFlash('success', 'Votre article a bien été créée !');
             }
-            $article->setLicence($form->get('licence')->getData());
-            $article->setArticleImgFile($form->get('articleImgFile')->getData());
-
-
-            // persist article
-            $this->entityManager->persist($article);
-            $this->entityManager->flush($article);
-            // var_dump($article);
-            $article->setSlug($this->entityManager);
-            $this->entityManager->persist($article);
-            $this->entityManager->flush($article);
-
-            $this->addFlash('success', 'Votre article a bien été créée !');
-        } else {
-            $this->addFlash('error', 'Votre article n\'a pas été créée !');
         }
 
         return $this->render('front/new_article.html.twig', [
