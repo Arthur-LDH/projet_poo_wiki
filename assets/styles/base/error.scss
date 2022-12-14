@@ -1,0 +1,20 @@
+#error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  #content {
+    background-color: $darkGray;
+    border: $darkGray solid 20px;
+    border-radius: 20px;
+    margin-bottom: 100px;
+    color: white;
+    text-align: center;
+    width: fit-content;
+
+    div {
+      padding-bottom: 20px;
+    }
+  }
+}

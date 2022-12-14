@@ -10,13 +10,15 @@
     <section id="main">
         <div>
             <div id="error">
-                <h1>Accès interdit</h1>
-                <div>
-                    Oups, vous n'avez pas accès à cette page.<br>
-                    Vérifiez que vous êtes bien connecté et que vous avez les droits d'accès à cette page.<br>
-                    Vous pouvez également contacter l'administrateur du site.<br>
-                    Vous pouvez retourner à la page d'accueil en cliquant sur le bouton ci-dessous.<br>
-                <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+                <div id="content">
+                    <h1 class="fw-bold">Accès interdit</h1>
+                    <div>
+                        Oups, vous n'avez pas accès à cette page.<br>
+                        Vérifiez que vous êtes bien connecté et que vous avez les droits d'accès à cette page.<br>
+                        Vous pouvez également contacter l'administrateur du site.<br>
+                        Vous pouvez retourner à la page d'accueil en cliquant sur le bouton ci-dessous.<br>
+                    </div>
+                    <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
                 </div>
             </div>
         </div>
