@@ -9,13 +9,16 @@
     {% include "front/layout/sidebar.html.twig" %}
     <section id="main">
         <div>
-            <h1>Oops! Une erreur s'est produite</h1>
-            <p>
-                Le serveur a retourner une "{{ status_code }} {{ status_text }}".
-                Quelque chose s'est mal passé sur notre serveur et nous sommes désolés pour la gêne occasionnée.
-                L'erreur a été enregistrée et nous allons la corriger dans les plus brefs délais.
-                Retournez à l'<a href="{{ path('home') }}">accueil</a>.
-            </p>
+            <div id="error">
+                <h1>Oops! Une erreur s'est produite</h1>
+                <div>
+                    Le serveur a retourner une "{{ status_code }} {{ status_text }}".<br>
+                    Quelque chose s'est mal passé sur notre serveur et nous sommes désolés pour la gêne occasionnée.<br>
+                    L'erreur a été enregistrée et nous allons la corriger dans les plus brefs délais.<br>
+                    Vous pouvez retourner à la page d'accueil en cliquant sur le bouton ci-dessous.<br>
+                    <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+                </div>
+            </div>
         </div>
     </section>
     {% include "front/layout/footer.html.twig" %}

@@ -9,11 +9,16 @@
     {% include "front/layout/sidebar.html.twig" %}
     <section id="main">
         <div>
-            <h1>Accès interdit</h1>
-            <p>
-                Oups, vous n'avez pas accès à cette page.
-                Retournez à l'<a href="{{ path('home') }}">accueil</a>.
-            </p>
+            <div id="error">
+                <h1>Accès interdit</h1>
+                <div>
+                    Oups, vous n'avez pas accès à cette page.<br>
+                    Vérifiez que vous êtes bien connecté et que vous avez les droits d'accès à cette page.<br>
+                    Vous pouvez également contacter l'administrateur du site.<br>
+                    Vous pouvez retourner à la page d'accueil en cliquant sur le bouton ci-dessous.<br>
+                <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+                </div>
+            </div>
         </div>
     </section>
     {% include "front/layout/footer.html.twig" %}
