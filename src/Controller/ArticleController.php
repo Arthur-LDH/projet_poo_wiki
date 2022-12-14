@@ -55,7 +55,7 @@ class ArticleController extends AbstractController
         if ($article == null) {
             $this->addFlash('danger', 'Impossible de supprimer l\'article, il n\'existe pas !');
         }
-        else if ($user->getId() == $article->getAuthor()->getId() || in_array('ROLE_MODERATEUR', $user->getRoles())) {
+        else if ($user == $article->getAuthor() || in_array('ROLE_MODERATEUR', $user->getRoles())) {
             $this->entityManager->remove($article);
             $this->entityManager->flush();
             $this->addFlash('success', 'Article supprimé');
