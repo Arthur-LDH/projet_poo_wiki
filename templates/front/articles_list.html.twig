@@ -26,6 +26,7 @@
 			</div>
 			{# START ARTICLES GALLERY FROM CURRENT CONSOLE #}
 			{% for article in articles %}
+			{% if article.state and article.moderated %}
 				<div class="articles-gallery">
 					<div>
 						<div>
@@ -48,6 +49,7 @@
 						</div>
 					</div>
 				</div>
+				{% endif %}
 			{% endfor %}
 			{# END ARTICLES GALLERY FROM CURRENT CONSOLE #}
 		</div>

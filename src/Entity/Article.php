@@ -63,6 +63,12 @@ class Article
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $state = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $moderated = null;
+
     public function __construct()
     {
         $this->console = new ArrayCollection();
@@ -268,5 +274,29 @@ class Article
     public function removeSlug(): void
     {
         $this->slug = null;
+    }
+    
+    public function isState(): ?bool
+    {
+        return $this->state;
+    }
+
+    public function setState(?bool $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function isModerated(): ?bool
+    {
+        return $this->moderated;
+    }
+
+    public function setModerated(?bool $moderated): self
+    {
+        $this->moderated = $moderated;
+
+        return $this;
     }
 }

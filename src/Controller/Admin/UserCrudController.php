@@ -4,12 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\{FormBuilderInterface, FormEvents};
-use EasyCorp\Bundle\EasyAdminBundle\Field\{ChoiceField, IdField, EmailField, TextField};
+use EasyCorp\Bundle\EasyAdminBundle\Field\{ChoiceField, EmailField, TextField};
 use Symfony\Component\Form\Extension\Core\Type\{PasswordType, RepeatedType};
 use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud, KeyValueStore};
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
@@ -37,10 +36,9 @@ class UserCrudController extends AbstractCrudController
     {
         $fields = [
             ImageField::new('img')->setBasePath('build/images/user_img/')->onlyOnIndex(),
-            // IdField::new('id')->hideOnForm(),
             TextField::new('username'),
             EmailField::new('email'),
-            TextField::new('imgFile')->setFormType(VichImageType::class)->hideOnIndex(),          
+            TextField::new('imgFile')->setFormType(VichImageType::class)->hideOnIndex(),
             ChoiceField::new('roles')->allowMultipleChoices(true)->setChoices([
                 'Utilisateur' => 'ROLE_USER',
                 'Moderateur' => 'ROLE_MODERATOR',

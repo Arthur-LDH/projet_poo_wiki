@@ -76,6 +76,7 @@ class ArticleController extends AbstractController
     #[Route('/articles/{slug}', name: 'show_article')]
     public function show(ManagerRegistry $doctrine,  Request $request, string $slug): Response
     {
+        $userRepository = $doctrine->getRepository(User::class);
         $articleRepository = $doctrine->getRepository(Article::class);
         $article = $articleRepository->findOneBy(["slug" => $slug]);
         if ($article == null) {
@@ -83,9 +84,15 @@ class ArticleController extends AbstractController
         }
         $articleId = $article->getId($article);
 
+        // Error 404 if the article is not published and not moderated and if the current user is not the owner or at least Moderator of the article
+        if($article->isState() === false || $article->isModerated() === false){
+            if(!$this->isGranted('ROLE_MODERATOR') && $this->getUser() != $article->getAuthor()){
+                throw $this->createNotFoundException("Cet article n'existe pas");
+            }
+        }
+
         // Check if the user still exists, if not: change the user_id to the user "Utilisateur supprimé"
         $authorId = $article->getAuthor($articleId);
-        $userRepository = $doctrine->getRepository(User::class);
         $user = $userRepository->findOneBy(['id' => $authorId]);
         if ($user == null) {
             // L'ID 10 correspond au User "Utilisateur Supprimé"
@@ -98,10 +105,9 @@ class ArticleController extends AbstractController
         $commentRepository = $doctrine->getRepository(Comments::class);
         // get all comments
         $comments = $commentRepository->findAll();
-
+        $currentUser = $this->getUser();
         // comment form creation
         $comment = new Comments();
-        $currentUser = $this->getUser();
         // init some datas into the form
         $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable())->setAuthor($currentUser);
         $form = $this->createForm(CommentFormType::class, $comment);
