@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Console;
 use App\Entity\Licence;
 use App\Entity\Comments;
-use App\Entity\User;
+use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
@@ -93,26 +94,52 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/articles/create', name: 'create_article')]
+    #[Route('/create', name: 'create_article')]
     public function new(ManagerRegistry $doctrine, Request $request): Response
     {
-        $article = new Article();
+        $article = new Article($this->entityManager);
+        $article->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable());
 
-        // create article form
-        // $form = $this->createForm(ArticleFormType::class, $article);
+        $consoleRepository = $doctrine->getRepository(Console::class);
+        $consoles = $consoleRepository->findAll();
+
+
+        // // create article form
+        $form = $this->createForm(ArticleFormType::class);
+
 
         // check is form is valid
-        // $form->handleRequest($request);
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $article->setArticle($article);
-        //     // set current user
-        //     $article->setAuthor($this->getUser());
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // set current user
+            $article->setAuthor($this->getUser());
+            $article->setName($form->get('name')->getData());
+            $article->setDescription($form->get('description')->getData());
+            $article->setContent($form->get('content')->getData());
 
-        //     // persist article
-        //     $this->entityManager->persist($article);
-        //     $this->entityManager->flush();
-        // }
+            $consoles = $form->get('console')->getData();
+            foreach ($consoles as $console) {
+                $article->addConsole($console);
+            }
+            $article->setLicence($form->get('licence')->getData());
+            $article->setArticleImgFile($form->get('articleImgFile')->getData());
 
-        return $this->render('front/new_article.html.twig');
+
+            // persist article
+            $this->entityManager->persist($article);
+            $this->entityManager->flush($article);
+            // var_dump($article);
+            $article->setSlug($this->entityManager);
+            $this->entityManager->persist($article);
+            $this->entityManager->flush($article);
+
+            $this->addFlash('success', 'Votre article a bien été créée !');
+        } else {
+            $this->addFlash('error', 'Votre article n\'a pas été créée !');
+        }
+
+        return $this->render('front/new_article.html.twig', [
+            'article_form' => $form->createView()
+        ]);
     }
 }

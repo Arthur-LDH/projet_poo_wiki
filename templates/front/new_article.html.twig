@@ -1,0 +1,35 @@
+{% extends 'front/layout/layout.html.twig' %}
+
+{% block title %}
+	Liste des articles
+{% endblock %}
+
+{% block body %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div class="main_title">
+				<h2>
+					Création d'un article
+				</h2>
+			</div>
+			<div>
+				<div id="flashMessage">
+					{% for flashMessage in app.session.flashbag.get('error') %}
+
+						{{ flashMessage }}
+
+					{% endfor %}
+					{% for flashMessage in app.session.flashbag.get('success') %}
+
+						{{ flashMessage }}
+
+					{% endfor %}
+				</div>
+				{{ form(article_form) }}
+				</div>
+			</div>
+		</section>
+		{% include "front/layout/footer.html.twig" %}
+	{% endblock %}
