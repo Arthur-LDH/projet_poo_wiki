@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Console;
 use App\Entity\Licence;
 use App\Entity\Comments;
-use App\Entity\User;
+use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
@@ -58,7 +59,7 @@ class ArticleController extends AbstractController
         $authorId = $article->getAuthor($articleId);
         $userRepository = $doctrine->getRepository(User::class);
         $user = $userRepository->findOneBy(['id' => $authorId]);
-        if($user == null){
+        if ($user == null) {
             // L'ID 10 correspond au User "Utilisateur Supprimé"
             $article = $article->setAuthor($userRepository->findOneBy(['id' => 10]));
             $this->entityManager->persist($article);
@@ -81,6 +82,8 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setArticle($article);
+            // set current user
+            $comment->setAuthor($this->getUser());
 
             // persist comment
             $this->entityManager->persist($comment);
@@ -91,6 +94,55 @@ class ArticleController extends AbstractController
             'article' => $article,
             'comments' => $comments,
             'comment_form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/create', name: 'create_article')]
+    public function new(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $article = new Article($this->entityManager);
+        $article->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable());
+
+        $consoleRepository = $doctrine->getRepository(Console::class);
+        $consoles = $consoleRepository->findAll();
+
+
+        // // create article form
+        $form = $this->createForm(ArticleFormType::class);
+
+
+        // check is form is valid
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // set current user
+            $article->setAuthor($this->getUser());
+            $article->setName($form->get('name')->getData());
+            $article->setDescription($form->get('description')->getData());
+            $article->setContent($form->get('content')->getData());
+
+            $consoles = $form->get('console')->getData();
+            foreach ($consoles as $console) {
+                $article->addConsole($console);
+            }
+            $article->setLicence($form->get('licence')->getData());
+            $article->setArticleImgFile($form->get('articleImgFile')->getData());
+
+
+            // persist article
+            $this->entityManager->persist($article);
+            $this->entityManager->flush($article);
+            // var_dump($article);
+            $article->setSlug($this->entityManager);
+            $this->entityManager->persist($article);
+            $this->entityManager->flush($article);
+
+            $this->addFlash('success', 'Votre article a bien été créée !');
+        } else {
+            $this->addFlash('error', 'Votre article n\'a pas été créée !');
+        }
+
+        return $this->render('front/new_article.html.twig', [
+            'article_form' => $form->createView()
         ]);
     }
 }

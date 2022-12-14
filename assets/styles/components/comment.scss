@@ -24,5 +24,8 @@
     button {
         background-color: $red;
         border: none;
+        &:hover {
+            background-color: $darkGray;
+        }
     }
 }

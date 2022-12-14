@@ -1,0 +1,34 @@
+#flashMessage {
+    position: absolute;
+    left: 45%;
+    top: 8%;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+form {
+    margin: 25px 0;
+    padding: 75px 0 50px 0;
+    display: flex;
+    justify-content: center;
+    background-color: $darkGray;
+    border-radius: 25px;
+    label, legend {
+        color: $lightGray;
+    }
+    .form-check-input:checked {
+        background-color: $red;
+        border-color: $red;
+    }
+    .btn-primary {
+        background-color: $red;
+        border-color: $red;
+        &:hover {
+            background-color: $red;
+            border-color: $red;
+            opacity: 0.75;
+        }
+    }
+}
