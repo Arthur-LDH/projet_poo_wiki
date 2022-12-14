@@ -28,7 +28,7 @@ class ArticleCrudController extends AbstractCrudController
             ImageField::new('img')->setBasePath('build/images/article_img/')->onlyOnIndex(),
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),
-            TextField::new('description'),
+            TextEditorField::new('description'),
             AssociationField::new('author')->autocomplete(),
             AssociationField::new('console')->autocomplete()->hideOnIndex(),
             ArrayField::new('console')->onlyOnIndex(),

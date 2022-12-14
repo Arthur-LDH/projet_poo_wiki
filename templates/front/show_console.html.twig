@@ -23,14 +23,9 @@
 						<p class="year">
 							{{ console.name | capitalize }}
 							<br>
-							Année de sortie de la console
+							Année de sortie: {{console.releasedate|date("d/m/Y")}}
 						</p>
-						<p>
-							Description de la console - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
-						</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, tenetur omnis repellendus officiis quis iusto esse saepe hic natus nesciunt accusamus? Eum, voluptates.
-						</p>
+						{{console.description|raw}}
 					</div>
 				</div>
 			</div>
@@ -42,7 +37,7 @@
 				<div class="articles-gallery">
 					<div>
 						<div>
-							<img src="{{ asset('build/images/consoles/n64.jpg') }}" alt="">
+							<img src="/build/images/article_img/{{articles.img}}" alt="">
 						</div>
 						<div>
 							<h4>

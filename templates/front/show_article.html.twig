@@ -15,23 +15,28 @@
 					<img src="/build/images/article_img/{{article.img}}" alt="">
 					<div>
 						<p class="year">
-							{{ article.name | capitalize }}
+							{{ article.name|capitalize }}
 							-
-							{{ article.licence.name | capitalize}}
+							{{ article.licence.name|capitalize}}
 							<br>
 							Année de sortie de l'article
 							<br>
 							Auteur :
-							{{ article.author | capitalize}}
+							{{ article.author|capitalize}}
 						</p>
-						<p>
-							Description de l'article - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel recusandae et amet vero doloribus? Nam, eius dolorem consequatur quae aut vitae in ex ad. Ea ducimus excepturi eos magnam corporis?
-						</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, tenetur omnis repellendus officiis quis iusto esse saepe hic natus nesciunt accusamus? Eum, voluptates.
-						</p>
+						{{article.description|raw}}
 					</div>
 				</div>
+				<div>
+					{{article.content|raw}}
+				</div>
+				
+			</div>
+			<div>
+				<p>Article par {{ article.author|capitalize}}, le {{article.createdat|date("d/m/Y")}}</p>
+				{% if article.createdat != article.updatedat %}
+				<p>Dernière mofidication le {{article.updatedat|date("d/m/Y")}}</p>
+				{% endif %}
 			</div>
 			{# END ARTICLE SHOW #}
 			{# START COMMENT SECTION #}
