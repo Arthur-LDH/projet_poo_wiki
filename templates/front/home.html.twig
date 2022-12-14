@@ -94,8 +94,9 @@
 							<div>
 								<span>
 									<div class="box">
+										<img src="/build/images/console_img/{{console.img}}" alt="">
 										<a class="" href="/consoles/{{ console.slug }}">
-											{{ console.name }}
+											{{ console.name|upper }}
 										</a>
 									</div>
 								</span>
@@ -107,8 +108,9 @@
 							<div>
 								<span>
 									<div class="box">
+									<img src="/build/images/licence_img/{{licence.img}}" alt="">
 										<a class="" href="/licences/{{ licence.slug }}">
-											{{ licence.name }}
+											{{ licence.name|upper }}
 										</a>
 									</div>
 								</span>
@@ -120,8 +122,9 @@
 							<div>
 								<span>
 									<div class="box">
+									<img src="/build/images/article_img/{{article.img}}" alt="">
 										<a class="" href="/articles/{{ article.slug }}">
-											{{ article.name }}
+											{{ article.name|upper }}
 										</a>
 									</div>
 								</span>
