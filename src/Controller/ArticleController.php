@@ -49,6 +49,9 @@ class ArticleController extends AbstractController
     {
         $articleRepository = $doctrine->getRepository(Article::class);
         $article = $articleRepository->findOneBy(["slug" => $slug]);
+        if ($article == null) {
+            throw $this->createNotFoundException("Cet article n'existe pas");
+        }
         $articleId = $article->getId($article);
 
         // Check if the user still exists, if not: change the user_id to the user "Utilisateur supprimé"

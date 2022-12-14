@@ -30,6 +30,9 @@ class ConsoleController extends AbstractController
     {
         $consoleRepository = $doctrine->getRepository(Console::class);
         $console = $consoleRepository->findOneBy(["slug" => $slug]);
+        if ($console == null) {
+            throw $this->createNotFoundException("Cette console n'existe pas");
+        }
         $articles = $console->getArticles($console);
         
         return $this->render('front/show_console.html.twig', [

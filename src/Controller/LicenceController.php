@@ -30,6 +30,9 @@ class LicenceController extends AbstractController
     {
         $licenceRepository = $doctrine->getRepository(Licence::class);
         $licence = $licenceRepository->findOneBy(["slug" => $slug]);
+        if ($licence == null) {
+            throw $this->createNotFoundException("Cette licence n'existe pas");
+        }
         $articles = $licence->getArticles($licence);
         
         return $this->render('front/show_licence.html.twig', [
