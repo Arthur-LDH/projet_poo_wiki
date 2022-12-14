@@ -52,6 +52,7 @@ class Licence
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setImg("licence_default.png");
     }
 
     public function getId(): ?int

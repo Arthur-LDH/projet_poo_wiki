@@ -70,6 +70,7 @@ class Article
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setImg("article_default.png");
     }
 
     public function getId(): ?int

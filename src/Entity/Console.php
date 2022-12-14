@@ -55,6 +55,7 @@ class Console
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setImg("console_default.png");
     }
 
     public function getId(): ?int

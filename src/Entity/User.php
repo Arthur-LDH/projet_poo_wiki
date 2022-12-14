@@ -68,6 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setImg("user_default.webp");
     }
 
     public function getId(): ?int

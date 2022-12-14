@@ -14,7 +14,7 @@
                         Vous n'êtes pas connecté, veuillez vous connecter , <a href="{{ path('login') }}">Connection</a>
                     </div>
                 {% else %}
-                <h1>Mon profil</h1>
+                    <h1>Mon profil</h1>
                     <div id="userInfo" class="mb-3 row">
                         <div id="textInfos" class="col-12 col-sm-12 col-md-8">
                             {{ form_start(usernameForm) }}
@@ -39,8 +39,8 @@
                             {{ form_row(passwordForm.newPassword.first,
                                 {
                                     'attr': {
-                                        'autocomplete': 'new-password'
-                                    }
+                                    'autocomplete': 'new-password'
+                                }
                                 }) }}
                             {{ form_row(passwordForm.newPassword.second) }}
                             {{ form_row(passwordForm.oldPassword) }}
@@ -57,17 +57,32 @@
                             <div>
                                 <span>Vous n'avez pas encore posté d'articles sur le site</span>
                             </div>
-                        {% endif %}
-                        {% for article in app.user.articles %}
-                            <div class="article card" style="width: 18rem;">
-                                <img class="card-img-top" src="/build/images/article_img/{{article.img}}" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ article.name }}</h5>
-                                    <p class="card-text">{{ article.description }}</p>
-                                    <a href="{{ path('show_article', {slug: article.slug}) }}" class="btn btn-primary">Voir l'article</a>
+                        {% else %}
+                        <div id="articlesList" class="row d-flex justify-content-between">
+                            {% for article in app.user.articles %}
+                                <div class="article card col-6 col-md-4 col-lg-3" style="width: 18rem;">
+                                    <img class="card-img-top" src="/build/images/article_img/{{ article.img }}"
+                                         alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ article.name }}</h5>
+                                        <p class="card-text">{{ article.description|length > 100 ?
+                                            article.description|slice(0, 100) ~ '…'  : article.description}}</p>
+                                        <a href="{{ path('show_article', {slug: article.slug}) }}"
+                                           class="btn btn-primary">Voir l'article</a>
+                                        <div>
+                                            {#  <a href="{{ path('edit_article', {slug: article.slug}) }}"
+                                               class="btn btn-primary">Modifier l'article</a>#}
+                                            {# <a href="{{ path('delete_article', {slug: article.slug}) }}"
+                                               class="btn btn-danger">Supprimer l'article</a>#}
+                                        </div>
+                                        <footer class="blockquote-footer text-right">
+                                            Posté le {{ article.createdAt|date('d/m/Y') }}
+                                        </footer>
+                                    </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
                     <div id="comments" class="mb-3 pb-3">
                         <h2>Commentaires</h2>
@@ -79,9 +94,13 @@
                         {% for comment in app.user.comments %}
                             <div id="comment_{{ comment.id }}" class="card">
                                 <div class="card-body">
+                                    <p>{{ comment.content }}</p>
                                     <blockquote class="blockquote mb-0">
-                                        <p>{{ comment.content }}</p>
-                                        <footer class="blockquote-footer text-right">Posté le {{ comment.createdAt|date('d/m/Y') }} sur l'article <cite title="Source Title"><a style="color:#6c757d;" href="{{ path('show_article', {slug: comment.article.slug}) }}">{{ comment.article.name }}</a></cite></footer>
+                                        <footer class="blockquote-footer text-right">Posté
+                                            le {{ comment.createdAt|date('d/m/Y') }} sur l'article <cite
+                                                    title="Source Title"><a style="color:#6c757d;"
+                                                                            href="{{ path('show_article', {slug: comment.article.slug}) }}">{{ comment.article.name }}</a></cite>
+                                        </footer>
                                     </blockquote>
                                 </div>
                             </div>
