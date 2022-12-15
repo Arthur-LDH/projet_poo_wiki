@@ -137,5 +137,5 @@ MyDigitalSchool | B3-DevWebProjet | Programmation Orienté Objet
   - `Mario` / `MarioPassword`' (Admin)
   - `Luigi` / `LuigiPassword` (Modérateur)
   - `Toad` / `ToadPassword` (User avec plusieurs articles)
-  - `Peach` / `PeachPassword` (User avec articles et commentaires)
-  - `Yoshi` / `YoshiPassword` (User avec plusieurs commentaires)
+  - `Pikachu` / `PikachuPassword` (User avec articles et commentaires)
+  - `DonkeyKong` / `DonkeyKongPassword` (User avec plusieurs commentaires)
