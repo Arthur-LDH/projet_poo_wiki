@@ -43,7 +43,7 @@ class Licence
     /**
      * @var File
      */
-    private $licenceImgFile;
+    private ?File $licenceImgFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;

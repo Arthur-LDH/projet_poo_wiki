@@ -57,11 +57,11 @@ class Article
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping: "article_img", fileNameProperty: "img")]
     /**
-     * @var File
+     * @var null|File
      */
-    private $articleImgFile;
+    #[Vich\UploadableField(mapping: "article_img", fileNameProperty: "img")]
+    private ?File $articleImgFile = null;
 
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -269,7 +269,7 @@ class Article
         if (!$exist) {
             $this->slug = $tempSlug;
         } else {
-            $this->slug = $tempSlug . '-' . (string)$this->getId();
+            $this->slug = $tempSlug . '-' . $this->getId();
         }
 
         return $this;

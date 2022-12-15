@@ -39,11 +39,12 @@ class Console
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping:"console_img", fileNameProperty:"img")]
     /**
-     * @var File
+     * @var null|File
      */
-    private $consoleImgFile;
+    #[Vich\UploadableField(mapping:"console_img", fileNameProperty:"img")]
+
+    private ?File $consoleImgFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
@@ -148,12 +149,12 @@ class Console
         return $this;
     }
 
-    public function getConsoleImgFile()
+    public function getConsoleImgFile(): ?File
     {
         return $this-> consoleImgFile;
     }
 
-    public function setConsoleImgFile(File $img = null)
+    public function setConsoleImgFile(File $img = null): void
     {
         $this->consoleImgFile = $img;
 
