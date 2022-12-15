@@ -148,7 +148,7 @@ class Licence
         return $this;
     }
 
-    public function getLicenceImgFile(): File
+    public function getLicenceImgFile(): ?File
     {
         return $this->licenceImgFile;
     }

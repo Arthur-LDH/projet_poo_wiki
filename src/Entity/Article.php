@@ -238,12 +238,12 @@ class Article
         return $this;
     }
 
-    public function getArticleImgFile()
+    public function getArticleImgFile(): ?File
     {
         return $this->articleImgFile;
     }
 
-    public function setArticleImgFile(File $img = null)
+    public function setArticleImgFile(File $img = null): void
     {
         $this->articleImgFile = $img;
 

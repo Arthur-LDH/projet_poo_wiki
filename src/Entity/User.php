@@ -171,7 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         return $this;
     }
 
-    public function getImgFile(): File
+    public function getImgFile(): ?File
     {
         return $this->imgFile;
     }
