@@ -19,11 +19,13 @@
 								<p class="text-dark col">
 									{{article.name}}
 								</p>
-								<a class="col-2 text-right" href="{{ ea_url()
-                                    .setController('App\\Controller\\Admin\\ArticleCrudController')
-                                    .setAction('edit')
-                                    .setEntityId(article.id)
-                                }}">Voir</a>
+								<div class="col-2 text-right">
+									<a class="btn-outline-primary btn" href="{{ ea_url()
+										.setController('App\\Controller\\Admin\\ArticleCrudController')
+										.setAction('edit')
+										.setEntityId(article.id)
+									}}">Voir</a>
+								</div>
 								<hr>
 							</div>
 						{% endif %}
@@ -40,7 +42,7 @@
 					{% for comment in comments|slice(0, 10) %}
 					<div>
 						<p class="text-dark">Par {{comment.author}}, sur l'article <a href="/articles/{{comment.article.slug}}">{{comment.article}}</a></p>
-						<p class="text-dark">{{comment.content}}</p>
+						<p class="text-dark card p-2">{{comment.content}}</p>
 						<hr>
 					</div>
 					{% endfor %}
