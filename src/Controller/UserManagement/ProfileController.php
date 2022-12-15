@@ -7,10 +7,10 @@ use App\Form\Model\UpdatePassword;
 use App\Form\UpdateEmailFormType;
 use App\Form\UpdatePasswordFormType;
 use App\Form\UpdateUserIdentifierFormType;
-//use App\Form\UpdateUserImgFormType;
 use App\Form\UpdateUserImgFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,6 +42,7 @@ class ProfileController extends AbstractController
         $this->user->setUsername($newIdentifier);
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Votre identifiant a bien été modifié');
     }
 
     /**
@@ -54,6 +55,7 @@ class ProfileController extends AbstractController
         $this->user->setEmail($newEmail);
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Votre email a bien été modifié');
     }
 
     /**
@@ -71,6 +73,7 @@ class ProfileController extends AbstractController
         );
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Mot de passe modifié avec succès');
     }
 
     private function updateUserImg(File $img): void
@@ -78,6 +81,7 @@ class ProfileController extends AbstractController
         $this->user->setImgFile($img);
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Votre image de profil a bien été modifiée');
     }
 
     /**
@@ -98,21 +102,39 @@ class ProfileController extends AbstractController
         $updateUserIdentifierForm->handleRequest($request);
         $updateUserImgForm->handleRequest($request);
 
-        if ($updatePasswordForm->isSubmitted() && $updatePasswordForm->isValid()) {
-            $this->updateUserPassword($updatePasswordForm->getData()->getNewPassword());
-            return $this->redirectToRoute('user_profile');
+        if ($updatePasswordForm->isSubmitted()) {
+            if ($updatePasswordForm->isValid()) {
+                $this->updateUserPassword($updatePasswordForm->getData()->getNewPassword());
+                return $this->redirectToRoute('user_profile');
+            }
+            else
+            {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre mot de passe');
+            }
         }
-        if ($updateEmailForm->isSubmitted() && $updateEmailForm->isValid()) {
-            $this->updateUserEmail($updateEmailForm->getData()->getNewEmail());
-            return $this->redirectToRoute('user_profile');
+        if ($updateEmailForm->isSubmitted()) {
+            if ($updateEmailForm->isValid()) {
+                $this->updateUserEmail($updateEmailForm->getData()->getEmail());
+                return $this->redirectToRoute('user_profile');
+            }
+        } else {
+            $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre adresse email');
         }
-        if ($updateUserIdentifierForm->isSubmitted() && $updateUserIdentifierForm->isValid()) {
-            $this->updateUserIdentifier( $updateUserIdentifierForm->getData()->getUsername());
-            return $this->redirectToRoute('user_profile');
+        if ($updateUserIdentifierForm->isSubmitted()) {
+            if ($updateUserIdentifierForm->isValid()) {
+                $this->updateUserIdentifier($updateUserIdentifierForm->getData()->getUsername());
+                return $this->redirectToRoute('user_profile');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre identifiant');
+            }
         }
-        if ($updateUserImgForm->isSubmitted() && $updateUserImgForm->isValid()) {
-            $this->updateUserImg($updateUserImgForm->getData()->getImgFile());
-            return $this->redirectToRoute('user_profile');
+        if ($updateUserImgForm->isSubmitted()) {
+            if ($updateUserImgForm->isValid()) {
+                $this->updateUserImg($updateUserImgForm->getData()->getImgFile());
+                return $this->redirectToRoute('user_profile');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre image de profil');
+            }
         }
         return null;
     }
@@ -147,7 +169,6 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('UserManagement/profile.html.twig', [
-            'controller_name' => 'ProfileController',
             'usernameForm' => $updateUserIdentifierForm->createView(),
             'emailForm' => $updateEmailForm->createView(),
             'passwordForm' => $updatePasswordForm->createView(),
