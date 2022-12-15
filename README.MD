@@ -119,3 +119,23 @@ MyDigitalSchool | B3-DevWebProjet | Programmation Orienté Objet
 - Recompile Front auto (en écoute)
   - `yarn watch`
   - `npm run watch`
+
+---
+
+## Lancement du projet
+
+- Lancer le serveur web
+  - `symfony server:start` ou `symfony server:start -d` (en arrière-plan)
+    - `symfony open:local` (ouvrir le navigateur)
+    - `symfony server:stop` (arrêter le serveur)
+
+---
+
+## Documentation
+
+- Utilisateurs mis en place en base de données
+  - `Mario` / `MarioPassword`' (Admin)
+  - `Luigi` / `LuigiPassword` (Modérateur)
+  - `Toad` / `ToadPassword` (User avec plusieurs articles)
+  - `Peach` / `PeachPassword` (User avec articles et commentaires)
+  - `Yoshi` / `YoshiPassword` (User avec plusieurs commentaires)
