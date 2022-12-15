@@ -6,10 +6,15 @@ use App\Repository\LicenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
+#[UniqueEntity(fields: ['slug'], message: 'Ce slug est déjà utilisé')]
 #[ORM\Entity(repositoryClass: LicenceRepository::class)]
 #[Vich\Uploadable]
 class Licence
@@ -38,7 +43,7 @@ class Licence
     /**
      * @var File
      */
-    private $licenceImgFile;
+    private ?File $licenceImgFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
@@ -52,6 +57,7 @@ class Licence
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setImg("licence_default.png");
     }
 
     public function getId(): ?int
@@ -142,12 +148,12 @@ class Licence
         return $this;
     }
 
-    public function getLicenceImgFile()
+    public function getLicenceImgFile(): ?File
     {
         return $this->licenceImgFile;
     }
 
-    public function setLicenceImgFile(File $img = null)
+    public function setLicenceImgFile(File $img = null): void
     {
         $this->licenceImgFile = $img;
 
@@ -161,12 +167,27 @@ class Licence
         return $this->slug;
     }
 
+    public function generateSlug(EntityManager $em): self
+    {
+        $slugger = new AsciiSlugger();
+        $tempSlug = $slugger->slug($this->getName());
+        $exist = $em->getRepository(Article::class)->findOneBy(['slug' => $tempSlug]);
+        if (!$exist) {
+            $this->slug = $tempSlug;
+        } else {
+            $this->slug = $tempSlug . '-' . (string)$this->getId();
+        }
+
+        return $this;
+    }
+
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
+
 
     public function getDescription(): ?string
     {

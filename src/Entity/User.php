@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -32,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var null|string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
@@ -40,11 +39,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[ORM\Column(length: 1000, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping: "user_img", fileNameProperty: "img")]
     /**
-     * @var File
+     * @var null|File
      */
-    private $imgFile;
+    #[Vich\UploadableField(mapping: "user_img", fileNameProperty: "img")]
+    private ?File $imgFile = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
     private Collection $articles;
@@ -68,6 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setImg("user_default.webp");
     }
 
     public function getId(): ?int
@@ -171,7 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         return $this;
     }
 
-    public function getImgFile()
+    public function getImgFile(): ?File
     {
         return $this->imgFile;
     }

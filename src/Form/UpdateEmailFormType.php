@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UpdateEmailFormType extends AbstractType
@@ -18,6 +19,14 @@ class UpdateEmailFormType extends AbstractType
                 'label' => 'Email',
                 'attr' => [
                     'placeholder' => 'Email',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer une adresse email',
+                    ]),
+                    new Email([
+                        'message' => 'Veuillez entrer une adresse email valide',
+                    ]),
                 ],
             ]);
     }

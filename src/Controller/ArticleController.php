@@ -11,6 +11,7 @@ use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -45,9 +46,37 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    #[Route('/article/delete/{slug}', name: 'delete_article')]
+    public function deleteArticle($slug, Request $request): Response
+    {
+        $user = $this->getUser();
+        $article = $this->entityManager->getRepository(Article::class)->findOneBy(['slug' => $slug]);
+
+        if ($article == null) {
+            $this->addFlash('danger', 'Impossible de supprimer l\'article, il n\'existe pas !');
+        }
+        else if ($user == $article->getAuthor() || in_array('ROLE_MODERATEUR', $user->getRoles())) {
+            $this->entityManager->remove($article);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Article supprimé');
+        }
+        else {
+            $this->addFlash('danger', 'Impossible de supprimer l\'article, vous n\'êtes pas l\'auteur !');
+        }
+
+        $referer = $request->headers->get('referer');
+        if ($referer == null) {
+            return $this->redirectToRoute('show_article', ['slug' => $slug]);
+        }
+        else {
+            return new RedirectResponse($referer);
+        }
+    }
+
     #[Route('/articles/{slug}', name: 'show_article')]
     public function show(ManagerRegistry $doctrine,  Request $request, string $slug): Response
     {
+        $userRepository = $doctrine->getRepository(User::class);
         $articleRepository = $doctrine->getRepository(Article::class);
         $article = $articleRepository->findOneBy(["slug" => $slug]);
         if ($article == null) {
@@ -55,9 +84,15 @@ class ArticleController extends AbstractController
         }
         $articleId = $article->getId($article);
 
+        // Error 404 if the article is not published and not moderated and if the current user is not the owner or at least Moderator of the article
+        if($article->isState() === false || $article->isModerated() === false){
+            if(!$this->isGranted('ROLE_MODERATOR') && $this->getUser() != $article->getAuthor()){
+                throw $this->createNotFoundException("Cet article n'existe pas");
+            }
+        }
+
         // Check if the user still exists, if not: change the user_id to the user "Utilisateur supprimé"
         $authorId = $article->getAuthor($articleId);
-        $userRepository = $doctrine->getRepository(User::class);
         $user = $userRepository->findOneBy(['id' => $authorId]);
         if ($user == null) {
             // L'ID 10 correspond au User "Utilisateur Supprimé"
@@ -70,10 +105,9 @@ class ArticleController extends AbstractController
         $commentRepository = $doctrine->getRepository(Comments::class);
         // get all comments
         $comments = $commentRepository->findAll();
-
+        $currentUser = $this->getUser();
         // comment form creation
         $comment = new Comments();
-        $currentUser = $this->getUser();
         // init some datas into the form
         $comment->setDate(new \DateTime())->setCreatedAt(new \DateTimeImmutable())->setUpdatedAt(new \DateTimeImmutable())->setAuthor($currentUser);
         $form = $this->createForm(CommentFormType::class, $comment);
@@ -133,7 +167,7 @@ class ArticleController extends AbstractController
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
                 // after creation slugify
-                $article->setSlug($this->entityManager);
+                $article->generateSlug($this->entityManager);
                 // persist again with slug
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
@@ -188,7 +222,7 @@ class ArticleController extends AbstractController
                 // persist article
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
-                $article->setSlug($this->entityManager);
+                $article->generateSlug($this->entityManager);
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
 

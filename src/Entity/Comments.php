@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\CommentsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 #[ORM\Entity(repositoryClass: CommentsRepository::class)]
 class Comments

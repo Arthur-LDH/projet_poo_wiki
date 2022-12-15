@@ -7,13 +7,18 @@ use App\Form\Model\UpdatePassword;
 use App\Form\UpdateEmailFormType;
 use App\Form\UpdatePasswordFormType;
 use App\Form\UpdateUserIdentifierFormType;
+use App\Form\UpdateUserImgFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
 
 /**
  * Class ProfileController is used to manage the user profile
@@ -37,6 +42,7 @@ class ProfileController extends AbstractController
         $this->user->setUsername($newIdentifier);
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Votre identifiant a bien été modifié');
     }
 
     /**
@@ -49,6 +55,7 @@ class ProfileController extends AbstractController
         $this->user->setEmail($newEmail);
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Votre email a bien été modifié');
     }
 
     /**
@@ -66,6 +73,15 @@ class ProfileController extends AbstractController
         );
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();
+        $this->addFlash('success', 'Mot de passe modifié avec succès');
+    }
+
+    private function updateUserImg(File $img): void
+    {
+        $this->user->setImgFile($img);
+        $this->entityManager->persist($this->user);
+        $this->entityManager->flush();
+        $this->addFlash('success', 'Votre image de profil a bien été modifiée');
     }
 
     /**
@@ -80,21 +96,45 @@ class ProfileController extends AbstractController
         $updatePasswordForm = $forms['updatePasswordForm'];
         $updateEmailForm = $forms['updateEmailForm'];
         $updateUserIdentifierForm = $forms['updateUserIdentifierForm'];
+        $updateUserImgForm = $forms['updateUserImgForm'];
         $updatePasswordForm->handleRequest($request);
         $updateEmailForm->handleRequest($request);
         $updateUserIdentifierForm->handleRequest($request);
+        $updateUserImgForm->handleRequest($request);
 
-        if ($updatePasswordForm->isSubmitted() && $updatePasswordForm->isValid()) {
-            $this->updateUserPassword($updatePasswordForm->getData()->getNewPassword());
-            return $this->redirectToRoute('user_profile');
+        if ($updatePasswordForm->isSubmitted()) {
+            if ($updatePasswordForm->isValid()) {
+                $this->updateUserPassword($updatePasswordForm->getData()->getNewPassword());
+                return $this->redirectToRoute('user_profile');
+            }
+            else
+            {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre mot de passe');
+            }
         }
-        if ($updateEmailForm->isSubmitted() && $updateEmailForm->isValid()) {
-            $this->updateUserEmail($updateEmailForm->getData()->getNewEmail());
-            return $this->redirectToRoute('user_profile');
+        if ($updateEmailForm->isSubmitted()) {
+            if ($updateEmailForm->isValid()) {
+                $this->updateUserEmail($updateEmailForm->getData()->getEmail());
+                return $this->redirectToRoute('user_profile');
+            }
+        } else {
+            $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre adresse email');
         }
-        if ($updateUserIdentifierForm->isSubmitted() && $updateUserIdentifierForm->isValid()) {
-            $this->updateUserIdentifier( $updateUserIdentifierForm->getData()->getUsername());
-            return $this->redirectToRoute('user_profile');
+        if ($updateUserIdentifierForm->isSubmitted()) {
+            if ($updateUserIdentifierForm->isValid()) {
+                $this->updateUserIdentifier($updateUserIdentifierForm->getData()->getUsername());
+                return $this->redirectToRoute('user_profile');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre identifiant');
+            }
+        }
+        if ($updateUserImgForm->isSubmitted()) {
+            if ($updateUserImgForm->isValid()) {
+                $this->updateUserImg($updateUserImgForm->getData()->getImgFile());
+                return $this->redirectToRoute('user_profile');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre image de profil');
+            }
         }
         return null;
     }
@@ -115,22 +155,24 @@ class ProfileController extends AbstractController
         $updatePasswordForm = $this->createForm(UpdatePasswordFormType::class, new UpdatePassword());
         $updateEmailForm = $this->createForm(UpdateEmailFormType::class, $this->user);
         $updateUserIdentifierForm = $this->createForm(UpdateUserIdentifierFormType::class, $this->user);
+        $updateUserImgForm = $this->createForm(UpdateUserImgFormType::class, $this->user);
         $response = new Response();
 
         $response = $this->handleRequest($request,[
             'updatePasswordForm' => $updatePasswordForm,
             'updateEmailForm' => $updateEmailForm,
-            'updateUserIdentifierForm' => $updateUserIdentifierForm
+            'updateUserIdentifierForm' => $updateUserIdentifierForm,
+            'updateUserImgForm' => $updateUserImgForm
         ]);
         if ($response !== null) {
             return $response;
         }
 
         return $this->render('UserManagement/profile.html.twig', [
-            'controller_name' => 'ProfileController',
             'usernameForm' => $updateUserIdentifierForm->createView(),
             'emailForm' => $updateEmailForm->createView(),
             'passwordForm' => $updatePasswordForm->createView(),
+            'imgForm' => $updateUserImgForm->createView(),
         ]);
     }
 }

@@ -6,10 +6,15 @@ use App\Repository\ConsoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
+#[UniqueEntity(fields: ['slug'], message: 'Ce slug est déjà utilisé')]
 #[ORM\Entity(repositoryClass: ConsoleRepository::class)]
 #[Vich\Uploadable]
 class Console
@@ -34,11 +39,12 @@ class Console
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping:"console_img", fileNameProperty:"img")]
     /**
-     * @var File
+     * @var null|File
      */
-    private $consoleImgFile;
+    #[Vich\UploadableField(mapping:"console_img", fileNameProperty:"img")]
+
+    private ?File $consoleImgFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
@@ -55,6 +61,7 @@ class Console
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setImg("console_default.png");
     }
 
     public function getId(): ?int
@@ -142,12 +149,12 @@ class Console
         return $this;
     }
 
-    public function getConsoleImgFile()
+    public function getConsoleImgFile(): ?File
     {
         return $this-> consoleImgFile;
     }
 
-    public function setConsoleImgFile(File $img = null)
+    public function setConsoleImgFile(File $img = null): void
     {
         $this->consoleImgFile = $img;
 
@@ -161,12 +168,27 @@ class Console
         return $this->slug;
     }
 
+    public function generateSlug(EntityManager $em): self
+    {
+        $slugger = new AsciiSlugger();
+        $tempSlug = $slugger->slug($this->getName());
+        $exist = $em->getRepository(Article::class)->findOneBy(['slug' => $tempSlug]);
+        if (!$exist) {
+            $this->slug = $tempSlug;
+        } else {
+            $this->slug = $tempSlug . '-' . (string)$this->getId();
+        }
+
+        return $this;
+    }
+
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
+
 
     public function getDescription(): ?string
     {

@@ -1,9 +1,55 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block title %}
-	Wikitendo - Dashboard
+{% block page_title %}
+	Dashboard
 {% endblock %}
 
-{% block content%}
-Hello
+{% block content %}
+<div class="container p-3">
+	<div class="row">
+		<div class="col-12 col-xl-6">
+			<div class="card mb-3">
+				<div class="card-header">
+					<h2 class="text-dark">Articles en attente de modération</h2>
+				</div>
+				<div class="card-body">
+					{% for article in articles %}
+						{% if article.moderated == false %}
+							<div class="row d-flex">
+								<p class="text-dark col">
+									{{article.name}}
+								</p>
+								<div class="col-2 text-right">
+									<a class="btn-outline-primary btn" href="{{ ea_url()
+										.setController('App\\Controller\\Admin\\ArticleCrudController')
+										.setAction('edit')
+										.setEntityId(article.id)
+									}}">Voir</a>
+								</div>
+								<hr>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-xl-6 mb-3">
+			<div class="card">
+				<div class="card-header">
+					<h2 class="text-dark">Derniers commentaires</h2>
+				</div>
+				<div class="card-body">
+					{% for comment in comments|slice(0, 10) %}
+					<div>
+						<p class="text-dark">Par {{comment.author}}, sur l'article <a href="/articles/{{comment.article.slug}}">{{comment.article}}</a></p>
+						<p class="text-dark card p-2">{{comment.content}}</p>
+						<hr>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
 {% endblock %}
