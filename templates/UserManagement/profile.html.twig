@@ -76,7 +76,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ article.name }}</h5>
                                         <p class="card-text">{{ article.description|length > 100 ?
-                                            article.description|slice(0, 100) ~ '…'  : article.description}}</p>
+                                            article.description|raw|slice(0, 100) ~ '…'  : article.description|raw}}</p>
                                             <div class="d-flex justify-content-between">
                                                 <a href="{{ path('show_article', {slug: article.slug}) }}"
                                                    class="btn btn-primary">Voir l'article</a>
