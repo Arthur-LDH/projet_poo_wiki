@@ -27,7 +27,9 @@
 							<h3>
 								{{ licence.name|upper }}
 							</h3>
-							{{ licence.description|raw}}
+							<p class="description">
+								{{ licence.description|striptags|slice(0,350) ~ ' …' }}
+							</p>
 						</div>
 						<button>
 							<a href="/licences/{{ licence.slug }}">
