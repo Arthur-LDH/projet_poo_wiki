@@ -6,10 +6,15 @@ use App\Repository\ConsoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
+#[UniqueEntity(fields: ['slug'], message: 'Ce slug est déjà utilisé')]
 #[ORM\Entity(repositoryClass: ConsoleRepository::class)]
 #[Vich\Uploadable]
 class Console
@@ -162,12 +167,27 @@ class Console
         return $this->slug;
     }
 
+    public function generateSlug(EntityManager $em): self
+    {
+        $slugger = new AsciiSlugger();
+        $tempSlug = $slugger->slug($this->getName());
+        $exist = $em->getRepository(Article::class)->findOneBy(['slug' => $tempSlug]);
+        if (!$exist) {
+            $this->slug = $tempSlug;
+        } else {
+            $this->slug = $tempSlug . '-' . (string)$this->getId();
+        }
+
+        return $this;
+    }
+
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
+
 
     public function getDescription(): ?string
     {
