@@ -4,6 +4,13 @@
     justify-content: center;
 }
 
+.galleryBody {
+    div {
+        padding: 0 10px;
+        text-align: justify;
+    }
+}
+
 .gallery div {
     width: 250px;
 }
@@ -26,6 +33,9 @@
 .gallery img {
     border-bottom: solid 1px $red;
     width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: white;
 }
 
 .gallery .year {

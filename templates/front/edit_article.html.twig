@@ -12,12 +12,18 @@
 			<div class="main_title">
 				<h2>
 					Éditon
+					<span>
+						{{article.name}}
+					</span>
 				</h2>
-            </div>
-            <div id="editArticle">
-                {{ form(article_form) }}
-            </div>
-        </div>
-	</section>
-	{% include "front/layout/footer.html.twig" %}
-{% endblock %}
+			</div>
+			<div id="editArticle">
+				<div class="editImg">
+					<img src="/build/images/article_img/{{ article.img }}" alt="">
+				</div>
+				{{ form(article_form) }}
+				</div>
+			</div>
+		</section>
+		{% include "front/layout/footer.html.twig" %}
+	{% endblock %}

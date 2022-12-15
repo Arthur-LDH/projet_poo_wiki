@@ -29,6 +29,12 @@ class ArticleFormType extends AbstractType
                     new File([
                         'maxSize' => '2M',
                         'maxSizeMessage' => 'Fichier trop volumineux {{ size }}',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Format de fichier non autorisé {{ type }}',
                     ]),
                 ]
             ])
@@ -39,6 +45,8 @@ class ArticleFormType extends AbstractType
             ])
             ->add('licence', null, [
                 'label' => 'Licence :',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('submit', SubmitType::class, ['label' => 'Envoyer']);
     }
