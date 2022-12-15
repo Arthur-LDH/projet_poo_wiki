@@ -125,7 +125,7 @@ MyDigitalSchool | B3-DevWebProjet | Programmation Orienté Objet
 ## Lancement du projet
 
 - Lancer le serveur web
-  - `symfony server:start` ou `symfony server:start -d` (en arrière-plan)
+  - `symfony server:start` ou `symfony server:start -d` (en arrière-plan) et `npm run watch`
     - `symfony open:local` (ouvrir le navigateur)
     - `symfony server:stop` (arrêter le serveur)
 
