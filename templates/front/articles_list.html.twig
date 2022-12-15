@@ -16,13 +16,13 @@
 				<span>
 					{{ articles|length }}
 				</span>
+				{% if app.user %}
 				<div class="createArticle">
-					{% if app.user %}
-						<a href="{{ path('create_article') }}">
-							Créér un article
-						</a>
-					{% endif %}
+					<a href="{{ path('create_article') }}">
+						Créér un article
+					</a>
 				</div>
+				{% endif %}
 			</div>
 			{# START ARTICLES GALLERY FROM CURRENT CONSOLE #}
 			{% for article in articles %}
