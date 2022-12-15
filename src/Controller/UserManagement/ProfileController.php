@@ -7,13 +7,18 @@ use App\Form\Model\UpdatePassword;
 use App\Form\UpdateEmailFormType;
 use App\Form\UpdatePasswordFormType;
 use App\Form\UpdateUserIdentifierFormType;
+//use App\Form\UpdateUserImgFormType;
+use App\Form\UpdateUserImgFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
 
 /**
  * Class ProfileController is used to manage the user profile
@@ -68,6 +73,13 @@ class ProfileController extends AbstractController
         $this->entityManager->flush();
     }
 
+    private function updateUserImg(File $img): void
+    {
+        $this->user->setImgFile($img);
+        $this->entityManager->persist($this->user);
+        $this->entityManager->flush();
+    }
+
     /**
      * @param Request $request request
      * @param array $forms array of forms from the profile page
@@ -80,9 +92,11 @@ class ProfileController extends AbstractController
         $updatePasswordForm = $forms['updatePasswordForm'];
         $updateEmailForm = $forms['updateEmailForm'];
         $updateUserIdentifierForm = $forms['updateUserIdentifierForm'];
+        $updateUserImgForm = $forms['updateUserImgForm'];
         $updatePasswordForm->handleRequest($request);
         $updateEmailForm->handleRequest($request);
         $updateUserIdentifierForm->handleRequest($request);
+        $updateUserImgForm->handleRequest($request);
 
         if ($updatePasswordForm->isSubmitted() && $updatePasswordForm->isValid()) {
             $this->updateUserPassword($updatePasswordForm->getData()->getNewPassword());
@@ -94,6 +108,10 @@ class ProfileController extends AbstractController
         }
         if ($updateUserIdentifierForm->isSubmitted() && $updateUserIdentifierForm->isValid()) {
             $this->updateUserIdentifier( $updateUserIdentifierForm->getData()->getUsername());
+            return $this->redirectToRoute('user_profile');
+        }
+        if ($updateUserImgForm->isSubmitted() && $updateUserImgForm->isValid()) {
+            $this->updateUserImg($updateUserImgForm->getData()->getImgFile());
             return $this->redirectToRoute('user_profile');
         }
         return null;
@@ -115,12 +133,14 @@ class ProfileController extends AbstractController
         $updatePasswordForm = $this->createForm(UpdatePasswordFormType::class, new UpdatePassword());
         $updateEmailForm = $this->createForm(UpdateEmailFormType::class, $this->user);
         $updateUserIdentifierForm = $this->createForm(UpdateUserIdentifierFormType::class, $this->user);
+        $updateUserImgForm = $this->createForm(UpdateUserImgFormType::class, $this->user);
         $response = new Response();
 
         $response = $this->handleRequest($request,[
             'updatePasswordForm' => $updatePasswordForm,
             'updateEmailForm' => $updateEmailForm,
-            'updateUserIdentifierForm' => $updateUserIdentifierForm
+            'updateUserIdentifierForm' => $updateUserIdentifierForm,
+            'updateUserImgForm' => $updateUserImgForm
         ]);
         if ($response !== null) {
             return $response;
@@ -131,6 +151,7 @@ class ProfileController extends AbstractController
             'usernameForm' => $updateUserIdentifierForm->createView(),
             'emailForm' => $updateEmailForm->createView(),
             'passwordForm' => $updatePasswordForm->createView(),
+            'imgForm' => $updateUserImgForm->createView(),
         ]);
     }
 }
