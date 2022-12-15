@@ -54,21 +54,18 @@ class ArticleController extends AbstractController
 
         if ($article == null) {
             $this->addFlash('danger', 'Impossible de supprimer l\'article, il n\'existe pas !');
-        }
-        else if ($user == $article->getAuthor() || in_array('ROLE_MODERATEUR', $user->getRoles())) {
+        } else if ($user == $article->getAuthor() || in_array('ROLE_MODERATEUR', $user->getRoles())) {
             $this->entityManager->remove($article);
             $this->entityManager->flush();
             $this->addFlash('success', 'Article supprimé');
-        }
-        else {
+        } else {
             $this->addFlash('danger', 'Impossible de supprimer l\'article, vous n\'êtes pas l\'auteur !');
         }
 
         $referer = $request->headers->get('referer');
         if ($referer == null) {
             return $this->redirectToRoute('show_article', ['slug' => $slug]);
-        }
-        else {
+        } else {
             return new RedirectResponse($referer);
         }
     }
@@ -85,8 +82,8 @@ class ArticleController extends AbstractController
         $articleId = $article->getId($article);
 
         // Error 404 if the article is not published and not moderated and if the current user is not the owner or at least Moderator of the article
-        if($article->isState() === false || $article->isModerated() === false){
-            if(!$this->isGranted('ROLE_MODERATOR') && $this->getUser() != $article->getAuthor()){
+        if ($article->isState() === false || $article->isModerated() === false) {
+            if (!$this->isGranted('ROLE_MODERATOR') && $this->getUser() != $article->getAuthor()) {
                 throw $this->createNotFoundException("Cet article n'existe pas");
             }
         }
@@ -189,8 +186,9 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/articles/{slug}/edit', name: 'edit_article')]
-    public function edit(Article $article, ManagerRegistry $doctrine, Request $request): Response
+    public function edit(Article $article, ManagerRegistry $doctrine, Request $request, string $slug): Response
     {
+        $article = $this->entityManager->getRepository(Article::class)->findOneBy(['slug' => $slug]);
         $article->setUpdatedAt(new \DateTimeImmutable());
 
         $consoleRepository = $doctrine->getRepository(Console::class);
@@ -238,6 +236,7 @@ class ArticleController extends AbstractController
         }
 
         return $this->render('front/edit_article.html.twig', [
+            'article' => $article,
             'article_form' => $form->createView()
         ]);
     }

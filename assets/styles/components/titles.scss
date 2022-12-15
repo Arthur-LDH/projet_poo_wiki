@@ -10,6 +10,9 @@ h2 {
     border-left: solid 4px $darkGray;
     margin-bottom: 0;
     margin-left: 5px;
+    span {
+        font-size: 0.75rem;
+    }
 }
 
 .main_title {

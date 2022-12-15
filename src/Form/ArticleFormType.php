@@ -29,6 +29,12 @@ class ArticleFormType extends AbstractType
                     new File([
                         'maxSize' => '2M',
                         'maxSizeMessage' => 'Fichier trop volumineux {{ size }}',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Format de fichier non autorisé {{ type }}',
                     ]),
                 ]
             ])
