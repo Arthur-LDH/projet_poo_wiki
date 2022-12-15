@@ -30,7 +30,12 @@
 							{{ article.licence.name|capitalize}}
 							<br>
 							Auteur :
-							{{ article.author|capitalize}}, le {{article.createdat|date("d/m/Y")}}
+							{% if article.author is defined %}
+							{{ article.author|capitalize}}
+							{% else %}
+							Utilisateur supprimé
+							{% endif %}
+							, le {{article.createdat|date("d/m/Y")}}
 							{% if article.createdat != article.updatedat %}
 							Dernière mofidication le {{article.updatedat|date("d/m/Y")}}
 							{% endif %}
