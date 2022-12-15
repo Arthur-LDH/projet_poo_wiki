@@ -45,6 +45,8 @@ class ArticleFormType extends AbstractType
             ])
             ->add('licence', null, [
                 'label' => 'Licence :',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('submit', SubmitType::class, ['label' => 'Envoyer']);
     }
