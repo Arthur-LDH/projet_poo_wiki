@@ -45,10 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[Vich\UploadableField(mapping: "user_img", fileNameProperty: "img")]
     private ?File $imgFile = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class, orphanRemoval: true)]
     private Collection $articles;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comments::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
     #[ORM\Column(length: 255)]

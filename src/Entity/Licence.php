@@ -27,7 +27,7 @@ class Licence
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'licence', targetEntity: Article::class)]
+    #[ORM\OneToMany(mappedBy: 'licence', targetEntity: Article::class, orphanRemoval: true)]
     private Collection $articles;
 
     #[ORM\Column(nullable: true)]
