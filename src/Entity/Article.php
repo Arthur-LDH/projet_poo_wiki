@@ -8,10 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
+
+#[UniqueEntity(fields: ['slug'], message: 'Ce slug est déjà utilisé')]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[Vich\Uploadable]
 class Article
@@ -54,11 +57,12 @@ class Article
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping: "article_img", fileNameProperty: "img")]
     /**
-     * @var File
+     * @var null|File
      */
-    private $articleImgFile;
+    #[Vich\UploadableField(mapping: "article_img", fileNameProperty: "img")]
+    private ?File $articleImgFile = null;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
@@ -234,12 +238,12 @@ class Article
         return $this;
     }
 
-    public function getArticleImgFile()
+    public function getArticleImgFile(): ?File
     {
         return $this->articleImgFile;
     }
 
-    public function setArticleImgFile(File $img = null)
+    public function setArticleImgFile(File $img = null): void
     {
         $this->articleImgFile = $img;
 
@@ -257,7 +261,7 @@ class Article
         return $this->slug;
     }
 
-    public function setSlug(EntityManager $em): self
+    public function generateSlug(EntityManager $em): self
     {
         $slugger = new AsciiSlugger();
         $tempSlug = $slugger->slug($this->getName());
@@ -265,8 +269,15 @@ class Article
         if (!$exist) {
             $this->slug = $tempSlug;
         } else {
-            $this->slug = $tempSlug . '-' . (string)$this->getId();
+            $this->slug = $tempSlug . '-' . $this->getId();
         }
+
+        return $this;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

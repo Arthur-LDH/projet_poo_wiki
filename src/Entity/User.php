@@ -31,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var null|string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
@@ -39,11 +39,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[ORM\Column(length: 1000, nullable: true)]
     private ?string $img = null;
 
-    #[Vich\UploadableField(mapping: "user_img", fileNameProperty: "img")]
     /**
-     * @var File
+     * @var null|File
      */
-    private $imgFile;
+    #[Vich\UploadableField(mapping: "user_img", fileNameProperty: "img")]
+    private ?File $imgFile = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
     private Collection $articles;
@@ -171,7 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         return $this;
     }
 
-    public function getImgFile()
+    public function getImgFile(): ?File
     {
         return $this->imgFile;
     }

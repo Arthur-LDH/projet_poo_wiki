@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -167,7 +167,7 @@ class ArticleController extends AbstractController
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
                 // after creation slugify
-                $article->setSlug($this->entityManager);
+                $article->generateSlug($this->entityManager);
                 // persist again with slug
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
@@ -222,7 +222,7 @@ class ArticleController extends AbstractController
                 // persist article
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
-                $article->setSlug($this->entityManager);
+                $article->generateSlug($this->entityManager);
                 $this->entityManager->persist($article);
                 $this->entityManager->flush($article);
 
