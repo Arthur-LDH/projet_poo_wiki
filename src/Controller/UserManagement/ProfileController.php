@@ -90,7 +90,7 @@ class ProfileController extends AbstractController
      * @return Response|null
      * Function used to handle the profile page forms
      */
-    private function handleRequest(Request $request,array $forms): ?Response
+    private function handleRequest(Request $request, array $forms): ?Response
     {
         $user = $this->getUser();
         $updatePasswordForm = $forms['updatePasswordForm'];
@@ -106,9 +106,7 @@ class ProfileController extends AbstractController
             if ($updatePasswordForm->isValid()) {
                 $this->updateUserPassword($updatePasswordForm->getData()->getNewPassword());
                 return $this->redirectToRoute('user_profile');
-            }
-            else
-            {
+            } else {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre mot de passe');
             }
         }
@@ -116,9 +114,9 @@ class ProfileController extends AbstractController
             if ($updateEmailForm->isValid()) {
                 $this->updateUserEmail($updateEmailForm->getData()->getEmail());
                 return $this->redirectToRoute('user_profile');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre adresse email');
             }
-        } else {
-            $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre adresse email');
         }
         if ($updateUserIdentifierForm->isSubmitted()) {
             if ($updateUserIdentifierForm->isValid()) {
@@ -158,7 +156,7 @@ class ProfileController extends AbstractController
         $updateUserImgForm = $this->createForm(UpdateUserImgFormType::class, $this->user);
         $response = new Response();
 
-        $response = $this->handleRequest($request,[
+        $response = $this->handleRequest($request, [
             'updatePasswordForm' => $updatePasswordForm,
             'updateEmailForm' => $updateEmailForm,
             'updateUserIdentifierForm' => $updateUserIdentifierForm,
