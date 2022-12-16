@@ -89,9 +89,12 @@
 					</div>
 				</div>
 				<div id="random">
-					<div class="shuffle">
+					<div class="shuffle row p-xl-5">
+						<div class="col-12">
+							<h3 class="home_random text-light">Consoles aleatoires</h2>
+						</div>
 						{% for console in consoles|slice(0, 2) %}
-							<div>
+							<div class="col-6">
 								<span>
 									<div class="box">
 										<img src="/build/images/console_img/{{console.img}}" alt="">
@@ -103,9 +106,12 @@
 							</div>
 						{% endfor %}
 					</div>
-					<div class="shuffle">
+					<div class="shuffle row p-xl-5">
+						<div class="col-12">
+							<h3 class="home_random text-light">Licences aleatoires</h2>
+						</div>
 						{% for licence in licences|slice(0, 2) %}
-							<div>
+							<div class="col-6">
 								<span>
 									<div class="box">
 									<img src="/build/images/licence_img/{{licence.img}}" alt="">
@@ -117,18 +123,21 @@
 							</div>
 						{% endfor %}
 					</div>
-					<div class="shuffle">
+					<div class="shuffle row p-xl-5">
+						<div class="col-12">
+							<h3 class="home_random text-light">Articles aleatoires</h2>
+						</div>
 						{% for article in articles|slice(0, 2) %}
-							<div>
-								<span>
-									<div class="box">
-									<img src="/build/images/article_img/{{article.img}}" alt="">
-										<a class="" href="/articles/{{ article.slug }}">
-											{{ article.name|upper }}
-										</a>
-									</div>
-								</span>
-							</div>
+						<div class="col-6">
+							<span>
+								<div class="box">
+								<img src="/build/images/article_img/{{article.img}}" alt="">
+									<a class="" href="/articles/{{ article.slug }}">
+										{{ article.name|upper }}
+									</a>
+								</div>
+							</span>
+						</div>
 						{% endfor %}
 					</div>
 				</div>
