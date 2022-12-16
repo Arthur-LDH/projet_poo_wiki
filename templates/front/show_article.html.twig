@@ -63,15 +63,17 @@
 			<div class="commentSection">
 				<div class="commentList">
 					<h5>
-						Liste des derniers commentaires :
+						Derniers commentaires :
 					</h5>
 					{% for comment in article.comments|slice(0, 5) %}
-						<div class="comment">
-							<p>
-								{{ comment.author }}
-								<br>
-								{{ comment.content }}
-							</p>
+						<div class="comment card p-0">
+							<div class="card-header">
+								<p>Par {{ comment.author }}, le {{comment.createdAt|date("d/m/Y")}}</p>
+							</div>
+							<div class="card-body">
+								<p>{{ comment.content }}</p>
+							</div>
+								
 						</div>
 					{% endfor %}
 				</div>
