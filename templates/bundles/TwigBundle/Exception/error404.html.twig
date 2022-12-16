@@ -2,25 +2,33 @@
 {% extends 'front/layout/layout.html.twig' %}
 
 {% block title %}
-    WIKITENDO - Error 404
+	WIKITENDO - Error 404
 {% endblock %}
 
 {% block body %}
-    {% include "front/layout/header.html.twig" %}
-    {% include "front/layout/sidebar.html.twig" %}
-    <section id="main">
-        <div>
-            <div id="error">
-                <div id="content">
-                    <h1 class="fw-bold">Page introuvable</h1>
-                    <div>
-                        La page que vous recherchez n'existe pas ou plus.<br>
-                        Vérifiez l'adresse saisie ou retournez à l'accueil en cliquant sur le bouton ci-dessous.
-                    </div>
-                    <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'accueil</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    {% include "front/layout/footer.html.twig" %}
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div id="error">
+				<div id="content">
+					<div class="headerError">
+						<h1 class="fw-bold">
+							Page introuvable
+						</h1>
+						<img src="{{ asset('build/images/waluigi.png') }}" alt="">
+					</div>
+					<div>
+						La page que vous recherchez n'existe pas ou plus.
+						<br>
+						Vérifiez l'adresse saisie ou retournez à l'accueil en cliquant sur le bouton ci-dessous.
+					</div>
+					<a href="{{ path('home') }}" class="btn btn-danger">
+						Retour à l'accueil
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	{% include "front/layout/footer.html.twig" %}
 {% endblock %}
