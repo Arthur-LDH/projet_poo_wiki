@@ -1,9 +1,10 @@
 %link {
     font-family: sans-serif;
     color: $white;
+    font-weight: 700;
     text-decoration: none;
-
-    &:hover {
-            color: $white;
+    transition: all ease 0.2s;
+    &:hover{
+        color: $white;
     }
 }

@@ -2,21 +2,42 @@
 	<div>
 		<span>
 			<a href="{{ path('consoles_list') }}">
-				Consoles
+				<svg style="width: 12px; height: 12px; " version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+					<polygon points="0 0 480 0 48 48"></polygon>
+				</svg>
+				<p>
+					<i class="fa-solid fa-gamepad"></i>
+					<br>
+					Consoles
+				</p>
 			</a>
 		</span>
 	</div>
 	<div>
 		<span>
 			<a href="{{ path('licences_list') }}">
-				Licences
+				<svg style="width: 12px; height: 12px; " version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+					<polygon points="0 0 480 0 48 48"></polygon>
+				</svg>
+				<p>
+					<i class="fa-solid fa-dungeon"></i>
+					<br>
+					Licences
+				</p>
 			</a>
 		</span>
 	</div>
 	<div>
 		<span>
 			<a href="{{ path('articles_list') }}">
-				Articles
+				<svg style="width: 12px; height: 12px; " version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+					<polygon points="0 0 480 0 48 48"></polygon>
+				</svg>
+				<p>
+					<i class="fa-solid fa-scroll"></i>
+					<br>
+					Articles
+				</p>
 			</a>
 		</span>
 	</div>
@@ -24,7 +45,14 @@
 		{% if is_granted('ROLE_MODERATOR') %}
 			<span>
 				<a href="{{ path('admin') }}">
-					Admin
+					<svg style="width: 12px; height: 12px; " version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+						<polygon points="0 0 480 0 48 48"></polygon>
+					</svg>
+					<p>
+						<i class="fa-solid fa-screwdriver-wrench"></i>
+						<br>
+						Admin
+					</p>
 				</a>
 			</span>
 		{% endif %}

@@ -26,8 +26,23 @@ header>div>div>a>img {
     }
     img {
         width: 1.5rem;
+        height: 1.5rem;
         border-radius: 50%;
     }
+    li{
+        padding-right: 0.5rem;
+        a{
+        border: 2px solid $white;
+        border-radius: 15px;
+        padding: 8px 15px;
+        transition: all ease 0.3s;
+            &:hover{
+                background-color: $white;
+                color: $red;
+            }
+        }
+    }
+    
 }
 
 @media only screen and (max-width : 430px) {
