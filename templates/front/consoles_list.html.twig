@@ -26,9 +26,12 @@
 								{{ console.name|upper }}
 							</h3>
 							<p class="year">
-								Année de sortie: {{console.releasedate|date("d/m/Y")}}
+								Année de sortie :
+								{{console.releasedate|date("d/m/Y")}}
 							</p>
-							{{console.description|raw}}
+							<p class="description">
+								{{ console.description|striptags|slice(0,350) ~ ' …' }}
+							</p>
 						</div>
 						<button>
 							<a href="/consoles/{{ console.slug }}">
