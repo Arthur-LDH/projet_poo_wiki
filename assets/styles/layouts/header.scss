@@ -50,7 +50,7 @@ header>div>div>a>img {
         i {
             display: flex;
         }
-        span {
+        ul {
             display: none;
         }
     }
@@ -75,6 +75,7 @@ header>div>div>a>img {
     display: block;
     position: fixed;
     top: 30px;
+    right: 15px;
     z-index: 99999;
     -webkit-user-select: none;
     user-select: none;
@@ -82,8 +83,6 @@ header>div>div>a>img {
 
 #menuToggle input {
     display: block;
-    top: 4%;
-    left: 48%;
     width: 40px;
     height: 32px;
     position: fixed;
@@ -171,7 +170,7 @@ header>div>div>a>img {
     -webkit-font-smoothing: antialiased;
     /* to stop flickering of text in safari */
 
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    transition:transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
 }
 
 #menu li {
