@@ -43,6 +43,7 @@
     display: flex;
     align-items: center;
     background-color: $darkGray;
+    padding: 1rem 10rem;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     justify-content: space-between;
@@ -54,9 +55,20 @@
 .bodyArticle {
     text-align: justify;
     background-color: $lightGray;
-    padding: 15px 15px;
+    padding: 3rem 10rem;
     div {
         padding: 15px 0 !important;
+    }
+}
+
+.commentList, .commentForm{
+    padding: 1rem 10rem;
+    border-radius: 10px;
+    form{
+        width: 100%;
+        textarea{
+            min-height: 150px;
+        }
     }
 }
 
