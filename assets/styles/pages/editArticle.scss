@@ -37,3 +37,14 @@
         }
     }
 }
+
+@media only screen and (max-width : 768px) {
+    #editArticle {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        form {
+            width: 100%;
+        }
+    }
+}
