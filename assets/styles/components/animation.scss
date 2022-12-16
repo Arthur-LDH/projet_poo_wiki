@@ -1,12 +1,26 @@
 #animation {
     display: none;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    background-color: $white;
+    background-color: $darkGray;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 9999;
+    button {
+        position: absolute;
+        top: 35%;
+        left: 10%;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: $red;
+        border: 2px solid $red;
+        &:hover {
+            opacity: 0.75;
+        }
+    }
     #stage {
         left: 55%;
         top: 50%;

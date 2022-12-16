@@ -24,7 +24,7 @@ class MulticoinBlock extends HTMLElement {
 				this.blockSvgUse.setAttribute('href', '#empty');
 				function animation() {
 					document.getElementById('main').style.display = "none";
-					document.getElementById('animation').style.display = "block";
+					document.getElementById('animation').style.display = "flex";
 
 					/**
 					 * Created by Administrator on 2015/6/24.
