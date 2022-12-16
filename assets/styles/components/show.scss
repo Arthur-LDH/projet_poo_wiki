@@ -2,6 +2,17 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    .cardDescription {
+        display: flex;
+        background-color: $darkGray;
+        padding: 10px;
+        border-radius: 10px;
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
 }
 
 .show div {
@@ -64,6 +75,7 @@
 .show p {
     padding: 5px 15px 5px 15px;
     text-align: justify;
+    color: $lightGray;
 }
 
 /* HR CSS */
