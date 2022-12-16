@@ -39,7 +39,7 @@
 					<h2 class="text-dark">Derniers commentaires</h2>
 				</div>
 				<div class="card-body">
-					{% for comment in comments|slice(0, 10) %}
+					{% for comment in comments|reverse|slice(0, 5) %}
 					<div>
 						<p class="text-dark">Par {{comment.author}}, sur l'article <a href="/articles/{{comment.article.slug}}">{{comment.article}}</a></p>
 						<p class="text-dark card p-2">{{comment.content}}</p>

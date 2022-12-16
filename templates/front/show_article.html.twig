@@ -27,7 +27,11 @@
 						<p class="year">
 							{{ article.name|capitalize }}
 							-
-							{{ article.licence.name|capitalize}}
+							{% if article.licence.name is defined %}
+								{{ article.licence.name|capitalize}}
+							{% else %}
+								Sans licence
+							{% endif %}
 							<br>
 							Auteur :
 							{% if article.author is defined %}
