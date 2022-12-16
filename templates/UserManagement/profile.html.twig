@@ -74,7 +74,7 @@
 							{{ form(imgForm) }}
 							</div>
 						</div>
-						<div id="articles" class="mb-3 pb-3">
+						<div id="articles" class="m-4">
 							<h2>
 								Articles
 							</h2>
@@ -87,17 +87,17 @@
 							{% else %}
 								<div id="articlesList" class="row d-flex">
 									{% for article in app.user.articles %}
-										<div class="article card col-6 col-md-4 col-lg-3" style="width: 18rem;">
-											<img class="card-img-top" src="/build/images/article_img/{{ article.img }}" alt="{{ article.name }} image">
+										<div class="article card col-6 col-md-4 col-lg-3 m-2" style="width: 18rem;">
+											<img class="card-img-top p-4" src="/build/images/article_img/{{ article.img }}" alt="{{ article.name }} image">
 											<div class="card-body">
-												<h5 class="card-title">
+												<h5 class="card-title m-2">
 													{{ article.name }}
 												</h5>
-												<p class="card-text">
+												<p class="card-text m-2">
 													{{ article.description|length > 100 ?
                                             article.description|raw|slice(0, 100) ~ '…'  : article.description|raw}}
 												</p>
-												<div class="d-flex justify-content-between">
+												<div class="d-flex justify-content-between m-2">
 													<a href="{{ path('show_article', {slug: article.slug}) }}" class="btn btn-primary">
 														Voir l'article
 													</a>
@@ -105,11 +105,11 @@
 														Modifier
 													</a>
 												</div>
-												<button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteArticle{{ article.id }}Modal">
+												<button type="button" class="btn btn-danger m-2" data-bs-toggle="modal" data-bs-target="#deleteArticle{{ article.id }}Modal">
 													Supprimer l'article
 												</button>
 												<!-- Modal -->
-												<footer class="blockquote-footer text-right">
+												<footer class="blockquote-footer text-right m-2">
 													Posté le
 													{{ article.createdAt|date('d/m/Y') }}
 												</footer>
@@ -165,15 +165,14 @@
 								</div>
 							{% endif %}
 							{% for comment in app.user.comments %}
-								<div id="comment_{{ comment.id }}" class="card">
+								<div id="comment_{{ comment.id }}" class="card m-2">
 									<div class="card-body">
 										<p>
 											{{ comment.content }}
 										</p>
 										<blockquote class="blockquote mb-0">
 											<footer class="blockquote-footer text-right">
-												Posté
-																																																																																				                                            le
+												Posté le
 												{{ comment.createdAt|date('d/m/Y') }}
 												sur l'article
 												<cite title="Source Title">
