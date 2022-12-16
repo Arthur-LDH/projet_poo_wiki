@@ -97,6 +97,11 @@
 													{{ article.description|length > 100 ?
                                             article.description|raw|slice(0, 100) ~ '…'  : article.description|raw}}
 												</p>
+
+												<div class="custom-control form-switch">
+													<label class="form-check-label pe-5" for="state_{{ article.id }}">Publier</label>
+													<input type="checkbox" class="form-check-input" id="state_{{ article.id }}" {% if article.state == 1 %} checked {% endif %}>
+												</div>
 												<div class="d-flex justify-content-between m-2">
 													<a href="{{ path('show_article', {slug: article.slug}) }}" class="btn btn-primary">
 														Voir l'article
