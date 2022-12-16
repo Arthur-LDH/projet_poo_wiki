@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
 use App\Entity\Console;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConsoleController extends AbstractController
 {
     #[Route('/consoles', name: 'consoles_list')]
-    public function index(ManagerRegistry $doctrine, mixed $id): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
         // get console repository
         $consoleRepository = $doctrine->getRepository(Console::class);

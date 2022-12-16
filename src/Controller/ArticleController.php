@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Console;
-use App\Entity\Licence;
 use App\Entity\Comments;
 use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
@@ -86,16 +85,6 @@ class ArticleController extends AbstractController
             if (!$this->isGranted('ROLE_MODERATOR') && $this->getUser() != $article->getAuthor()) {
                 throw $this->createNotFoundException("Cet article n'existe pas");
             }
-        }
-
-        // Check if the user still exists, if not: change the user_id to the user "Utilisateur supprimé"
-        $authorId = $article->getAuthor($articleId);
-        $user = $userRepository->findOneBy(['id' => $authorId]);
-        if ($user == null) {
-            // L'ID 10 correspond au User "Utilisateur Supprimé"
-            $article = $article->setAuthor($userRepository->findOneBy(['id' => 10]));
-            $this->entityManager->persist($article);
-            $this->entityManager->flush();
         }
 
         // get comment repository
