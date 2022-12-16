@@ -77,16 +77,16 @@
                                         <h5 class="card-title">{{ article.name }}</h5>
                                         <p class="card-text">{{ article.description|length > 100 ?
                                             article.description|raw|slice(0, 100) ~ '…'  : article.description|raw}}</p>
-                                            <div class="d-flex justify-content-between">
+                                            <div class="d-flex justify-content-between m-1">
                                                 <a href="{{ path('show_article', {slug: article.slug}) }}"
                                                    class="btn btn-primary">Voir l'article</a>
                                                 <a href="{{ path('edit_article', {slug: article.slug}) }}" class="btn btn-primary">Modifier</a>
                                             </div>
-                                            <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteArticle{{ article.id }}Modal">
+                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteArticle{{ article.id }}Modal">
                                                 Supprimer l'article
                                             </button>
                                             <!-- Modal -->
-                                        <footer class="blockquote-footer text-right">
+                                        <footer class="blockquote-footer text-right mt-2">
                                             Posté le {{ article.createdAt|date('d/m/Y') }}
                                         </footer>
                                     </div>
