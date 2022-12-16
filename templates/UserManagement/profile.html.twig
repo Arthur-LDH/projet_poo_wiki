@@ -1,144 +1,194 @@
 {% extends 'front/layout/layout.html.twig' %}
 
-{% block title %}Connection{% endblock %}
+{% block title %}
+	Connection
+{% endblock %}
 
 {% block body %}
-    {% include "front/layout/header.html.twig" %}
-    {% include "front/layout/sidebar.html.twig" %}
-    <section id="main">
-        <div>
-            <div id="profileContent">
-                {% if not app.user %}
-                    <div class="mb-3">
-                        Vous n'êtes pas connecté, veuillez vous connecter , <a href="{{ path('login') }}">Connection</a>
-                    </div>
-                {% else %}
-                    {% for message in app.flashes('success') %}
-                        <div class="alert alert-success">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                    {% for message in app.flashes('danger') %}
-                        <div class="alert alert-danger">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                    <h1>Mon profil</h1>
-                    <div id="userInfo" class="mb-3 row">
-                        <div id="textInfos" class="col-12 col-sm-12 col-md-8">
-                            {{ form_start(usernameForm) }}
-                            {{ form_row(usernameForm.username, {
+	{% include "front/layout/header.html.twig" %}
+	{% include "front/layout/sidebar.html.twig" %}
+	<section id="main">
+		<div>
+			<div id="profileContent">
+				{% if not app.user %}
+					<div class="mb-3">
+						Vous n'êtes pas connecté, veuillez vous connecter ,
+						<a href="{{ path('login') }}">
+							Connection
+						</a>
+					</div>
+				{% else %}
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success">
+							{{ message }}
+						</div>
+					{% endfor %}
+					{% for message in app.flashes('danger') %}
+						<div class="alert alert-danger">
+							{{ message }}
+						</div>
+					{% endfor %}
+					<h1>
+						Mon profil
+					</h1>
+					<div id="userInfo" class="mb-3 row">
+						<div id="textInfos" class="col-12 col-sm-12 col-md-8">
+							{{ form_start(usernameForm) }}
+							{{ form_row(usernameForm.username, {
                                 'attr': {
                                     'value' : app.user.userIdentifier
                                 }
                             }) }}
-                            <button type="submit" class="btn btn-danger">Modifier</button>
-                            {{ form_end(usernameForm) }}
+							<button type="submit" class="btn btn-danger">
+								Modifier
+							</button>
+							{{ form_end(usernameForm) }}
 
-                            {{ form_start(emailForm) }}
-                            {{ form_row(emailForm.email, {
+							{{ form_start(emailForm) }}
+							{{ form_row(emailForm.email, {
                                 'attr': {
                                     'value' : app.user.email
                                 }
                             }) }}
-                            <button type="submit" class="btn btn-danger">Modifier</button>
-                            {{ form_end(emailForm) }}
+							<button type="submit" class="btn btn-danger">
+								Modifier
+							</button>
+							{{ form_end(emailForm) }}
 
-                            {{ form_start(passwordForm) }}
-                            {{ form_row(passwordForm.newPassword.first,
+							{{ form_start(passwordForm) }}
+							{{ form_row(passwordForm.newPassword.first,
                                 {
                                     'attr': {
                                     'autocomplete': 'new-password'
                                 }
                                 }) }}
-                            {{ form_row(passwordForm.newPassword.second) }}
-                            {{ form_row(passwordForm.oldPassword) }}
-                            <button type="submit" class="btn btn-danger">Modifier</button>
-                            {{ form_end(passwordForm) }}
-                        </div>
-                        <div id="avatar" class="col-12 col-sm-12 col-md-4">
-                            <img id="userImg" src="/build/images/user_img/{{ app.user.img }}" alt="avatar">
-                            {{ form(imgForm) }}
-                        </div>
-                    </div>
-                    <div id="articles" class="mb-3 pb-3">
-                        <h2>Articles</h2>
-                        {% if app.user.articles is empty %}
-                            <div>
-                                <span>Vous n'avez pas encore posté d'articles sur le site</span>
-                            </div>
-                        {% else %}
-                        <div id="articlesList" class="row d-flex">
-                            {% for article in app.user.articles %}
-                                <div class="article card col-6 col-md-4 col-lg-3" style="width: 18rem;">
-                                    <img class="card-img-top" src="/build/images/article_img/{{ article.img }}"
-                                         alt="{{ article.name }} image">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ article.name }}</h5>
-                                        <p class="card-text">{{ article.description|length > 100 ?
-                                            article.description|raw|slice(0, 100) ~ '…'  : article.description|raw}}</p>
-                                            <div class="d-flex justify-content-between m-1">
-                                                <a href="{{ path('show_article', {slug: article.slug}) }}"
-                                                   class="btn btn-primary">Voir l'article</a>
-                                                <a href="{{ path('edit_article', {slug: article.slug}) }}" class="btn btn-primary">Modifier</a>
-                                            </div>
-                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteArticle{{ article.id }}Modal">
-                                                Supprimer l'article
-                                            </button>
-                                            <!-- Modal -->
-                                        <footer class="blockquote-footer text-right mt-2">
-                                            Posté le {{ article.createdAt|date('d/m/Y') }}
-                                        </footer>
-                                    </div>
+							{{ form_row(passwordForm.newPassword.second) }}
+							{{ form_row(passwordForm.oldPassword) }}
+							<button type="submit" class="btn btn-danger">
+								Modifier
+							</button>
+							{{ form_end(passwordForm) }}
+						</div>
+						<div id="avatar" class="col-12 col-sm-12 col-md-4">
+							<img id="userImg" src="/build/images/user_img/{{ app.user.img }}" alt="avatar">
+							{{ form(imgForm) }}
+							</div>
+						</div>
+						<div id="articles" class="m-4">
+							<h2>
+								Articles
+							</h2>
+							{% if app.user.articles is empty %}
+								<div>
+									<span>
+										Vous n'avez pas encore posté d'articles sur le site
+									</span>
+								</div>
+							{% else %}
+								<div id="articlesList" class="row d-flex">
+									{% for article in app.user.articles %}
+										<div class="article card col-6 col-md-4 col-lg-3 m-2" style="width: 18rem;">
+											<img class="card-img-top p-4" src="/build/images/article_img/{{ article.img }}" alt="{{ article.name }} image">
+											<div class="card-body">
+												<h5 class="card-title m-2">
+													{{ article.name }}
+												</h5>
+												<p class="card-text m-2">
+													{{ article.description|length > 100 ?
+                                            article.description|raw|slice(0, 100) ~ '…'  : article.description|raw}}
+												</p>
+												<div class="d-flex justify-content-between m-2">
+													<a href="{{ path('show_article', {slug: article.slug}) }}" class="btn btn-primary">
+														Voir l'article
+													</a>
+													<a href="{{ path('edit_article', {slug: article.slug}) }}" class="btn btn-primary">
+														Modifier
+													</a>
+												</div>
+												<button type="button" class="btn btn-danger m-2" data-bs-toggle="modal" data-bs-target="#deleteArticle{{ article.id }}Modal">
+													Supprimer l'article
+												</button>
+												<!-- Modal -->
+												<footer class="blockquote-footer text-right m-2">
+													Posté le
+													{{ article.createdAt|date('d/m/Y') }}
+												</footer>
+											</div>
 
-                                    <div class="modal" id="deleteArticle{{ article.id }}Modal" tabindex="-1" aria-labelledby="deleteArticle{{ article.id }}ModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteArticle{{ article.id }}ModalLabel">Supprimer article</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Voulez-vous vraiment supprimer l'article <strong>{{ article.name }}</strong> ?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <a type="button" href="{{ path('delete_article', {slug: article.slug}) }}" class="btn btn-primary">Supprimer article</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+											<div class="modal" id="deleteArticle{{ article.id }}Modal" tabindex="-1" aria-labelledby="deleteArticle{{ article.id }}ModalLabel" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="deleteArticle{{ article.id }}ModalLabel">
+																Supprimer article
+															</h5>
+															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															Voulez-vous vraiment supprimer l'article
+															<strong>
+																{{ article.name }}
+															</strong>
+															?
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+																Annuler
+															</button>
+															<a type="button" href="{{ path('delete_article', {slug: article.slug}) }}" class="btn btn-primary">
+																Supprimer article
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div id="comments" class="mb-3 pb-3">
-                        <h2>Commentaires</h2>
-                        {% if app.user.comments is empty %}
-                            <div>
-                                <span>Vous n'avez pas encore posté de commentaire sur le site</span>
-                            </div>
-                        {% endif %}
-                        {% for comment in app.user.comments %}
-                            <div id="comment_{{ comment.id }}" class="card">
-                                <div class="card-body">
-                                    <p>{{ comment.content }}</p>
-                                    <blockquote class="blockquote mb-0">
-                                        <footer class="blockquote-footer text-right">Posté
-                                            le {{ comment.createdAt|date('d/m/Y') }} sur l'article <cite
-                                                    title="Source Title"><a style="color:#6c757d;"
-                                                                            href="{{ path('show_article', {slug: comment.article.slug}) }}">{{ comment.article.name }}</a></cite>
-                                        </footer>
-                                    </blockquote>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </section>
-    {% include "front/layout/footer.html.twig" %}
-{% endblock %}
+									{% endfor %}
+								</div>
+							{% endif %}
+							<div class="btn btn-danger m-3">
+								<a href="{{ path('create_article') }}">
+									Créér un article
+								</a>
+							</div>
+						</div>
+						<div id="comments" class="mb-3 pb-3">
+							<h2>
+								Commentaires
+							</h2>
+							{% if app.user.comments is empty %}
+								<div>
+									<span>
+										Vous n'avez pas encore posté de commentaire sur le site
+									</span>
+								</div>
+							{% endif %}
+							{% for comment in app.user.comments %}
+								<div id="comment_{{ comment.id }}" class="card m-2">
+									<div class="card-body">
+										<p>
+											{{ comment.content }}
+										</p>
+										<blockquote class="blockquote mb-0">
+											<footer class="blockquote-footer text-right">
+												Posté le
+												{{ comment.createdAt|date('d/m/Y') }}
+												sur l'article
+												<cite title="Source Title">
+													<a style="color:#6c757d;" href="{{ path('show_article', {slug: comment.article.slug}) }}">
+														{{ comment.article.name }}
+													</a>
+												</cite>
+											</footer>
+										</blockquote>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</section>
+		{% include "front/layout/footer.html.twig" %}
+	{% endblock %}
