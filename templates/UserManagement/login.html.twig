@@ -7,28 +7,30 @@
     {% include "front/layout/header.html.twig" %}
     {% include "front/layout/sidebar.html.twig" %}
     <section id="main">
-        <div id="userForms">
-            {% if app.user %}
-                <div class="mb-3">
-                    Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('logout') }}">Déconnexion</a>
-                </div>
-            {% else %}
-                <div class="d-flex flex-column">
-                    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
-                    <form action="{{ path('login') }}" method="post">
-                        <label for="username">Pseudo:</label>
-                        <input type="text" id="username" name="_username" value="{{ last_username }}"/><br>
+        <div id="content">
+                <div id="userForm">
+                    {% if app.user %}
+                    <div class="mb-3">
+                        Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('logout') }}">Déconnexion</a>
+                    </div>
+                    {% else %}
+                        <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
+                        <form action="{{ path('login') }}" method="post">
+                            <label class="login_label" for="username">Pseudo:</label>
+                            <input type="text" id="username" name="_username" value="{{ last_username }}"/><br>
 
-                        <label for="password">Mot de passe:</label>
-                        <input type="password" id="password" name="_password"/><br>
+                            <label class="login_label" for="password">Mot de passe:</label>
+                            <input type="password" id="password" name="_password"/><br>
 
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                        <input type="hidden" name="_target_path" value="/profile"/>
-                        <button type="submit">Connection</button>
-                    </form>
-                    <span>Vous n'avez pas de compte ? <a href="{{ path('register') }}">Inscrivez-vous</a></span>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <input type="hidden" name="_target_path" value="/profile"/>
+                            <div class="d-flex justify-content-end pt-1">
+                                <button type="submit" class="btn btn-success ">Connexion</button>
+                            </div>
+                        </form>
+                        <span>Vous n'avez pas de compte ? <a class="btn-link" href="{{ path('register') }}">Inscrivez-vous</a></span>
+                    {% endif %}
                 </div>
-            {% endif %}
             {% if error %}
                 <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
