@@ -67,6 +67,9 @@ class Article
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    /**
+     * @var bool|null published or not
+     */
     #[ORM\Column(nullable: true)]
     private ?bool $state = null;
 
@@ -292,6 +295,10 @@ class Article
         return $this->state;
     }
 
+    /**
+     * @param bool|null $state
+     * @return $this
+     */
     public function setState(?bool $state): self
     {
         $this->state = $state;

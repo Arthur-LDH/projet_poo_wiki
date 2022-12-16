@@ -30,6 +30,29 @@ class ArticleController extends AbstractController
         return $this->entityManager->getRepository(Article::class)->findBy(['author' => $authorId]);
     }
 
+    #[Route('/setPublished/{id}/{state}', name: 'article_setState')]
+    public function setStateArticle($id, $state): \Symfony\Component\HttpFoundation\JsonResponse
+    {
+        $response = [
+            'success' => false,
+        ];
+        $article = $this->entityManager->getRepository(Article::class)->find($id);
+        if (!$article) {
+            $response['message'] = 'Article not found';
+        } else if ($user = $this->getUser()) {
+            if ($user->getId() === $article->getAuthor()->getId() || $user.$this->isGranted('ROLE_MODERATEUR')) {
+                $article->setState($state);
+                $this->entityManager->flush();
+                $response['success'] = true;
+                $response['message'] = 'Article updated';
+                $response['state'] = $state;
+            } else {
+                $response['message'] = 'You are not allowed to do this';
+            }
+        }
+        return $this->json($response);
+    }
+
     #[Route('/articles', name: 'articles_list')]
     public function index(ManagerRegistry $doctrine): Response
     {
