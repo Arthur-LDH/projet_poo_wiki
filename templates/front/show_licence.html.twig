@@ -18,13 +18,17 @@
 			{# START LICENCE SHOW #}
 			<div class="show">
 				<div>
-					<img src="/build/images/licence_img/{{licence.img}}" alt="">
-					<div>
-						<p class="year">
-							{{ licence.name | capitalize }}
-							<br>
-						</p>
-						{{ licence.description|raw}}
+					<div class="cardDescription">
+						<img src="/build/images/licence_img/{{licence.img}}" alt="">
+						<div>
+							<p class="year">
+								{{ licence.name | capitalize }}
+								<br>
+							</p>
+							<p>
+								{{ licence.description|raw}}
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -33,33 +37,33 @@
 			class="divider line glow">
 			{# START ARTICLES GALLERY FROM CURRENT LICENCE #}
 			{% for article in articles %}
-			{% if article.state and article.moderated %}
-				<div class="articles-gallery">
-					<div>
+				{% if article.state and article.moderated %}
+					<div class="articles-gallery">
 						<div>
-							<img src="/build/images/article_img/{{article.img}}" alt="">
-						</div>
-						<div>
-							<h4>
-								{{ article.name }}
-							</h4>
-							<p>
-								{{ article.description }}
-							</p>
-						</div>
-						<div>
-							<button>
-								<a href="/articles/{{article.slug}}">
-									Voir
-								</a>
-							</button>
+							<div>
+								<img src="/build/images/article_img/{{article.img}}" alt="">
+							</div>
+							<div>
+								<h4>
+									{{ article.name }}
+								</h4>
+								<p>
+									{{ article.description }}
+								</p>
+							</div>
+							<div>
+								<button>
+									<a href="/articles/{{article.slug}}">
+										Voir
+									</a>
+								</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endif %}
+				{% endif %}
 			{% endfor %}
-				{# END ARTICLES GALLERY FROM CURRENT LICENCE #}
-			</div>
-		</section>
+			{# END ARTICLES GALLERY FROM CURRENT LICENCE #}
+		</div>
+	</section>
 	{% include "front/layout/footer.html.twig" %}
 {% endblock %}
