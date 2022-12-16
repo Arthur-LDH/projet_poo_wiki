@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +20,10 @@ class ArticleFormType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('content', TextareaType::class, [
+            ->add('content', CKEditorType::class, [
+                'config' => array(
+                    'uiColor' => '#ffffff'
+                ),
                 'label' => 'Contenu : ',
             ])
             ->add('articleImgFile', VichFileType::class, [
