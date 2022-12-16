@@ -28,10 +28,11 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-=======
 
 ###> ide config files ###
 .vscode
 .idea
 ###< ide config files ###
->>>>>>> 78df0e104bcb71efedbdc767e995e4a6f2b24be6
+
+composer.lock
+symfony.lock
